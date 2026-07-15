@@ -1,0 +1,19 @@
+{
+  "name": "行知溯光 · 南京大学社会实践成果展",
+  "short_name": "行知溯光",
+  "description": "循行知足迹，溯教育之光：南京大学暑期社会实践团队的学校走访、人物访谈与成果展示。",
+  "lang": "zh-CN",
+  "start_url": "/xingzhisuguang/",
+  "scope": "/xingzhisuguang/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#065f46",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
