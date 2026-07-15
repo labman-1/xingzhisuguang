@@ -1,126 +1,154 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 
-export default function Navbar({ currentView, onNavigateToHome, onNavigateToAbout }) {
+const navItems = [
+  { id: 'home', label: '首页人物志', to: '/' },
+  { id: 'sites', label: '实践足迹', to: '/#school-list' },
+  { id: 'heritage', label: '行知文脉', to: '/heritage' },
+  { id: 'resources', label: '成果资源', to: '/resources' },
+  { id: 'about', label: '关于我们', to: '/about' },
+];
+
+function prefersReducedMotion() {
+  return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+}
+
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuButtonRef = useRef(null);
+  const location = useLocation();
 
-  const isHome = currentView === 'home' || currentView === 'detail';
-  const isAbout = currentView === 'about';
+  useEffect(() => {
+    const closeMenu = () => setIsMenuOpen(false);
+    window.addEventListener('hashchange', closeMenu);
+    return () => window.removeEventListener('hashchange', closeMenu);
+  }, []);
 
-  const handleNavHome = () => {
-    onNavigateToHome();
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMenuOpen]);
+
+  const isCurrentItem = (item) => {
+    if (item.id === 'home') {
+      return location.pathname === '/' && location.hash !== '#school-list';
+    }
+
+    if (item.id === 'sites') {
+      return location.pathname === '/' && location.hash === '#school-list';
+    }
+
+    return location.pathname === item.to;
+  };
+
+  const handleSkipNavigation = (event) => {
+    event.preventDefault();
+    const main = document.getElementById('main-content') || document.querySelector('main');
+    if (!main) return;
+
+    if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
+    main.focus({ preventScroll: true });
+    main.scrollIntoView({
+      block: 'start',
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+    });
+  };
+
+  const handleSchoolListNavigation = () => {
     setIsMenuOpen(false);
   };
 
-  const handleNavAbout = () => {
-    onNavigateToAbout();
-    setIsMenuOpen(false);
-  };
+  const linkClasses = (isCurrent, mobile = false) => [
+    'nav-link',
+    mobile ? 'nav-link--mobile' : '',
+    isCurrent ? 'nav-link--current' : '',
+  ].filter(Boolean).join(' ');
 
-  const handleNavFootprint = () => {
-    onNavigateToHome();
-    // Scroll to school list after a short delay to allow view to render
-    setTimeout(() => {
-      const el = document.getElementById('school-list');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-    setIsMenuOpen(false);
+  const renderNavigationLink = (item, mobile = false) => {
+    const isCurrent = isCurrentItem(item);
+    const commonProps = {
+      className: linkClasses(isCurrent, mobile),
+      'aria-current': isCurrent ? 'page' : undefined,
+      onClick: item.id === 'sites' ? handleSchoolListNavigation : () => setIsMenuOpen(false),
+    };
+
+    if (item.id === 'home' || item.id === 'sites') {
+      return (
+        <Link to={item.to} {...commonProps}>
+          {item.label}
+        </Link>
+      );
+    }
+
+    return (
+      <NavLink to={item.to} {...commonProps}>
+        {item.label}
+      </NavLink>
+    );
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-emerald-800 text-white shadow-md">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <button
-            onClick={handleNavHome}
-            className="flex items-center gap-2 text-xl font-bold tracking-wide hover:text-amber-300 transition-colors"
-          >
-            <span className="w-8 h-8 bg-amber-500 text-emerald-900 rounded-lg flex items-center justify-center text-sm font-extrabold">
-              溯
-            </span>
-            行知溯光
-          </button>
+    <>
+      <a className="skip-link" href="#main-content" onClick={handleSkipNavigation}>
+        跳至主要内容
+      </a>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-1">
-            <button
-              onClick={handleNavHome}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                isHome
-                  ? 'bg-emerald-700 text-amber-300'
-                  : 'text-emerald-100 hover:bg-emerald-700 hover:text-white'
-              }`}
+      <nav className="sticky top-0 z-50 border-b border-emerald-950/20 bg-emerald-900 text-white shadow-lg shadow-emerald-950/10" aria-label="主导航">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="flex min-h-16 items-center justify-between gap-4">
+            <Link
+              to="/"
+              className="inline-flex min-h-11 items-center gap-3 rounded-lg font-bold tracking-wide text-white outline-none transition-colors hover:text-amber-200 focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-900"
+              onClick={() => setIsMenuOpen(false)}
+              aria-label="行知溯光首页"
             >
-              首页人物志
-            </button>
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400 text-sm font-black text-emerald-950 shadow-sm" aria-hidden="true">
+                溯
+              </span>
+              <span className="text-lg sm:text-xl">行知溯光</span>
+            </Link>
+
+            <ul className="hidden items-center gap-1 lg:flex" aria-label="主要栏目">
+              {navItems.map((item) => (
+                <li key={item.id}>{renderNavigationLink(item)}</li>
+              ))}
+            </ul>
+
             <button
-              onClick={handleNavFootprint}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                isHome
-                  ? 'text-emerald-100 hover:bg-emerald-700 hover:text-white'
-                  : 'text-emerald-100 hover:bg-emerald-700 hover:text-white'
-              }`}
+              ref={menuButtonRef}
+              type="button"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-emerald-50 transition-colors hover:bg-emerald-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 lg:hidden"
+              onClick={() => setIsMenuOpen((open) => !open)}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-navigation"
+              aria-label={isMenuOpen ? '关闭主菜单' : '打开主菜单'}
             >
-              实践足迹
-            </button>
-            <button
-              onClick={handleNavAbout}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                isAbout
-                  ? 'bg-emerald-700 text-amber-300'
-                  : 'text-emerald-100 hover:bg-emerald-700 hover:text-white'
-              }`}
-            >
-              关于我们
+              {isMenuOpen ? <X aria-hidden="true" size={24} /> : <Menu aria-hidden="true" size={24} />}
             </button>
           </div>
 
-          {/* Mobile Hamburger */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-emerald-700 transition-colors"
-            aria-label="Toggle menu"
+          <div
+            id="mobile-navigation"
+            className={`border-t border-emerald-700/70 py-3 lg:hidden ${isMenuOpen ? 'block' : 'hidden'}`}
           >
-            {isMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
+            <ul className="space-y-1" aria-label="移动端主要栏目">
+              {navItems.map((item) => (
+                <li key={item.id}>{renderNavigationLink(item, true)}</li>
+              ))}
+            </ul>
+          </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-emerald-700 pb-4 pt-2 space-y-1">
-            <button
-              onClick={handleNavHome}
-              className={`block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                isHome ? 'bg-emerald-700 text-amber-300' : 'text-emerald-100 hover:bg-emerald-700'
-              }`}
-            >
-              首页人物志
-            </button>
-            <button
-              onClick={handleNavFootprint}
-              className="block w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-emerald-100 hover:bg-emerald-700 transition-colors"
-            >
-              实践足迹
-            </button>
-            <button
-              onClick={handleNavAbout}
-              className={`block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                isAbout ? 'bg-emerald-700 text-amber-300' : 'text-emerald-100 hover:bg-emerald-700'
-              }`}
-            >
-              关于我们
-            </button>
-          </div>
-        )}
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }

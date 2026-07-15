@@ -1,73 +1,95 @@
+import { ArrowRight, CalendarDays, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+function getTagLabel(tag) {
+  if (typeof tag === 'string') return tag;
+  return tag?.label || tag?.title || tag?.name || '';
+}
+
 export default function SchoolCard({ school, onClick }) {
-  const hasInterviews = school.interviews && school.interviews.length > 0;
+  const visit = school.visit || {};
+  const name = school.name || school.title || '未命名学校';
+  const summary = school.summary || school.intro || school.description || '调研资料正在整理中。';
+  const stage = visit.stage || school.stage;
+  const dateValue = visit.date || school.date;
+  const date = visit.displayDate || school.displayDate || dateValue;
+  const dateTime = visit.isoDate || (/^\d{4}-\d{2}-\d{2}/.test(dateValue || '') ? dateValue : undefined);
+  const location = visit.location || school.location;
+  const interviews = Array.isArray(school.interviews) ? school.interviews : [];
+  const tags = (school.philosophyTags || school.tags || [])
+    .map(getTagLabel)
+    .filter(Boolean)
+    .slice(0, 2);
+  const safeId = String(school.id || name).replace(/[^a-zA-Z0-9_-]/g, '-');
+  const titleId = `school-card-${safeId}-title`;
+
+  const handleClick = (event) => {
+    if (typeof onClick === 'function') onClick(school.id, event);
+  };
 
   return (
     <article
-      onClick={onClick}
-      className="group cursor-pointer bg-white rounded-2xl shadow-sm border border-slate-100 p-6
-                 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300
-                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onClick();
-        }
-      }}
+      className="school-card group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-emerald-300 hover:shadow-xl hover:shadow-emerald-900/10"
+      aria-labelledby={titleId}
     >
-      {/* Card Header: Logo Placeholder + Stage Badge */}
-      <div className="flex items-start justify-between mb-4">
-        {/* Logo Placeholder Circle */}
-        <div className="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center text-lg font-bold
-                        group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
-          {school.logoPlaceholder}
+      <Link
+        to={`/sites/${school.id}`}
+        className="flex h-full min-h-72 flex-col p-6 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-600"
+        onClick={handleClick}
+        aria-describedby={`${titleId}-summary`}
+      >
+        <div className="mb-5 flex items-start justify-between gap-4">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-lg font-black text-emerald-800 transition-colors group-hover:bg-emerald-700 group-hover:text-white" aria-hidden="true">
+            {school.logoPlaceholder || name.slice(0, 1)}
+          </span>
+          {stage && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-800">
+              <MapPin aria-hidden="true" size={13} />
+              {stage}
+            </span>
+          )}
         </div>
 
-        {/* Stage Badge */}
-        <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full
-                         border border-emerald-100 group-hover:bg-emerald-100 transition-colors">
-          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-          </svg>
-          {school.stage}
-        </span>
-      </div>
+        <h3 id={titleId} className="text-xl font-bold leading-snug text-slate-900 transition-colors group-hover:text-emerald-800">
+          {name}
+        </h3>
 
-      {/* School Name */}
-      <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors">
-        {school.name}
-      </h3>
-
-      {/* Date */}
-      <div className="flex items-center gap-1.5 text-sm text-slate-500 mb-3">
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-        <span>{school.date}</span>
-      </div>
-
-      {/* Intro Teaser */}
-      <p className="text-sm text-slate-600 leading-relaxed line-clamp-2 mb-4">
-        {school.intro}
-      </p>
-
-      {/* Footer: Interview Count + CTA */}
-      <div className="flex items-center justify-between pt-3 border-t border-slate-50">
-        {hasInterviews ? (
-          <span className="text-xs text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full font-medium">
-            {school.interviews.length} 篇访谈记录
-          </span>
-        ) : (
-          <span className="text-xs text-slate-400">内容整理中</span>
+        {(date || location) && (
+          <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600">
+            {date && (
+              <span className="inline-flex items-center gap-1.5">
+                <CalendarDays aria-hidden="true" size={16} />
+                <time dateTime={dateTime}>{date}</time>
+              </span>
+            )}
+            {location && <span>{location}</span>}
+          </p>
         )}
-        <span className="text-xs text-emerald-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1">
-          查看详情
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </span>
-      </div>
+
+        <p id={`${titleId}-summary`} className="mt-4 line-clamp-3 text-sm leading-7 text-slate-600">
+          {summary}
+        </p>
+
+        {tags.length > 0 && (
+          <ul className="mt-4 flex flex-wrap gap-2" aria-label="教育理念标签">
+            {tags.map((tag) => (
+              <li key={tag} className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-800">
+                {tag}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <div className="mt-auto flex items-center justify-between gap-4 border-t border-slate-100 pt-5 text-sm">
+          <span className="text-slate-600">
+            {interviews.length > 0 ? `${interviews.length} 个访谈主题` : '内容持续更新'}
+          </span>
+          <span className="inline-flex items-center gap-1 font-bold text-emerald-700">
+            查看详情
+            <ArrowRight aria-hidden="true" size={16} className="transition-transform group-hover:translate-x-1" />
+          </span>
+        </div>
+      </Link>
     </article>
   );
 }

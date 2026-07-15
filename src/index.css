@@ -1,25 +1,177 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: light;
+    font-synthesis: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+
   body {
-    @apply bg-slate-50 text-slate-800 font-sans antialiased;
+    @apply min-w-72 bg-slate-50 text-slate-800 antialiased;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', sans-serif;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :where(a, button, input, select, textarea, summary):focus-visible {
+    outline: 3px solid #047857;
+    outline-offset: 3px;
+  }
+
+  main:focus {
+    outline: none;
+  }
+
+  section[id],
+  article[id] {
+    scroll-margin-top: 5.5rem;
   }
 
   ::selection {
-    @apply bg-emerald-200 text-emerald-900;
+    @apply bg-amber-200 text-emerald-950;
   }
 }
 
 @layer components {
+  .skip-link {
+    position: fixed;
+    z-index: 100;
+    top: 0.75rem;
+    left: 0.75rem;
+    transform: translateY(-160%);
+    border-radius: 0.75rem;
+    background: #fbbf24;
+    color: #022c22;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 800;
+    box-shadow: 0 8px 24px rgb(2 44 34 / 0.22);
+    transition: transform 160ms ease;
+  }
+
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+
+  .nav-link {
+    @apply inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-semibold text-emerald-50 transition-colors hover:bg-emerald-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300;
+  }
+
+  .nav-link--mobile {
+    @apply flex w-full px-4 py-3;
+  }
+
+  .nav-link--current {
+    @apply bg-emerald-800 text-amber-200;
+  }
+
   .section-heading {
-    @apply text-2xl md:text-3xl font-bold text-slate-900 mb-2;
+    @apply mb-3 text-3xl font-black leading-tight tracking-tight text-slate-900 md:text-4xl;
   }
 
   .section-subtitle {
-    @apply text-slate-500 text-sm md:text-base mb-8;
+    @apply text-base leading-8 text-slate-600;
+  }
+
+  .media-empty-state {
+    @apply rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-10 text-center sm:px-8 sm:py-12;
+  }
+
+  .content-flow {
+    @apply space-y-4 text-base leading-8;
+  }
+
+  .content-flow :where(ul, ol) {
+    @apply my-4 space-y-2 pl-6;
+  }
+
+  .content-flow ul {
+    list-style: disc;
+  }
+
+  .content-flow ol {
+    list-style: decimal;
+  }
+
+  .hero-orb {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 9999px;
+    filter: blur(2px);
+    opacity: 0.35;
+  }
+
+  .hero-orb--amber {
+    top: -7rem;
+    right: -5rem;
+    width: 19rem;
+    height: 19rem;
+    background: radial-gradient(circle, rgb(251 191 36 / 0.4), transparent 68%);
+  }
+
+  .hero-orb--emerald {
+    bottom: -9rem;
+    left: -6rem;
+    width: 24rem;
+    height: 24rem;
+    background: radial-gradient(circle, rgb(52 211 153 / 0.25), transparent 70%);
+  }
+
+  .philosophy-card {
+    transition: transform 220ms ease, background-color 220ms ease, border-color 220ms ease;
+  }
+
+  .philosophy-card:hover {
+    transform: translateY(-0.25rem);
+    border-color: rgb(167 243 208 / 0.4);
+    background-color: rgb(255 255 255 / 0.14);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .philosophy-card:hover,
+  .school-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .media-empty-state,
+  .school-card {
+    border-color: #475569;
+  }
+
+  .nav-link--current {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
   }
 }

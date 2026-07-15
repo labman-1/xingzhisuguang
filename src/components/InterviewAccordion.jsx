@@ -1,115 +1,167 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
+import { ChevronDown, FileText, MessagesSquare } from 'lucide-react';
 
-export default function InterviewAccordion({ interviews }) {
-  // Default: first interview open
-  const [activeId, setActiveId] = useState(
-    interviews && interviews.length > 0 ? interviews[0].id : null
+function getInterviewKey(interview, index) {
+  return String(interview?.id || interview?.slug || `interview-${index + 1}`);
+}
+
+function splitParagraphs(value) {
+  if (value == null) return [];
+  if (Array.isArray(value)) return value.flatMap(splitParagraphs);
+  if (typeof value === 'object') return [value];
+
+  return String(value)
+    .split(/\n\s*\n/g)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+}
+
+function InterviewContent({ interview }) {
+  const content = interview.paragraphs
+    || interview.transcript
+    || interview.content
+    || interview.body
+    || interview.summary;
+  const blocks = splitParagraphs(content);
+
+  if (blocks.length === 0) {
+    return <p className="text-sm text-slate-600">该主题的访谈文字正在校对整理中。</p>;
+  }
+
+  return (
+    <div className="content-flow">
+      {blocks.map((block, index) => {
+        if (typeof block === 'string') {
+          return <p key={index} className="whitespace-pre-line">{block}</p>;
+        }
+
+        if (block.question || block.answer) {
+          return (
+            <div key={block.id || index} className="rounded-xl bg-slate-50 p-4 sm:p-5">
+              {block.question && <p className="font-bold text-emerald-900">问：{block.question}</p>}
+              {block.answer && <p className="mt-3 whitespace-pre-line text-slate-700">答：{block.answer}</p>}
+            </div>
+          );
+        }
+
+        const text = block.text || block.content || block.body || '';
+        if (!text) return null;
+
+        return (
+          <p key={block.id || index} className="whitespace-pre-line">
+            {block.speaker && <strong className="mr-1 text-slate-900">{block.speaker}：</strong>}
+            {text}
+          </p>
+        );
+      })}
+    </div>
   );
+}
 
-  if (!interviews || interviews.length === 0) {
+export default function InterviewAccordion({ interviews = [] }) {
+  const items = Array.isArray(interviews) ? interviews : [];
+  const instanceId = useId().replace(/:/g, '');
+  const [activeId, setActiveId] = useState(
+    items.length > 0 ? getInterviewKey(items[0], 0) : null,
+  );
+  const resolvedActiveId = activeId === null || items.some(
+    (item, index) => getInterviewKey(item, index) === activeId,
+  )
+    ? activeId
+    : (items.length > 0 ? getInterviewKey(items[0], 0) : null);
+
+  const headingId = `interviews-${instanceId}-title`;
+
+  if (items.length === 0) {
     return (
-      <section>
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 bg-slate-100 text-slate-500 rounded-lg flex items-center justify-center">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
+      <section aria-labelledby={headingId}>
+        <div className="mb-6 flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700" aria-hidden="true">
+            <FileText size={20} />
+          </span>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-emerald-700">口述记录</p>
+            <h2 id={headingId} className="text-2xl font-bold text-slate-900">访谈记录</h2>
           </div>
-          <h2 className="text-xl font-bold text-slate-900">访谈记录</h2>
         </div>
-        <div className="text-center py-12 bg-slate-50 rounded-xl border border-slate-100">
-          <svg className="w-10 h-10 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-          </svg>
-          <p className="text-sm text-slate-500">暂无访谈记录</p>
-          <p className="text-xs text-slate-400 mt-1">访谈内容正在整理中</p>
+        <div className="media-empty-state">
+          <MessagesSquare aria-hidden="true" className="mx-auto text-emerald-700" size={36} strokeWidth={1.5} />
+          <p className="mt-4 font-semibold text-slate-700">访谈文字正在整理</p>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-600">
+            录音转写、受访者确认和文字校对完成后，将按主题分节发布。
+          </p>
         </div>
       </section>
     );
   }
 
-  const toggleInterview = (id) => {
-    setActiveId(activeId === id ? null : id);
-  };
-
   return (
-    <section>
-      {/* Section Heading */}
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
+    <section aria-labelledby={headingId}>
+      <div className="mb-6 flex flex-wrap items-center gap-3">
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700" aria-hidden="true">
+          <FileText size={20} />
+        </span>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-emerald-700">口述记录</p>
+          <h2 id={headingId} className="text-2xl font-bold text-slate-900">访谈记录</h2>
         </div>
-        <h2 className="text-xl font-bold text-slate-900">访谈记录</h2>
-        <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
-          {interviews.length} 个主题
+        <span className="ml-auto rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+          {items.length} 个主题
         </span>
       </div>
 
-      {/* Accordion Panels */}
       <div className="space-y-3">
-        {interviews.map((interview) => {
-          const isActive = activeId === interview.id;
+        {items.map((interview, index) => {
+          const interviewId = getInterviewKey(interview, index);
+          const isActive = resolvedActiveId === interviewId;
+          const triggerId = `interview-${instanceId}-${index}-trigger`;
+          const panelId = `interview-${instanceId}-${index}-panel`;
+          const topic = interview.topic || interview.title || interview.question || `访谈主题 ${index + 1}`;
 
           return (
-            <div
-              key={interview.id}
-              className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden
-                         transition-all duration-300 hover:border-slate-200"
-            >
-              {/* Toggle Button */}
-              <button
-                onClick={() => toggleInterview(interview.id)}
-                className="w-full flex items-center justify-between px-5 py-4 text-left
-                           hover:bg-slate-50 transition-colors"
-                aria-expanded={isActive}
-              >
-                <div className="flex items-center gap-3">
-                  {/* Topic Number */}
-                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold transition-colors ${
-                    isActive
-                      ? 'bg-emerald-600 text-white'
-                      : 'bg-slate-100 text-slate-500'
-                  }`}>
-                    {interviews.indexOf(interview) + 1}
-                  </span>
-                  <span className={`font-semibold transition-colors ${
-                    isActive ? 'text-emerald-700' : 'text-slate-800'
-                  }`}>
-                    {interview.topic}
-                  </span>
-                </div>
-
-                {/* Chevron */}
-                <svg
-                  className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${
-                    isActive ? 'rotate-180' : ''
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+            <article key={interviewId} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <h3>
+                <button
+                  type="button"
+                  id={triggerId}
+                  className="flex min-h-14 w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-600 sm:px-6"
+                  onClick={() => setActiveId(isActive ? null : interviewId)}
+                  aria-expanded={isActive}
+                  aria-controls={panelId}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
+                  <span className="flex min-w-0 items-center gap-3">
+                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-black ${isActive ? 'bg-emerald-700 text-white' : 'bg-slate-100 text-slate-600'}`} aria-hidden="true">
+                      {index + 1}
+                    </span>
+                    <span className={`font-bold leading-6 ${isActive ? 'text-emerald-800' : 'text-slate-800'}`}>
+                      {topic}
+                    </span>
+                  </span>
+                  <ChevronDown
+                    aria-hidden="true"
+                    size={20}
+                    className={`shrink-0 text-slate-500 transition-transform ${isActive ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              </h3>
 
-              {/* Panel Content */}
               <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  isActive ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
-                }`}
+                id={panelId}
+                role="region"
+                aria-labelledby={triggerId}
+                hidden={!isActive}
+                className="border-t border-slate-100 px-4 py-6 sm:px-6 sm:py-7"
               >
-                <div className="px-5 pb-5 pt-1 border-t border-slate-50">
-                  <div className="prose prose-sm max-w-none text-slate-600 leading-relaxed whitespace-pre-line">
-                    {interview.content}
-                  </div>
-                </div>
+                {(interview.interviewee || interview.speaker || interview.role) && (
+                  <p className="mb-5 text-sm text-slate-600">
+                    {interview.interviewee || interview.speaker}
+                    {(interview.interviewee || interview.speaker) && interview.role ? ' · ' : ''}
+                    {interview.role}
+                  </p>
+                )}
+                <InterviewContent interview={interview} />
               </div>
-            </div>
+            </article>
           );
         })}
       </div>

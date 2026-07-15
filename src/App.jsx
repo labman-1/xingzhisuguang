@@ -1,82 +1,79 @@
-import { useState, useCallback } from 'react';
-import { schools, getSchoolById } from './data/schools';
+import { matchPath, Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import SchoolList from './components/SchoolList';
-import SchoolDetail from './components/SchoolDetail';
 import AboutPage from './components/AboutPage';
 import Footer from './components/Footer';
+import { getSiteById, projectProfile } from './content';
+import useRoutePresentation from './hooks/useRoutePresentation';
+import HeritagePage from './pages/HeritagePage';
+import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
+import ResourcesPage from './pages/ResourcesPage';
+import SiteDetailPage from './pages/SiteDetailPage';
+
+const routeMetadata = {
+  home: {
+    title: '行知溯光 · 人物志及成果展示',
+    description: '追寻陶行知教育思想的当代足迹，呈现六个实践点的调研记录。',
+  },
+  heritage: {
+    title: '行知精神与书院传承 · 行知溯光',
+    description: '了解陶行知人物、生活教育理念与经核验的书院传承资料。',
+  },
+  resources: {
+    title: '实践成果资源 · 行知溯光',
+    description: '浏览行知溯光社会实践团队经核验发布的图文、视频与访谈成果。',
+  },
+  about: {
+    title: '关于我们 · 行知溯光',
+    description: '了解南京大学行知溯光社会实践团队的使命、分工与实践日程。',
+  },
+  notFound: {
+    title: '页面未找到 · 行知溯光',
+    description: '请求的页面不存在。',
+  },
+};
+
+function resolveMetadata(pathname) {
+  if (pathname === '/') return routeMetadata.home;
+  if (pathname === '/heritage') return routeMetadata.heritage;
+  if (pathname === '/resources') return routeMetadata.resources;
+  if (pathname === '/about') return routeMetadata.about;
+
+  const siteMatch = matchPath({ path: '/sites/:siteId', end: true }, pathname);
+  if (siteMatch) {
+    const site = getSiteById(siteMatch.params.siteId);
+    return site
+      ? {
+          title: `${site.name} · 实践足迹 · 行知溯光`,
+          description: site.summary,
+        }
+      : {
+          title: '实践点未找到 · 行知溯光',
+          description: '请求的实践点不存在或链接已经失效。',
+        };
+  }
+
+  return routeMetadata.notFound;
+}
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('home');
-  const [activeSchoolId, setActiveSchoolId] = useState(null);
-
-  const activeSchool = activeSchoolId ? getSchoolById(activeSchoolId) : null;
-
-  const navigateToHome = useCallback(() => {
-    setCurrentView('home');
-    setActiveSchoolId(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  const navigateToDetail = useCallback((schoolId) => {
-    setActiveSchoolId(schoolId);
-    setCurrentView('detail');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  const navigateToAbout = useCallback(() => {
-    setCurrentView('about');
-    setActiveSchoolId(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+  const location = useLocation();
+  useRoutePresentation(resolveMetadata(location.pathname));
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar
-        currentView={currentView}
-        onNavigateToHome={navigateToHome}
-        onNavigateToAbout={navigateToAbout}
-      />
-
-      <main className="flex-grow">
-        {currentView === 'home' && (
-          <>
-            <Hero />
-            <SchoolList onSchoolClick={navigateToDetail} />
-          </>
-        )}
-
-        {currentView === 'detail' && activeSchool && (
-          <SchoolDetail school={activeSchool} onBack={navigateToHome} />
-        )}
-
-        {currentView === 'detail' && !activeSchool && (
-          <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-12">
-              <svg className="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <h2 className="text-lg font-semibold text-slate-700 mb-2">未找到学校信息</h2>
-              <p className="text-sm text-slate-500 mb-6">可能是不存在的学校ID，或者链接已失效。</p>
-              <button
-                onClick={navigateToHome}
-                className="inline-flex items-center gap-2 text-sm font-medium text-white bg-emerald-700 hover:bg-emerald-800 px-6 py-3 rounded-xl transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                返回首页
-              </button>
-            </div>
-          </div>
-        )}
-
-        {currentView === 'about' && <AboutPage />}
+      <Navbar />
+      <main id="main-content" tabIndex={-1} className="flex-grow focus:outline-none">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/sites/:siteId" element={<SiteDetailPage />} />
+          <Route path="/heritage" element={<HeritagePage />} />
+          <Route path="/resources" element={<ResourcesPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </main>
-
-      <Footer />
+      <Footer project={projectProfile} />
     </div>
   );
 }
