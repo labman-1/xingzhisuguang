@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import InterviewAccordion from '../src/components/InterviewAccordion';
@@ -62,6 +62,10 @@ describe('media presentation', () => {
         photos={[
           {
             src: '/photo.webp',
+            srcSet: ['/photo-640.webp 640w', '/photo-1280.webp 1280w'],
+            sources: [{ type: 'image/avif', srcSet: ['/photo-640.avif 640w'] }],
+            sizes: '(min-width: 1024px) 50vw, 82vw',
+            focalPoint: '35% 42%',
             alt: '学生在校园劳动园中观察植物',
             caption: '校园劳动课程现场',
             credit: '实践团队',
@@ -74,8 +78,40 @@ describe('media presentation', () => {
       'loading',
       'lazy',
     );
+    expect(screen.getByRole('img', { name: '学生在校园劳动园中观察植物' })).toHaveAttribute(
+      'srcset',
+      '/photo-640.webp 640w, /photo-1280.webp 1280w',
+    );
+    expect(screen.getByRole('img', { name: '学生在校园劳动园中观察植物' })).toHaveStyle({
+      objectPosition: '35% 42%',
+    });
+    expect(document.querySelector('source[type="image/avif"]')).toHaveAttribute(
+      'srcset',
+      '/photo-640.avif 640w',
+    );
     expect(screen.getByText('校园劳动课程现场')).toBeInTheDocument();
-    expect(screen.getByText('摄影：实践团队')).toBeInTheDocument();
+    expect(screen.getByText('图片：实践团队')).toBeInTheDocument();
+
+    const rail = screen.getByRole('list', { name: /示例学校影像记录，可横向滚动/ });
+    const scrollBy = vi.fn();
+    rail.scrollBy = scrollBy;
+    Object.defineProperties(rail, {
+      clientWidth: { configurable: true, value: 500 },
+      scrollWidth: { configurable: true, value: 1000 },
+      scrollLeft: { configurable: true, writable: true, value: 0 },
+    });
+    fireEvent(window, new Event('resize'));
+    fireEvent.keyDown(rail, { key: 'ArrowRight' });
+    expect(scrollBy).toHaveBeenCalledWith(expect.objectContaining({ left: expect.any(Number) }));
+    const nextButton = screen.getByRole('button', { name: '浏览下一组照片' });
+    expect(nextButton).not.toBeDisabled();
+    fireEvent.click(nextButton);
+    expect(scrollBy).toHaveBeenCalledTimes(2);
+
+    fireEvent.click(screen.getByRole('button', { name: '查看大图：校园劳动课程现场' }));
+    expect(screen.getByRole('dialog', { name: '校园劳动课程现场' })).toBeVisible();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 
     rerender(<PhotoWall schoolName="示例学校" photos={[]} />);
     expect(screen.getByText('影像素材正在整理')).toBeVisible();
@@ -88,6 +124,7 @@ describe('media presentation', () => {
           { type: 'file', src: '/interview.mp4', title: '访谈正片' },
           { type: 'embed', src: 'https://player.example.test/video', title: '平台嵌入视频' },
           { type: 'external', src: 'https://example.test/watch', title: '外部视频' },
+          { type: 'bilibili', bvid: 'BV1xx411c7mD', title: '哔哩哔哩视频' },
         ]}
       />,
     );
@@ -102,6 +139,54 @@ describe('media presentation', () => {
     expect(screen.getByRole('link', { name: /外部视频/ })).toHaveAttribute(
       'rel',
       'noopener noreferrer',
+    );
+    expect(screen.getByTitle('哔哩哔哩视频')).toHaveAttribute(
+      'src',
+      expect.stringContaining('bvid=BV1xx411c7mD'),
+    );
+    expect(screen.getByRole('link', { name: /哔哩哔哩视频/ })).toHaveAttribute(
+      'href',
+      'https://www.bilibili.com/video/BV1xx411c7mD',
+    );
+  });
+
+  it('resolves a public NJU Box share into a native streaming source', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      text: vi.fn().mockResolvedValue(
+        String.raw`rawPath: 'https://box.nju.edu.cn/seafhttp/files/e3e41f74\u002D5d77/video.mp4'`,
+      ),
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    const { container } = render(
+      <VideoPlayer
+        videos={[
+          {
+            type: 'nju-box',
+            shareUrl: 'https://box.nju.edu.cn/d/a01c5df833674b2c91c5/',
+            filePath: '/6.29五塘/采访视频.mp4',
+            title: '五塘小学采访视频',
+          },
+        ]}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: '加载并播放' }));
+
+    await waitFor(() => {
+      expect(container.querySelector('video')).toHaveAttribute('aria-label', '五塘小学采访视频');
+    });
+    expect(container.querySelector('source')).toHaveAttribute(
+      'src',
+      'https://box.nju.edu.cn/seafhttp/files/e3e41f74-5d77/video.mp4',
+    );
+    expect(fetchMock).toHaveBeenCalledWith(
+      expect.stringContaining('/d/a01c5df833674b2c91c5/files/?p='),
+      expect.objectContaining({ credentials: 'omit' }),
+    );
+    expect(screen.getByRole('link', { name: /五塘小学采访视频/ })).toHaveAttribute(
+      'href',
+      expect.stringContaining('box.nju.edu.cn'),
     );
   });
 });

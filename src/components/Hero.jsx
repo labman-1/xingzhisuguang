@@ -1,5 +1,7 @@
 import { ArrowDown, BookOpen, Lightbulb, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { hasImageSource } from '../utils/mediaImage';
+import MediaBackdrop from './MediaBackdrop';
 
 const defaultIdeas = [
   {
@@ -37,53 +39,75 @@ export default function Hero({
   const introduction = project?.mission ||
     '循行知足迹，溯教育之光。以访谈、影像与田野记录观察行知教育思想如何在今天继续生长。';
   const resolvedYear = practiceYear || '2026';
+  const heroImage = project?.heroImage;
+  const hasHeroImage = hasImageSource(heroImage);
+  const primaryText = hasHeroImage ? 'text-white' : 'text-[#173c32]';
+  const secondaryText = hasHeroImage ? 'text-[#f7f0df]' : 'text-[#49645b]';
+  const cardClass = hasHeroImage
+    ? 'border-white/20 bg-[#071d18]/70 text-white'
+    : 'border-[#d8c9a8] bg-white/75 text-[#173c32]';
 
   return (
     <section
-      className="relative overflow-hidden bg-gradient-to-br from-emerald-800 via-emerald-900 to-teal-950 text-white"
+      className={`relative isolate min-h-[calc(100svh-4rem)] overflow-hidden ${primaryText}`}
       aria-labelledby="hero-title"
+      data-has-hero-image={hasHeroImage ? 'true' : 'false'}
     >
-      <div className="hero-orb hero-orb--amber" aria-hidden="true" />
-      <div className="hero-orb hero-orb--emerald" aria-hidden="true" />
+      <MediaBackdrop
+        media={heroImage}
+        className="absolute inset-0 -z-10"
+        overlayClassName="bg-[#061b17]/80"
+        loading="eager"
+        fetchPriority="high"
+      />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:py-28">
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="mb-6 inline-flex items-center rounded-full border border-emerald-300/30 bg-emerald-800/70 px-4 py-2 text-xs font-semibold tracking-[0.16em] text-emerald-50 shadow-sm backdrop-blur sm:text-sm">
+      <div className="mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col justify-center px-4 py-12 sm:px-6 md:py-16">
+        <div className="max-w-4xl">
+          <p className={`mb-5 text-xs font-bold tracking-[0.18em] sm:text-sm ${hasHeroImage ? 'text-amber-200' : 'text-[#8a651d]'}`}>
             {organization}
+          </p>
+
+          <p className={`mb-3 text-sm font-semibold sm:text-base ${secondaryText}`}>
+            {profile?.lifespan && `${profile.lifespan} · `}{profile?.role || '中国近代伟大的教育家、思想家'}
           </p>
 
           <h1
             id="hero-title"
             data-page-heading
             tabIndex={-1}
-            className="text-balance text-4xl font-black leading-tight tracking-tight focus:outline-none sm:text-5xl md:text-6xl"
+            className="text-balance text-4xl font-black leading-[1.12] tracking-tight focus:outline-none sm:text-5xl md:text-6xl lg:text-7xl"
           >
-            追寻<span className="mx-2 text-amber-300">{profileName}</span>
+            追寻<span className={`mx-2 ${hasHeroImage ? 'text-amber-300' : 'text-[#9a6d16]'}`}>{profileName}</span>
             <span className="block sm:mt-2">教育思想的当代足迹</span>
           </h1>
 
-          <p className="mx-auto mt-7 max-w-3xl text-pretty text-base leading-8 text-emerald-50 sm:text-lg">
+          {profile?.summary && (
+            <p className={`mt-6 max-w-3xl text-base font-medium leading-8 sm:text-lg ${secondaryText}`}>
+              {profile.summary}
+            </p>
+          )}
+          <p className={`mt-3 max-w-3xl text-sm leading-7 sm:text-base ${secondaryText}`}>
             {introduction}
           </p>
 
-          <div className="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+          <div className="mt-7 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
             <Link
               to="/#school-list"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-amber-400 px-6 py-3 text-sm font-bold text-emerald-950 shadow-lg shadow-emerald-950/20 transition hover:bg-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-900"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-amber-400 px-6 py-3 text-sm font-bold text-emerald-950 shadow-lg shadow-emerald-950/15 transition hover:bg-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-950"
             >
               查看实践足迹
               <ArrowDown aria-hidden="true" size={18} />
             </Link>
             <Link
               to="/heritage"
-              className="inline-flex min-h-12 items-center justify-center rounded-xl border border-emerald-200/50 bg-emerald-800/60 px-6 py-3 text-sm font-semibold text-white transition hover:border-emerald-100 hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-900"
+              className={`inline-flex min-h-12 items-center justify-center rounded-xl border px-6 py-3 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 ${hasHeroImage ? 'border-white/45 bg-[#071d18]/55 text-white hover:bg-[#0f342a]' : 'border-[#b89a5c] bg-[#fffaf0]/80 text-[#173c32] hover:bg-white'}`}
             >
               了解行知文脉
             </Link>
           </div>
         </div>
 
-        <ul className="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-3" aria-label="陶行知生活教育三大理念">
+        <ul className="mt-10 grid grid-cols-1 gap-3 md:grid-cols-3" aria-label="陶行知生活教育三大理念">
           {visibleIdeas.map((idea, index) => {
             const Icon = idea.Icon || ideaIcons[index % ideaIcons.length];
             const description = [idea.summary, idea.desc, idea.description, idea.content, idea.body]
@@ -91,38 +115,26 @@ export default function Hero({
 
             return (
               <li key={idea.id || idea.title || index} className="h-full">
-                <article className="philosophy-card h-full rounded-2xl border border-white/15 bg-white/10 p-6 text-left shadow-sm backdrop-blur-sm">
-                  <div className="mb-5 flex items-start justify-between gap-4">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-300/20 text-amber-200" aria-hidden="true">
-                      <Icon size={22} strokeWidth={1.8} />
+                <article className={`philosophy-card h-full rounded-2xl border p-5 shadow-sm backdrop-blur-sm ${cardClass}`}>
+                  <div className="flex items-start gap-4">
+                    <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${hasHeroImage ? 'bg-amber-300/20 text-amber-200' : 'bg-[#f3e4bd] text-[#795612]'}`} aria-hidden="true">
+                      <Icon size={21} strokeWidth={1.8} />
                     </span>
-                    <span className="text-sm font-bold tracking-widest text-emerald-200" aria-hidden="true">
-                      0{index + 1}
-                    </span>
+                    <div>
+                      <p className={`text-xs font-bold tracking-[0.15em] ${hasHeroImage ? 'text-amber-200' : 'text-[#8a651d]'}`}>0{index + 1}</p>
+                      <h2 className="mt-1 text-lg font-bold">{idea.title}</h2>
+                    </div>
                   </div>
-                  <h2 className="text-xl font-bold text-white">{idea.title}</h2>
-                  {idea.subtitle && <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-amber-200">{idea.subtitle}</p>}
-                  {description && <p className="mt-4 text-sm leading-7 text-emerald-50">{description}</p>}
+                  {description && <p className={`mt-4 text-sm leading-6 ${secondaryText}`}>{description}</p>}
                 </article>
               </li>
             );
           })}
         </ul>
 
-        <dl className="mx-auto mt-10 grid max-w-3xl grid-cols-3 divide-x divide-emerald-500/40 rounded-2xl border border-emerald-400/20 bg-emerald-950/30 px-2 py-5 text-center backdrop-blur-sm sm:px-6">
-          <div className="px-2">
-            <dt className="text-xs text-emerald-100 sm:text-sm">实践点</dt>
-            <dd className="mt-1 text-xl font-black text-amber-300 sm:text-2xl">{siteCount} 个</dd>
-          </div>
-          <div className="px-2">
-            <dt className="text-xs text-emerald-100 sm:text-sm">实践年份</dt>
-            <dd className="mt-1 text-xl font-black text-amber-300 sm:text-2xl">{resolvedYear}</dd>
-          </div>
-          <div className="px-2">
-            <dt className="text-xs text-emerald-100 sm:text-sm">记录方式</dt>
-            <dd className="mt-1 text-base font-black text-amber-300 sm:text-xl">访谈 · 影像</dd>
-          </div>
-        </dl>
+        <p className={`mt-7 text-xs font-semibold tracking-wide ${secondaryText}`}>
+          {siteCount} 个实践点 · {resolvedYear} 年 · 访谈与影像记录
+        </p>
       </div>
     </section>
   );

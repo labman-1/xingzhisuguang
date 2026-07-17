@@ -20,14 +20,14 @@ export default function Footer({ project = defaultProject }) {
   const mission = project?.mission || project?.summary || defaultProject.mission;
 
   return (
-    <footer className="border-t border-slate-800 bg-slate-950 text-slate-300">
+    <footer className="border-t border-emerald-950 bg-emerald-950 text-emerald-100">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_1fr] md:items-start">
         <div className="max-w-xl">
           <Link to="/" className="inline-flex items-center gap-3 rounded-lg text-white hover:text-amber-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300">
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-400 text-sm font-black text-emerald-950" aria-hidden="true">溯</span>
             <span className="text-xl font-black">{name}</span>
           </Link>
-          <p className="mt-5 text-sm leading-7 text-slate-300">
+          <p className="mt-5 text-sm leading-7 text-emerald-100">
             {mission}
           </p>
           <p className="mt-4 text-sm font-semibold text-emerald-300">{organization}</p>
@@ -38,7 +38,7 @@ export default function Footer({ project = defaultProject }) {
           <ul className="mt-4 grid grid-cols-2 gap-x-8 gap-y-3 text-sm sm:grid-cols-3 md:grid-cols-2">
             {footerLinks.map((item) => (
               <li key={item.to}>
-                <Link to={item.to} className="inline-flex min-h-10 items-center rounded text-slate-300 transition-colors hover:text-amber-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300">
+                <Link to={item.to} className="inline-flex min-h-10 items-center rounded text-emerald-100 transition-colors hover:text-amber-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300">
                   {item.label}
                 </Link>
               </li>
@@ -47,8 +47,8 @@ export default function Footer({ project = defaultProject }) {
         </nav>
       </div>
 
-      <div className="border-t border-slate-800">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-slate-400 sm:px-6 md:flex-row md:items-center md:justify-between">
+      <div className="border-t border-emerald-900">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-emerald-200 sm:px-6 md:flex-row md:items-center md:justify-between">
           <small>© 2026 {organization}</small>
           <p>数字化成果交互展示 · 内容持续更新</p>
         </div>

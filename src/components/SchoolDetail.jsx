@@ -10,7 +10,9 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { hasImageSource } from '../utils/mediaImage';
 import InterviewAccordion from './InterviewAccordion';
+import MediaBackdrop from './MediaBackdrop';
 import PhotoWall from './PhotoWall';
 import VideoPlayer from './VideoPlayer';
 
@@ -127,6 +129,8 @@ export default function SchoolDetail({ school, onBack }) {
   const videos = school.videos || school.video || school.media?.videos || [];
   const interviews = school.interviews || [];
   const logo = typeof school.logo === 'string' ? { src: school.logo } : school.logo;
+  const bannerImage = school.bannerImage || school.media?.banner;
+  const hasBanner = hasImageSource(bannerImage);
   const focus = asArray(visit.focus || visit.focuses).map(getLabel).filter(Boolean);
   const contextualTags = [...new Set([...philosophyTags, ...focus])];
 
@@ -155,24 +159,29 @@ export default function SchoolDetail({ school, onBack }) {
         返回实践足迹
       </Link>
 
-      <header className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-800 via-emerald-900 to-teal-950 px-5 py-8 text-white shadow-xl shadow-emerald-950/10 sm:px-8 md:px-12 md:py-12">
-        <div className="hero-orb hero-orb--amber" aria-hidden="true" />
-        <div className="relative">
+      <header className={`relative min-h-80 overflow-hidden rounded-3xl px-5 py-8 shadow-xl shadow-emerald-950/10 sm:px-8 md:px-12 md:py-12 ${hasBanner ? 'text-white' : 'text-[#173c32]'}`}>
+        <MediaBackdrop
+          media={bannerImage}
+          className="absolute inset-0"
+          overlayClassName="bg-[#061b17]/76"
+          loading="eager"
+        />
+        <div className="relative z-10">
           <div className="mb-6 flex flex-wrap gap-2">
             {stage && (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/30 bg-emerald-800/80 px-3 py-1.5 text-sm font-semibold text-emerald-50">
+              <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-semibold ${hasBanner ? 'border-white/30 bg-[#071d18]/65 text-white' : 'border-[#cdbb94] bg-[#fffaf0]/90 text-emerald-900'}`}>
                 <MapPin aria-hidden="true" size={15} />
                 {stage}
               </span>
             )}
             {date && (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-sm text-white">
+              <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm ${hasBanner ? 'border-white/25 bg-[#071d18]/55 text-white' : 'border-[#cdbb94] bg-[#fffaf0]/90 text-emerald-900'}`}>
                 <CalendarDays aria-hidden="true" size={15} />
                 <time dateTime={dateTime}>{date}</time>
               </span>
             )}
             {location && (
-              <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-sm text-white">
+              <span className={`inline-flex items-center rounded-full border px-3 py-1.5 text-sm ${hasBanner ? 'border-white/25 bg-[#071d18]/55 text-white' : 'border-[#cdbb94] bg-[#fffaf0]/90 text-emerald-900'}`}>
                 {location}
               </span>
             )}
@@ -187,7 +196,7 @@ export default function SchoolDetail({ school, onBack }) {
               )}
             </span>
             <div>
-              <p className="mb-2 text-sm font-bold tracking-[0.16em] text-amber-200">行知教育当代实践样本</p>
+              <p className={`mb-2 text-sm font-bold tracking-[0.16em] ${hasBanner ? 'text-amber-200' : 'text-[#8a651d]'}`}>行知教育当代实践样本</p>
               <h1
                 id="school-detail-title"
                 data-page-heading
@@ -199,12 +208,12 @@ export default function SchoolDetail({ school, onBack }) {
             </div>
           </div>
 
-          {summary && <div className="mt-7 max-w-4xl text-base leading-8 text-emerald-50 sm:text-lg"><ProseBlocks value={summary} /></div>}
+          {summary && <div className={`mt-7 max-w-4xl text-base leading-8 sm:text-lg ${hasBanner ? 'text-[#f7f0df]' : 'text-[#49645b]'}`}><ProseBlocks value={summary} /></div>}
 
           {contextualTags.length > 0 && (
             <div className="mt-7 flex flex-wrap gap-2" aria-label="教育理念与调研重点">
               {contextualTags.map((tag) => (
-                <span key={tag} className="rounded-full border border-amber-200/35 bg-amber-300/15 px-3 py-1.5 text-sm font-semibold text-amber-100">
+                <span key={tag} className={`rounded-full border px-3 py-1.5 text-sm font-semibold ${hasBanner ? 'border-amber-200/35 bg-amber-300/15 text-amber-100' : 'border-[#c8aa69] bg-[#f5e8c7] text-[#795612]'}`}>
                   {tag}
                 </span>
               ))}
