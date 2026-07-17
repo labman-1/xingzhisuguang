@@ -6,9 +6,9 @@
 
 ## 功能范围
 
-- 首页人物志：陶行知人物介绍、教育理念与实践入口。
-- 实践足迹：六个教育实践点的卡片、走访日程和独立详情页。
-- 学校详情：简介、教育理念标签、影像、视频和完整访谈记录。
+- 首页人物志：可替换的全屏历史图片主视觉、陶行知人物介绍、教育理念与实践入口；无图时使用米白色占位。
+- 实践足迹：六个教育实践点的照片横幅卡片、走访日程和独立详情页。
+- 学校详情：简介、教育理念标签、可触控/键盘操作的横向影像浏览、大图查看、视频和完整访谈记录。
 - 行知文脉：书院及相关教育实践的专题内容。
 - 成果资源：文章、视频、文档等成果的统一索引与学校关联。
 - 关于我们：项目目标、团队分工和由内容数据派生的实践日程。
@@ -81,7 +81,9 @@ npm run build
 ```text
 xingzhisuguang/
 ├─ .github/workflows/       # CI 与 GitHub Pages 发布
-├─ public/                  # favicon、robots.txt、Web App Manifest
+├─ public/
+│  ├─ media/               # 共享及六个实践点的媒体目录约定（当前仅 README）
+│  └─ ...                  # favicon、robots.txt、Web App Manifest
 ├─ scripts/
 │  └─ validate-content.mjs  # 可在 Node/CI 中直接运行的内容校验
 ├─ src/
@@ -89,6 +91,7 @@ xingzhisuguang/
 │  ├─ content/              # 规范化内容集合、查询函数和校验器
 │  ├─ hooks/                # 路由呈现等跨页面行为
 │  ├─ pages/                # 路由级页面
+│  ├─ utils/                # 响应式媒体字段标准化
 │  ├─ App.jsx               # 路由表与全局布局
 │  ├─ main.jsx              # React 入口与 HashRouter
 │  └─ index.css             # Tailwind 与全局样式
@@ -110,6 +113,8 @@ xingzhisuguang/
 | `academyHeritageEntries` | 书院及行知文脉专题 |
 | `achievementResources` | 文章、视频、文档等成果资源 |
 | `projectProfile` | 项目与团队公共信息 |
+| `sharedMedia` | 首页等跨页面共享图片槽位 |
+| `mediaServices` | 南大 Box 等外部媒体服务配置 |
 | `PUBLISH_STATUS` | 统一发布状态常量 |
 
 页面应优先使用查询函数，而不是自行 `filter` 或 `find`：
@@ -129,24 +134,55 @@ xingzhisuguang/
 
 ### 媒体与访谈建议格式
 
-照片建议使用结构化对象，务必提供准确的替代文本：
+图片必须使用结构化对象并由内容模型配置路径。优先提供 AVIF 与 WebP 响应式版本，务必填写准确的替代文本、焦点和版权说明：
 
 ```js
 {
   id: 'site-id-campus-01',
   src: 'media/site-id/campus.webp', // 相对部署根目录，兼容 GitHub Pages 子路径
+  srcSet: [
+    'media/site-id/campus-768.webp 768w',
+    'media/site-id/campus-1280.webp 1280w',
+  ],
+  sources: [
+    {
+      type: 'image/avif',
+      srcSet: [
+        'media/site-id/campus-768.avif 768w',
+        'media/site-id/campus-1280.avif 1280w',
+      ],
+    },
+  ],
+  sizes: '(min-width: 1024px) 50vw, 82vw',
+  focalPoint: '50% 38%',
   alt: '学生在校园劳动园中观察植物',
   caption: '校园劳动课程现场',
   credit: '实践团队',
+  sourceUrl: '', // 第三方或历史图片应填写可核验的来源页
   width: 1600,
   height: 1200,
   publishStatus: PUBLISH_STATUS.PUBLISHED,
 }
 ```
 
-视频支持三种发布方式：
+`public/media/shared/README.md` 记录全站命名、格式、版权和响应式图片约定。六个实践点分别包含 `photos`、`backgrounds`、`thumbnails`，当前只提交 README，不使用伪造占位图。图片文件加入目录后，还必须在 `src/content/index.js` 的 `heroImage`、`bannerImage` 或 `gallery` 中显式配置才会显示。
+
+视频支持五种发布方式。当前优先使用南大 Box 公共分享；组件在用户点击后解析临时流媒体地址，并始终提供原视频跳转。Bilibili 继续作为兼容来源：
 
 ```js
+// 南大 Box：公开文件夹分享链接 + 其中的文件绝对路径
+{
+  id: 'interview-nju-box',
+  type: 'nju-box',
+  shareUrl: 'https://box.nju.edu.cn/d/<public-share-token>/',
+  filePath: '/实践点/采访视频.mp4',
+  title: '教师访谈',
+  publishStatus: PUBLISH_STATUS.PUBLISHED,
+}
+
+// Bilibili：只配置 BV 号，播放器与原视频地址由组件生成
+{ id: 'interview-bilibili', type: 'bilibili', bvid: 'BV1xx411c7mD', title: '教师访谈', publishStatus: PUBLISH_STATUS.PUBLISHED }
+
 // 本地或 CDN 文件
 { id: 'interview-file', type: 'file', src: 'media/interview.mp4', title: '教师访谈', subtitles: [], publishStatus: PUBLISH_STATUS.PUBLISHED }
 
@@ -164,7 +200,7 @@ xingzhisuguang/
 1. 核对学校名称、日期、人物身份、引文和事实。
 2. 确认照片、音视频、未成年人信息与第三方平台链接具备发布授权。
 3. 在 `src/content/` 更新条目；未完成内容保持草稿状态，不用虚构文字填满页面。
-4. 为照片补充具体 `alt`，为视频准备字幕或文字稿，为外链补充清晰标题。
+4. 为照片补充具体 `alt`、`caption`、`credit` 与必要的 `sourceUrl`，为视频准备字幕或文字稿，为外链补充清晰标题。
 5. 运行 `npm run validate:content` 和 `npm run test:run`。
 6. 预览桌面端与移动端后再改为发布状态。
 
@@ -174,7 +210,7 @@ xingzhisuguang/
 
 - 内容集合校验、六个实践点 ID、查询函数和资源引用。
 - 首页、学校详情、专题页、关于页与站内 404 路由。
-- 导航菜单状态、学校卡片链接、照片元数据、三类视频和访谈折叠面板。
+- 导航菜单状态、学校卡片链接、响应式图片、横向滚动与大图交互、南大 Box/Bilibili/文件/嵌入/外链视频和访谈折叠面板。
 
 `.github/workflows/ci.yml` 在 push 与 pull request 时执行 `npm ci`、`npm run check` 和生产构建。`.github/workflows/deploy-pages.yml` 只在 `main` 推送或手动触发时上传 `dist/` 并部署到 `github-pages` 环境。
 
@@ -194,4 +230,4 @@ xingzhisuguang/
 
 ## 内容与版权
 
-本项目用于南京大学学生社会实践成果展示。人物肖像、采访、学校材料、第三方文章与音视频的版权和授权状态应在发布前单独核验；仓库中不得提交账号凭据、访问令牌、内部原始资料或未经脱敏的个人信息。
+本项目用于南京大学学生社会实践成果展示。人物肖像、采访、学校材料、第三方文章与音视频的版权和授权状态应在发布前单独核验；公开分享链接并不自动等同于取得发布授权。仓库中不得提交账号凭据、访问令牌、内部原始资料或未经脱敏的个人信息。
