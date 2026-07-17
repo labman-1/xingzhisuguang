@@ -50,7 +50,7 @@ export default function Hero({
       data-has-hero-image={hasHeroImage ? 'true' : 'false'}
     >
       <div className="mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col justify-center px-4 py-12 sm:px-6 md:py-16">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.75fr)] lg:gap-14">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(17rem,0.62fr)] lg:gap-14">
           <div className="max-w-4xl">
             <p className="mb-5 text-xs font-bold tracking-[0.18em] text-[#8a651d] sm:text-sm">
               {organization}
@@ -97,7 +97,7 @@ export default function Hero({
           </div>
 
           {hasHeroImage && (
-            <div className="relative mx-auto w-full max-w-[28rem] lg:max-w-none">
+            <div className="relative mx-auto w-full max-w-[19rem] sm:max-w-[21rem] lg:mx-0 lg:max-w-[22rem] lg:justify-self-end">
               <div className="absolute -inset-5 -z-10 rounded-[2.5rem] bg-amber-200/35 blur-3xl" aria-hidden="true" />
               <figure className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-[#c9aa68] bg-[#e8dfcc] p-3 shadow-[0_24px_70px_rgba(61,46,21,0.20)] sm:p-4">
                 <div className="pointer-events-none absolute inset-3 rounded-[1.5rem] border border-white/55 sm:inset-4" aria-hidden="true" />

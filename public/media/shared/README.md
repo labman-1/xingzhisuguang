@@ -2,7 +2,7 @@
 
 本目录只保存全站共享且已完成事实、版权、肖像与隐私核验的媒体。
 
-当前首页使用 `tao-xingzhi-portrait.jpg`：陶行知先生 1930 年以前的历史肖像，作者不详；来源为 Wikimedia Commons，来源页标注其在中国大陆进入公有领域。页面内容模型中保留完整来源链接与版权说明。
+当前首页使用 `tao-xingzhi-commemorative-portrait.webp`：以陶行知先生的公有领域史料肖像为人物参考，生成的黑白木刻风纪念性视觉。该素材不得标注为历史照片；生成性质只在项目内部媒体记录与内容模型中保留，不在首页视觉中展示来源说明。
 
 - 首页主视觉路径在 `src/content/index.js` 的 `projectProfile.heroImage` 配置，组件内不得写死路径。
 - 优先提供 AVIF 与 WebP；建议宽度为 `768w`、`1280w`、`1920w`，并保留一个 WebP `src` 回退。

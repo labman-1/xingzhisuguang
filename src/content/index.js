@@ -33,16 +33,16 @@ export const sharedMedia = {
   homeHero: {
     ...createImageSlot({
       directory: 'media/shared/',
-      alt: '陶行知先生身穿中式长衫、佩戴圆框眼镜的黑白肖像',
+      alt: '陶行知先生身穿中式长衫、佩戴圆框眼镜的黑白纪念肖像',
       fallbackLabel: '',
-      focalPoint: '50% 42%',
+      focalPoint: '50% 50%',
     }),
-    src: 'media/shared/tao-xingzhi-portrait.jpg',
-    sizes: '(min-width: 1024px) 28rem, (min-width: 640px) 24rem, 88vw',
-    width: 200,
-    height: 270,
-    credit: '作者不详，1930 年以前（Wikimedia Commons，公有领域）',
-    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Tao_Xing-zhi.jpg',
+    src: 'media/shared/tao-xingzhi-commemorative-portrait.webp',
+    sizes: '(min-width: 1024px) 22rem, (min-width: 640px) 21rem, 76vw',
+    width: 960,
+    height: 1200,
+    credit: '项目组 AI 生成纪念性视觉，以公有领域史料肖像为人物参考',
+    sourceUrl: '',
   },
 };
 
