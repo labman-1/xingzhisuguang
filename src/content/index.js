@@ -13,6 +13,48 @@ export const SITE_TYPE = Object.freeze({
 const published = PUBLISH_STATUS.PUBLISHED;
 const draft = PUBLISH_STATUS.DRAFT;
 
+function createImageSlot({ directory, alt, fallbackLabel, focalPoint = '50% 50%' }) {
+  return {
+    src: '',
+    srcSet: [],
+    sources: [],
+    sizes: '100vw',
+    alt,
+    caption: '',
+    credit: '',
+    sourceUrl: '',
+    focalPoint,
+    assetDirectory: directory,
+    fallbackLabel,
+  };
+}
+
+export const sharedMedia = {
+  homeHero: createImageSlot({
+    directory: 'media/shared/',
+    alt: '陶行知先生历史影像',
+    fallbackLabel: '陶行知先生历史影像待授权后发布',
+    focalPoint: '50% 32%',
+  }),
+};
+
+export const mediaServices = {
+  njuBox: {
+    shareUrl: 'https://box.nju.edu.cn/d/a01c5df833674b2c91c5/',
+  },
+};
+
+function createNjuBoxVideo({ id, title, filePath }) {
+  return {
+    id,
+    title,
+    type: 'nju-box',
+    shareUrl: mediaServices.njuBox.shareUrl,
+    filePath,
+    publishStatus: draft,
+  };
+}
+
 export const practiceSites = [
   {
     id: 'wutang',
@@ -22,12 +64,21 @@ export const practiceSites = [
     visit: { date: '2026-06-29', displayDate: '6.29', sequence: 1, stage: '第一站' },
     summary:
       '五塘小学是本次"行知溯光"社会实践的第一站。学校秉承陶行知先生的教育理念，在课程改革与学生综合素质培养方面进行了积极探索。团队成员在此开展了初步的校园参观与教师访谈，为后续调研奠定了基础。',
+    bannerImage: createImageSlot({
+      directory: 'media/wutang/backgrounds/',
+      alt: '五塘小学校园或课堂实践影像',
+      fallbackLabel: '五塘小学影像待授权后发布',
+    }),
     philosophyTags: [],
     practices: [
       { id: 'wutang-curriculum', title: '课程改革与学生综合素质培养', publishStatus: draft },
     ],
     gallery: [],
-    videos: [{ id: 'wutang-video', title: '五塘小学实践纪实', embedUrl: '', publishStatus: draft }],
+    videos: [createNjuBoxVideo({
+      id: 'wutang-video',
+      title: '五塘小学采访视频',
+      filePath: '/6.29五塘/采访视频.mp4',
+    })],
     interviews: [],
     resources: [],
     publishStatus: published,
@@ -40,20 +91,22 @@ export const practiceSites = [
     visit: { date: '2026-07-01', displayDate: '7.1', sequence: 2, stage: '第二站' },
     summary:
       '燕子矶幼儿园是本次调研中唯一一所学前教育机构。园所以陶行知"生活教育"理念为指导，构建了独具特色的"三力课程体系"，并在日常教学中推行"小先生制"，让幼儿在互教互学中成长。本次访谈深入探讨了课程落地的具体实践、一线教师面临的困难与挑战，以及"小先生制"在学前教育阶段的创新应用。',
+    bannerImage: createImageSlot({
+      directory: 'media/yanziyou/backgrounds/',
+      alt: '燕子矶幼儿园校园或课堂实践影像',
+      fallbackLabel: '燕子矶幼儿园影像待授权后发布',
+    }),
     philosophyTags: ['生活即教育', '小先生制'],
     practices: [
       { id: 'yanziyou-sanli', title: '三力课程体系', publishStatus: draft },
       { id: 'yanziyou-little-teacher', title: '小先生制', publishStatus: draft },
     ],
     gallery: [],
-    videos: [
-      {
-        id: 'yanziyou-video',
-        title: '燕子矶幼儿园 · 三力课程与小先生制访谈',
-        embedUrl: '',
-        publishStatus: draft,
-      },
-    ],
+    videos: [1, 2, 3, 4].map((part) => createNjuBoxVideo({
+      id: `yanziyou-video-${part}`,
+      title: `燕子矶幼儿园采访视频 ${part}`,
+      filePath: `/7.1燕子矶幼儿园/${part}.mp4`,
+    })),
     interviews: [
       {
         id: 'yanziyou-shanli',
@@ -95,12 +148,21 @@ export const practiceSites = [
     visit: { date: '2026-07-02', displayDate: '7.2', sequence: 3, stage: '第三站' },
     summary:
       '晓庄小学与陶行知先生有着深厚的历史渊源。作为晓庄地区的代表性小学，学校在传承行知精神、开展劳动教育与生活实践方面积累了丰富经验。团队成员在此围绕"教学做合一"理念在小学课堂中的落地展开了深入调研。',
+    bannerImage: createImageSlot({
+      directory: 'media/xiaozhuang/backgrounds/',
+      alt: '晓庄小学校园、课堂或历史影像',
+      fallbackLabel: '晓庄小学影像待授权后发布',
+    }),
     philosophyTags: ['教学做合一'],
     practices: [
       { id: 'xiaozhuang-labour', title: '劳动教育与生活实践', publishStatus: draft },
     ],
     gallery: [],
-    videos: [{ id: 'xiaozhuang-video', title: '晓庄小学调研记录', embedUrl: '', publishStatus: draft }],
+    videos: [createNjuBoxVideo({
+      id: 'xiaozhuang-video',
+      title: '晓庄小学采访视频',
+      filePath: '/7.2晓庄小学/7.2晓庄小学 唐敏/采访视频.MP4',
+    })],
     interviews: [],
     resources: [],
     publishStatus: published,
@@ -113,6 +175,11 @@ export const practiceSites = [
     visit: { date: '2026-07-02', displayDate: '7.2', sequence: 4, stage: '第四站' },
     summary:
       '小市中心小学位于南京城区，在素质教育与课程创新方面持续探索。学校将陶行知教育思想与现代教育技术相结合，形成了独具特色的校本课程体系。团队在此重点调研了城市小学如何在新时期背景下践行行知理念。',
+    bannerImage: createImageSlot({
+      directory: 'media/xiaoshi/backgrounds/',
+      alt: '小市中心小学校园或课堂实践影像',
+      fallbackLabel: '小市中心小学影像待授权后发布',
+    }),
     philosophyTags: [],
     practices: [{ id: 'xiaoshi-curriculum', title: '校本课程体系', publishStatus: draft }],
     gallery: [],
@@ -129,14 +196,21 @@ export const practiceSites = [
     visit: { date: '2026-07-03', displayDate: '7.3', sequence: 5, stage: '第五站' },
     summary:
       '南京晓庄实验学校是一所九年一贯制学校，在晓庄教育体系中承担着重要的实验与示范功能。学校在课程整合、跨学科教学以及学生自主学习能力培养方面进行了大量创新实践，为团队提供了丰富的调研素材。',
+    bannerImage: createImageSlot({
+      directory: 'media/xiaozhuangshiyan/backgrounds/',
+      alt: '南京晓庄实验学校校园或课堂实践影像',
+      fallbackLabel: '南京晓庄实验学校影像待授权后发布',
+    }),
     philosophyTags: [],
     practices: [
       { id: 'xiaozhuangshiyan-integration', title: '课程整合、跨学科教学与自主学习', publishStatus: draft },
     ],
     gallery: [],
-    videos: [
-      { id: 'xiaozhuangshiyan-video', title: '南京晓庄实验学校调研记录', embedUrl: '', publishStatus: draft },
-    ],
+    videos: [createNjuBoxVideo({
+      id: 'xiaozhuangshiyan-video',
+      title: '南京晓庄实验学校采访视频',
+      filePath: '/7.3南京晓庄实验学校/VID20260703093710.mp4',
+    })],
     interviews: [],
     resources: [],
     publishStatus: published,
@@ -149,6 +223,11 @@ export const practiceSites = [
     visit: { date: '2026-07-03', displayDate: '7.3', sequence: 6, stage: '第六站' },
     summary:
       '晓庄附属小学是本次社会实践的最后一站。学校依托晓庄教育集团的资源优势，在教师专业发展与校本教研方面形成了鲜明特色。团队在此对为期五天的调研进行了总结性访谈与资料收集，为后续成果整理积累了宝贵的一手素材。',
+    bannerImage: createImageSlot({
+      directory: 'media/xiaozhuangfushu/backgrounds/',
+      alt: '晓庄附属小学校园或课堂实践影像',
+      fallbackLabel: '晓庄附属小学影像待授权后发布',
+    }),
     philosophyTags: [],
     practices: [
       { id: 'xiaozhuangfushu-teachers', title: '教师专业发展与校本教研', publishStatus: draft },
@@ -213,6 +292,7 @@ export const projectProfile = {
     '通过实地走访南京市五所学校和一所幼儿园，我们深入了解陶行知教育思想在基层教育一线的实践现状。从幼儿园到九年一贯制学校，从"小先生制"到"教学做合一"，我们以访谈、拍摄、文字记录等方式，力求呈现一幅当代行知教育的真实画卷。',
   teamSummary:
     '团队由南京大学工科试验班大一新生组成，分为线上组与线下组。线下组负责实地走访、拍摄与访谈；线上组负责资料整理、网站开发与成果展示。成员信息将后续更新。',
+  heroImage: sharedMedia.homeHero,
   publishStatus: published,
 };
 
@@ -306,7 +386,7 @@ export function getHeritageEntryById(id, { includeDrafts = false } = {}) {
 
 const allowedStatuses = new Set(Object.values(PUBLISH_STATUS));
 const allowedSiteTypes = new Set(Object.values(SITE_TYPE));
-const allowedVideoTypes = new Set(['embed', 'file', 'external']);
+const allowedVideoTypes = new Set(['nju-box', 'bilibili', 'embed', 'file', 'external']);
 const requiredSiteArrays = [
   'philosophyTags',
   'practices',
@@ -316,6 +396,8 @@ const requiredSiteArrays = [
   'resources',
 ];
 const videoSourceFields = [
+  'bvid',
+  'shareUrl',
   'embedUrl',
   'fileUrl',
   'externalUrl',
@@ -331,6 +413,8 @@ const knownUrlFields = new Set([
   'sourceUrl',
   'thumbnail',
   'thumbnailUrl',
+  'thumbnailSrc',
+  'lightboxSrc',
 ]);
 
 function issue(path, message, code = 'invalid') {
@@ -339,6 +423,11 @@ function issue(path, message, code = 'invalid') {
 
 function isRecord(value) {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+function asArray(value) {
+  if (value == null) return [];
+  return Array.isArray(value) ? value : [value];
 }
 
 function isNonEmptyString(value) {
@@ -395,6 +484,65 @@ function isSafeContentUrl(value, { embed = false } = {}) {
   } catch {
     return false;
   }
+}
+
+function getSrcSetUrls(value) {
+  const entries = Array.isArray(value) ? value : isNonEmptyString(value) ? value.split(',') : [];
+  return entries
+    .map((entry) => typeof entry === 'string' ? entry.trim().split(/\s+/)[0] : '')
+    .filter(Boolean);
+}
+
+function validateImageMedia(media, path, { published = false } = {}) {
+  const errors = [];
+  if (!isRecord(media)) return [issue(path, '必须是图片配置对象', 'invalid_type')];
+
+  if (media.sources != null && !Array.isArray(media.sources)) {
+    errors.push(issue(`${path}.sources`, '必须是数组', 'invalid_type'));
+  }
+
+  const srcSetUrls = getSrcSetUrls(media.srcSet);
+  if (media.srcSet != null && !isNonEmptyString(media.srcSet) && !Array.isArray(media.srcSet)) {
+    errors.push(issue(`${path}.srcSet`, '必须是字符串或字符串数组', 'invalid_type'));
+  }
+
+  asArray(media.sources).forEach((source, index) => {
+    const sourcePath = `${path}.sources[${index}]`;
+    if (!isRecord(source)) {
+      errors.push(issue(sourcePath, '必须是响应式图片来源对象', 'invalid_type'));
+      return;
+    }
+    if (!isNonEmptyString(source.type) || !/^image\/(avif|webp|jpeg|png)$/.test(source.type)) {
+      errors.push(issue(`${sourcePath}.type`, '必须是受支持的图片 MIME 类型', 'invalid_type'));
+    }
+    const sourceUrls = getSrcSetUrls(source.srcSet);
+    if (sourceUrls.length === 0) {
+      errors.push(issue(`${sourcePath}.srcSet`, '必须配置至少一个响应式图片路径', 'required'));
+    }
+    sourceUrls.forEach((url, urlIndex) => {
+      if (!isSafeContentUrl(url)) {
+        errors.push(issue(`${sourcePath}.srcSet[${urlIndex}]`, '图片路径协议或格式不安全', 'unsafe_url'));
+      }
+    });
+  });
+
+  srcSetUrls.forEach((url, index) => {
+    if (!isSafeContentUrl(url)) {
+      errors.push(issue(`${path}.srcSet[${index}]`, '图片路径协议或格式不安全', 'unsafe_url'));
+    }
+  });
+
+  const hasImage = isNonEmptyString(media.src) || srcSetUrls.length > 0 ||
+    asArray(media.sources).some((source) => getSrcSetUrls(source?.srcSet).length > 0);
+  if (hasImage && !isNonEmptyString(media.alt)) {
+    errors.push(issue(`${path}.alt`, '已配置图片必须填写替代文本', 'required'));
+  }
+  if (hasImage && published && !isNonEmptyString(media.credit)) {
+    errors.push(issue(`${path}.credit`, '已发布图片必须填写版权或摄影说明', 'required'));
+  }
+
+  validateKnownUrls(media, path, errors);
+  return errors;
 }
 
 function validateKnownUrls(value, path, errors, seen = new WeakSet()) {
@@ -480,6 +628,7 @@ function validatePublishedGallery(items, path) {
     if (!isNonEmptyString(item.alt)) {
       errors.push(issue(`${itemPath}.alt`, '已发布照片必须填写替代文本', 'required'));
     }
+    errors.push(...validateImageMedia(item, itemPath, { published: true }));
   });
   return errors;
 }
@@ -494,14 +643,25 @@ function validateVideos(items, path) {
     const isPublished = item.publishStatus === PUBLISH_STATUS.PUBLISHED;
 
     if (item.type != null && !allowedVideoTypes.has(item.type)) {
-      errors.push(issue(`${itemPath}.type`, '视频类型必须是 embed、file 或 external'));
+      errors.push(issue(`${itemPath}.type`, '视频类型必须是 nju-box、bilibili、embed、file 或 external'));
     } else if (isPublished && !allowedVideoTypes.has(item.type)) {
       errors.push(issue(`${itemPath}.type`, '已发布视频必须填写有效类型', 'required'));
     }
     if (isPublished && !isNonEmptyString(item.title)) {
       errors.push(issue(`${itemPath}.title`, '已发布视频必须填写标题', 'required'));
     }
-    if (isPublished && !videoSourceFields.some((field) => isNonEmptyString(item[field]))) {
+    const hasBilibiliSource = item.type === 'bilibili' && /^BV[0-9A-Za-z]{10}$/.test(item.bvid ?? '');
+    const hasNjuBoxSource = item.type === 'nju-box' &&
+      /^https:\/\/box\.nju\.edu\.cn\/d\/[a-z0-9]+\/$/i.test(item.shareUrl ?? '') &&
+      /^\/[^?#]+\.(mp4|webm|ogg)$/i.test(item.filePath ?? '');
+    if (item.type === 'bilibili' && item.bvid != null && !/^BV[0-9A-Za-z]{10}$/.test(item.bvid)) {
+      errors.push(issue(`${itemPath}.bvid`, 'BV 号格式无效，应为 BV 加 10 位字母或数字'));
+    }
+    if (item.type === 'nju-box' && !hasNjuBoxSource) {
+      errors.push(issue(`${itemPath}.filePath`, '南大 Box 视频必须配置公开分享链接和有效视频文件路径'));
+    }
+    if (isPublished && !hasBilibiliSource && !hasNjuBoxSource &&
+      !videoSourceFields.some((field) => !['bvid', 'shareUrl'].includes(field) && isNonEmptyString(item[field]))) {
       errors.push(issue(`${itemPath}.source`, '已发布视频必须填写播放或外部来源', 'required'));
     }
 
@@ -577,6 +737,9 @@ export function validatePracticeSite(site, index = 0) {
   if (!allowedSiteTypes.has(site.type)) errors.push(issue(`${path}.type`, '实践点类型无效'));
   if (!isNonEmptyString(site.summary)) errors.push(issue(`${path}.summary`, '必须是非空字符串', 'required'));
   if (!allowedStatuses.has(site.publishStatus)) errors.push(issue(`${path}.publishStatus`, '发布状态无效'));
+  errors.push(...validateImageMedia(site.bannerImage, `${path}.bannerImage`, {
+    published: site.publishStatus === PUBLISH_STATUS.PUBLISHED,
+  }));
 
   if (!isRecord(site.visit)) {
     errors.push(issue(`${path}.visit`, '必须是对象', 'required'));
@@ -768,6 +931,9 @@ export function validateContentCollections(collections = contentCollections) {
       errors.push(issue('projectProfile.publishStatus', '发布状态无效'));
     }
     validateKnownUrls(collections.projectProfile, 'projectProfile', errors);
+    errors.push(...validateImageMedia(collections.projectProfile.heroImage, 'projectProfile.heroImage', {
+      published: collections.projectProfile.publishStatus === PUBLISH_STATUS.PUBLISHED,
+    }));
   }
 
   return errors;

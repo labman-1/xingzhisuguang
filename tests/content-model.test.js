@@ -15,6 +15,7 @@ import {
   getVisibleProfiles,
   getVisibleResources,
   getVisitSchedule,
+  mediaServices,
   PUBLISH_STATUS,
   practiceSites,
   projectProfile,
@@ -229,6 +230,7 @@ describe('content model', () => {
           id: 'valid-photo',
           src: '/media/photo.webp',
           alt: '课堂观察现场',
+          credit: '实践团队',
           publishStatus: PUBLISH_STATUS.PUBLISHED,
         },
       ],
@@ -238,6 +240,21 @@ describe('content model', () => {
           title: '访谈视频',
           type: 'embed',
           embedUrl: 'https://example.com/embed/video',
+          publishStatus: PUBLISH_STATUS.PUBLISHED,
+        },
+        {
+          id: 'valid-nju-box-video',
+          title: '南大云盘采访视频',
+          type: 'nju-box',
+          shareUrl: mediaServices.njuBox.shareUrl,
+          filePath: '/6.29五塘/采访视频.mp4',
+          publishStatus: PUBLISH_STATUS.PUBLISHED,
+        },
+        {
+          id: 'valid-bilibili-video',
+          title: '哔哩哔哩公开视频',
+          type: 'bilibili',
+          bvid: 'BV1xx411c7mD',
           publishStatus: PUBLISH_STATUS.PUBLISHED,
         },
       ],
@@ -277,6 +294,11 @@ describe('content model', () => {
     expect(ids.every((id) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id))).toBe(true);
 
     for (const site of practiceSites) {
+      expect(site.bannerImage).toEqual(expect.objectContaining({
+        assetDirectory: `media/${site.id}/backgrounds/`,
+        sources: expect.any(Array),
+        focalPoint: expect.any(String),
+      }));
       expect(getSiteById(site.id)).toEqual(
         expect.objectContaining({ id: site.id, name: site.name }),
       );
