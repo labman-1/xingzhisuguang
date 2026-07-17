@@ -21,8 +21,11 @@ describe('application routes', () => {
     expect(
       screen.getByRole('heading', { level: 1, name: /追寻陶行知教育思想的当代足迹/ }),
     ).toBeInTheDocument();
-    expect(screen.getByText('陶行知先生历史影像待授权后发布')).toBeVisible();
-    expect(document.querySelector('section[data-has-hero-image="false"] img')).toBeNull();
+    expect(
+      screen.getByRole('img', { name: '陶行知先生身穿中式长衫、佩戴圆框眼镜的黑白肖像' }),
+    ).toBeVisible();
+    expect(screen.queryByText(/历史影像待授权后发布/)).not.toBeInTheDocument();
+    expect(document.querySelector('section[data-has-hero-image="true"] img')).not.toBeNull();
     expect(screen.getAllByRole('link', { name: /查看详情/ })).toHaveLength(6);
 
     await waitFor(() => {

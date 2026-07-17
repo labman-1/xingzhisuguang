@@ -30,12 +30,20 @@ function createImageSlot({ directory, alt, fallbackLabel, focalPoint = '50% 50%'
 }
 
 export const sharedMedia = {
-  homeHero: createImageSlot({
-    directory: 'media/shared/',
-    alt: '陶行知先生历史影像',
-    fallbackLabel: '陶行知先生历史影像待授权后发布',
-    focalPoint: '50% 32%',
-  }),
+  homeHero: {
+    ...createImageSlot({
+      directory: 'media/shared/',
+      alt: '陶行知先生身穿中式长衫、佩戴圆框眼镜的黑白肖像',
+      fallbackLabel: '',
+      focalPoint: '50% 42%',
+    }),
+    src: 'media/shared/tao-xingzhi-portrait.jpg',
+    sizes: '(min-width: 1024px) 28rem, (min-width: 640px) 24rem, 88vw',
+    width: 200,
+    height: 270,
+    credit: '作者不详，1930 年以前（Wikimedia Commons，公有领域）',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Tao_Xing-zhi.jpg',
+  },
 };
 
 export const mediaServices = {
