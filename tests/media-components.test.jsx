@@ -7,6 +7,7 @@ import InterviewAccordion from '../src/components/InterviewAccordion';
 import Navbar from '../src/components/Navbar';
 import PhotoWall from '../src/components/PhotoWall';
 import SchoolCard from '../src/components/SchoolCard';
+import SchoolDetail from '../src/components/SchoolDetail';
 import VideoPlayer from '../src/components/VideoPlayer';
 import './setup';
 
@@ -48,9 +49,30 @@ describe('accessible navigation and cards', () => {
 
     const link = screen.getByRole('link', { name: /示例学校/ });
     expect(link).toHaveAttribute('href', '/sites/sample-school');
+    expect(screen.queryByText('示')).not.toBeInTheDocument();
 
     fireEvent.click(link);
     expect(onClick).toHaveBeenCalledWith('sample-school', expect.any(Object));
+  });
+
+  it('uses a blurred copy panel without a single-character school badge', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <SchoolDetail
+          school={{
+            id: 'sample-school',
+            name: '示例学校',
+            summary: '在不同明暗的校园照片上仍然清晰可读。',
+            logoPlaceholder: '示',
+            bannerImage: '/banner.webp',
+            visit: { date: '2026-07-01', stage: '第二站' },
+          }}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(container.querySelector('.school-detail-hero-copy')).toHaveClass('backdrop-blur-md');
+    expect(screen.queryByText('示')).not.toBeInTheDocument();
   });
 });
 

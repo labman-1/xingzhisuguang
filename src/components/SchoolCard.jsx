@@ -49,10 +49,7 @@ export default function SchoolCard({ school, onClick }) {
             overlayClassName="bg-[#061b17]/64"
             showCredit={false}
           />
-          <div className="relative z-10 flex h-full items-start justify-between gap-3 p-4">
-            <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-lg font-black shadow-sm ${hasBanner ? 'bg-amber-300 text-emerald-950' : 'border border-[#d8c9a8] bg-[#fffaf0] text-emerald-900'}`} aria-hidden="true">
-              {school.logoPlaceholder || name.slice(0, 1)}
-            </span>
+          <div className="relative z-10 flex h-full items-start justify-end gap-3 p-4">
             {stage && (
               <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold backdrop-blur-sm ${hasBanner ? 'border-white/35 bg-[#071d18]/65 text-white' : 'border-[#cdbb94] bg-[#fffaf0]/90 text-emerald-900'}`}>
                 <MapPin aria-hidden="true" size={13} />

@@ -128,7 +128,6 @@ export default function SchoolDetail({ school, onBack }) {
   const gallery = school.gallery || school.photos || school.media?.gallery || [];
   const videos = school.videos || school.video || school.media?.videos || [];
   const interviews = school.interviews || [];
-  const logo = typeof school.logo === 'string' ? { src: school.logo } : school.logo;
   const bannerImage = school.bannerImage || school.media?.banner;
   const hasBanner = hasImageSource(bannerImage);
   const focus = asArray(visit.focus || visit.focuses).map(getLabel).filter(Boolean);
@@ -188,38 +187,29 @@ export default function SchoolDetail({ school, onBack }) {
             )}
           </div>
 
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-            <span className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-amber-300 text-2xl font-black text-emerald-950 shadow-lg" aria-hidden={!logo?.src}>
-              {logo?.src ? (
-                <img src={logo.src} alt={logo.alt || `${name}标志`} className="h-full w-full object-cover" />
-              ) : (
-                school.logoPlaceholder || name.slice(0, 1)
-              )}
-            </span>
-            <div>
-              <p className={`mb-2 text-sm font-bold tracking-[0.16em] ${hasBanner ? 'text-amber-200' : 'text-[#8a651d]'}`}>行知教育当代实践样本</p>
-              <h1
-                id="school-detail-title"
-                data-page-heading
-                tabIndex={-1}
-                className="text-balance text-3xl font-black leading-tight focus:outline-none sm:text-4xl md:text-5xl"
-              >
-                {name}
-              </h1>
-            </div>
+          <div className={`school-detail-hero-copy max-w-5xl rounded-2xl border px-5 py-5 backdrop-blur-md sm:px-7 sm:py-6 ${hasBanner ? 'border-white/20 bg-[#071d18]/70 shadow-lg shadow-black/15' : 'border-[#d8c9a8] bg-[#fffaf0]/85 shadow-sm'}`}>
+            <p className={`mb-2 text-sm font-bold tracking-[0.16em] ${hasBanner ? 'text-amber-200' : 'text-[#8a651d]'}`}>行知教育当代实践样本</p>
+            <h1
+              id="school-detail-title"
+              data-page-heading
+              tabIndex={-1}
+              className="text-balance text-3xl font-black leading-tight focus:outline-none sm:text-4xl md:text-5xl"
+            >
+              {name}
+            </h1>
+
+            {summary && <div className={`mt-5 text-base leading-8 sm:text-lg ${hasBanner ? 'text-white' : 'text-[#49645b]'}`}><ProseBlocks value={summary} /></div>}
+
+            {contextualTags.length > 0 && (
+              <div className="mt-5 flex flex-wrap gap-2" aria-label="教育理念与调研重点">
+                {contextualTags.map((tag) => (
+                  <span key={tag} className={`rounded-full border px-3 py-1.5 text-sm font-semibold ${hasBanner ? 'border-amber-200/40 bg-[#071d18]/45 text-amber-100' : 'border-[#c8aa69] bg-[#f5e8c7] text-[#795612]'}`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
-
-          {summary && <div className={`mt-7 max-w-4xl text-base leading-8 sm:text-lg ${hasBanner ? 'text-[#f7f0df]' : 'text-[#49645b]'}`}><ProseBlocks value={summary} /></div>}
-
-          {contextualTags.length > 0 && (
-            <div className="mt-7 flex flex-wrap gap-2" aria-label="教育理念与调研重点">
-              {contextualTags.map((tag) => (
-                <span key={tag} className={`rounded-full border px-3 py-1.5 text-sm font-semibold ${hasBanner ? 'border-amber-200/35 bg-amber-300/15 text-amber-100' : 'border-[#c8aa69] bg-[#f5e8c7] text-[#795612]'}`}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </header>
 
