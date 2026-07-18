@@ -81,7 +81,14 @@ export const practiceSites = [
     practices: [
       { id: 'wutang-curriculum', title: '课程改革与学生综合素质培养', publishStatus: draft },
     ],
-    gallery: [],
+    gallery: [
+      { id: 'wutang-campus-01', src: 'media/wutang/campus-01.webp', alt: '五塘小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1024, height: 769, publishStatus: published },
+      { id: 'wutang-campus-02', src: 'media/wutang/campus-02.webp', alt: '五塘小学学生手工作品', caption: '手工作品', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'wutang-campus-03', src: 'media/wutang/campus-03.webp', alt: '五塘小学楼道', caption: '楼道', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'wutang-campus-04', src: 'media/wutang/campus-04.webp', alt: '五塘小学走廊', caption: '介绍走廊', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'wutang-group-photo', src: 'media/wutang/合照.webp', alt: '团队成员与五塘小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'wutang-interview-photo', src: 'media/wutang/访谈.webp', alt: '五塘小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 768, height: 1024, publishStatus: published },
+    ],
     videos: [createNjuBoxVideo({
       id: 'wutang-video',
       title: '五塘小学采访视频',
@@ -109,7 +116,9 @@ export const practiceSites = [
       { id: 'yanziyou-sanli', title: '三力课程体系', publishStatus: draft },
       { id: 'yanziyou-little-teacher', title: '小先生制', publishStatus: draft },
     ],
-    gallery: [],
+    gallery: [
+      { id: 'yanziyou-campus-01', src: 'media/yanziyou/campus-01.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1024, height: 576, publishStatus: published },
+    ],
     videos: [1, 2, 3, 4].map((part) => createNjuBoxVideo({
       id: `yanziyou-video-${part}`,
       title: `燕子矶幼儿园采访视频 ${part}`,
@@ -165,7 +174,16 @@ export const practiceSites = [
     practices: [
       { id: 'xiaozhuang-labour', title: '劳动教育与生活实践', publishStatus: draft },
     ],
-    gallery: [],
+    gallery: [
+      { id: 'xiaozhuang-campus-01', src: 'media/xiaozhuang/campus-01.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-campus-02', src: 'media/xiaozhuang/campus-02.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
+      { id: 'xiaozhuang-campus-03', src: 'media/xiaozhuang/campus-03.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-campus-04', src: 'media/xiaozhuang/campus-04.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-campus-05', src: 'media/xiaozhuang/campus-05.webp', alt: '晓庄小学乐学棚', caption: '乐学棚', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-campus-06', src: 'media/xiaozhuang/campus-06.webp', alt: '晓庄小学菜地', caption: '菜地', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-group-photo', src: 'media/xiaozhuang/合照.webp', alt: '团队成员与晓庄小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
+      { id: 'xiaozhuang-interview-photo', src: 'media/xiaozhuang/访谈.webp', alt: '晓庄小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+    ],
     videos: [createNjuBoxVideo({
       id: 'xiaozhuang-video',
       title: '晓庄小学采访视频',
@@ -190,7 +208,14 @@ export const practiceSites = [
     }),
     philosophyTags: [],
     practices: [{ id: 'xiaoshi-curriculum', title: '校本课程体系', publishStatus: draft }],
-    gallery: [],
+    gallery: [
+      { id: 'xiaoshi-campus-01', src: 'media/xiaoshi/campus-01.webp', alt: '小市中心小学校门', caption: '校门', credit: '行知溯光实践团队', width: 1067, height: 1600, publishStatus: published },
+      { id: 'xiaoshi-campus-02', src: 'media/xiaoshi/campus-02.webp', alt: '小市中心小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
+      { id: 'xiaoshi-campus-03', src: 'media/xiaoshi/campus-03.webp', alt: '小市中心小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
+      { id: 'xiaoshi-campus-04', src: 'media/xiaoshi/campus-04.webp', alt: '小市中心小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
+      { id: 'xiaoshi-group-photo', src: 'media/xiaoshi/合照.webp', alt: '团队成员与小市中心小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
+      { id: 'xiaoshi-interview-photo', src: 'media/xiaoshi/访谈.webp', alt: '小市中心小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1200, height: 1600, publishStatus: published },
+    ],
     videos: [{ id: 'xiaoshi-video', title: '小市中心小学实践纪实', embedUrl: '', publishStatus: draft }],
     interviews: [],
     resources: [],
@@ -213,7 +238,12 @@ export const practiceSites = [
     practices: [
       { id: 'xiaozhuangshiyan-integration', title: '课程整合、跨学科教学与自主学习', publishStatus: draft },
     ],
-    gallery: [],
+    gallery: [
+      { id: 'xiaozhuangshiyan-campus-01', src: 'media/xiaozhuangshiyan/campus-01.webp', alt: '南京晓庄实验学校校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 2133, publishStatus: published },
+      { id: 'xiaozhuangshiyan-campus-02', src: 'media/xiaozhuangshiyan/campus-02.webp', alt: '南京晓庄实验学校校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
+      { id: 'xiaozhuangshiyan-group-photo', src: 'media/xiaozhuangshiyan/合照.webp', alt: '团队成员与南京晓庄实验学校教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 722, publishStatus: published },
+      { id: 'xiaozhuangshiyan-interview-photo', src: 'media/xiaozhuangshiyan/访谈.webp', alt: '南京晓庄实验学校教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
+    ],
     videos: [createNjuBoxVideo({
       id: 'xiaozhuangshiyan-video',
       title: '南京晓庄实验学校采访视频',
@@ -240,7 +270,14 @@ export const practiceSites = [
     practices: [
       { id: 'xiaozhuangfushu-teachers', title: '教师专业发展与校本教研', publishStatus: draft },
     ],
-    gallery: [],
+    gallery: [
+      { id: 'xiaozhuangfushu-campus-01', src: 'media/xiaozhuangfushu/campus-01.webp', alt: '晓庄附属小学书画作品展', caption: '书画作品展', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'xiaozhuangfushu-campus-02', src: 'media/xiaozhuangfushu/campus-02.webp', alt: '晓庄附属小学校门', caption: '校门', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'xiaozhuangfushu-campus-03', src: 'media/xiaozhuangfushu/campus-03.webp', alt: '晓庄附属小学历史栏', caption: '历史栏', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'xiaozhuangfushu-campus-04', src: 'media/xiaozhuangfushu/campus-04.webp', alt: '晓庄附属小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 768, height: 1024, publishStatus: published },
+      { id: 'xiaozhuangfushu-campus-05', src: 'media/xiaozhuangfushu/campus-05.webp', alt: '晓庄附属小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'xiaozhuangfushu-group-photo', src: 'media/xiaozhuangfushu/合照.webp', alt: '团队成员与晓庄附属小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+    ],
     videos: [{ id: 'xiaozhuangfushu-video', title: '晓庄附属小学实践纪实', embedUrl: '', publishStatus: draft }],
     interviews: [],
     resources: [],
