@@ -187,7 +187,7 @@ export default function SchoolDetail({ school, onBack }) {
             )}
           </div>
 
-          <div className={`school-detail-hero-copy max-w-5xl rounded-2xl border px-5 py-5 backdrop-blur-md sm:px-7 sm:py-6 ${hasBanner ? 'border-white/20 bg-[#071d18]/70 shadow-lg shadow-black/15' : 'border-[#d8c9a8] bg-[#fffaf0]/85 shadow-sm'}`}>
+          <div className={`school-detail-hero-copy w-fit max-w-4xl rounded-2xl border px-4 py-4 backdrop-blur-sm sm:px-5 sm:py-5 ${hasBanner ? 'border-white/15 bg-[#071d18]/55 shadow-md shadow-black/10' : 'border-[#d8c9a8] bg-[#fffaf0]/80 shadow-sm'}`}>
             <p className={`mb-2 text-sm font-bold tracking-[0.16em] ${hasBanner ? 'text-amber-200' : 'text-[#8a651d]'}`}>行知教育当代实践样本</p>
             <h1
               id="school-detail-title"

@@ -71,7 +71,11 @@ describe('accessible navigation and cards', () => {
       </MemoryRouter>,
     );
 
-    expect(container.querySelector('.school-detail-hero-copy')).toHaveClass('backdrop-blur-md');
+    expect(container.querySelector('.school-detail-hero-copy')).toHaveClass(
+      'w-fit',
+      'max-w-4xl',
+      'backdrop-blur-sm',
+    );
     expect(screen.queryByText('示')).not.toBeInTheDocument();
   });
 });
