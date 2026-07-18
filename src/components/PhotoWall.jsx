@@ -1,5 +1,14 @@
-import { Camera, ChevronLeft, ChevronRight, Expand, Image as ImageIcon, X } from 'lucide-react';
-import { useEffect, useId, useRef, useState } from 'react';
+import {
+  Camera,
+  ChevronLeft,
+  ChevronRight,
+  Expand,
+  Image as ImageIcon,
+  Pause,
+  Play,
+  X,
+} from 'lucide-react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import ResponsiveImage from './ResponsiveImage';
 
 function normalizePhoto(photo, index, schoolName) {
@@ -26,10 +35,21 @@ function normalizePhoto(photo, index, schoolName) {
 }
 
 function prefersReducedMotion() {
-  return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+  return typeof window !== 'undefined' &&
+    (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false);
 }
 
-export default function PhotoWall({ photos = [], schoolName = '' }) {
+export default function PhotoWall({
+  photos = [],
+  schoolName = '',
+  eyebrow = '现场影像',
+  title = '影像纪实',
+  description = '左右滑动浏览；聚焦图片区后可使用方向键。',
+  autoPlay = false,
+  showCredit = true,
+  id,
+  className = '',
+}) {
   const normalizedPhotos = (Array.isArray(photos) ? photos : [])
     .map((photo, index) => normalizePhoto(photo, index, schoolName))
     .filter((photo) => photo?.src);
@@ -42,6 +62,8 @@ export default function PhotoWall({ photos = [], schoolName = '' }) {
   const [activeIndex, setActiveIndex] = useState(null);
   const [canScrollBack, setCanScrollBack] = useState(false);
   const [canScrollForward, setCanScrollForward] = useState(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(Boolean(autoPlay));
+  const [isInteractionPaused, setIsInteractionPaused] = useState(false);
   const activePhoto = activeIndex == null ? null : normalizedPhotos[activeIndex];
 
   useEffect(() => {
@@ -104,7 +126,7 @@ export default function PhotoWall({ photos = [], schoolName = '' }) {
     };
   }, [activeIndex, normalizedPhotos.length]);
 
-  const scrollRail = (direction) => {
+  const scrollRail = useCallback((direction) => {
     const rail = railRef.current;
     if (!rail) return;
     const distance = Math.max(rail.clientWidth * 0.82, 280) * direction;
@@ -113,7 +135,29 @@ export default function PhotoWall({ photos = [], schoolName = '' }) {
     } else {
       rail.scrollLeft += distance;
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!autoPlay || !isAutoPlaying || isInteractionPaused || activeIndex != null ||
+      normalizedPhotos.length < 2 || prefersReducedMotion()) return undefined;
+
+    const timer = window.setInterval(() => {
+      const rail = railRef.current;
+      if (!rail) return;
+      const reachedEnd = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+      if (reachedEnd) {
+        if (typeof rail.scrollTo === 'function') {
+          rail.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          rail.scrollLeft = 0;
+        }
+        return;
+      }
+      scrollRail(1);
+    }, 5200);
+
+    return () => window.clearInterval(timer);
+  }, [activeIndex, autoPlay, isAutoPlaying, isInteractionPaused, normalizedPhotos.length, scrollRail]);
 
   const handleRailKeyDown = (event) => {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -133,14 +177,24 @@ export default function PhotoWall({ photos = [], schoolName = '' }) {
   };
 
   return (
-    <section aria-labelledby={headingId}>
+    <section
+      id={id}
+      className={className}
+      aria-labelledby={headingId}
+      onMouseEnter={() => setIsInteractionPaused(true)}
+      onMouseLeave={() => setIsInteractionPaused(false)}
+      onFocusCapture={() => setIsInteractionPaused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setIsInteractionPaused(false);
+      }}
+    >
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700" aria-hidden="true">
           <Camera size={20} />
         </span>
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-emerald-700">现场影像</p>
-          <h2 id={headingId} className="text-2xl font-bold text-[#173c32]">影像纪实</h2>
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-emerald-700">{eyebrow}</p>
+          <h2 id={headingId} className="text-2xl font-bold text-[#173c32]">{title}</h2>
         </div>
         <span className="ml-auto rounded-full bg-[#eee5d3] px-3 py-1 text-xs font-semibold text-[#5c6b64]">
           {normalizedPhotos.length > 0 ? `${normalizedPhotos.length} 张` : '整理中'}
@@ -150,8 +204,21 @@ export default function PhotoWall({ photos = [], schoolName = '' }) {
       {normalizedPhotos.length > 0 ? (
         <div className="relative">
           <div className="mb-4 flex items-center justify-between gap-4">
-            <p className="text-sm text-[#617068]">左右滑动浏览；聚焦图片区后可使用方向键。</p>
+            <p className="text-sm text-[#617068]">{description}</p>
             <div className="flex shrink-0 gap-2">
+              {autoPlay && normalizedPhotos.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => setIsAutoPlaying((playing) => !playing)}
+                  className="media-rail-button"
+                  aria-label={isAutoPlaying ? '暂停自动播放' : '继续自动播放'}
+                  aria-pressed={!isAutoPlaying}
+                >
+                  {isAutoPlaying
+                    ? <Pause aria-hidden="true" size={18} />
+                    : <Play aria-hidden="true" size={18} />}
+                </button>
+              )}
               <button
                 type="button"
                 onClick={() => scrollRail(-1)}
@@ -204,7 +271,7 @@ export default function PhotoWall({ photos = [], schoolName = '' }) {
                     </button>
                     <figcaption className="min-h-24 space-y-1 px-4 py-3 text-sm leading-6 text-[#41564e]">
                       <p>{photo.caption || photo.alt}</p>
-                      {photo.credit && (
+                      {showCredit && photo.credit && (
                         <p className="text-xs text-[#69766f]">
                           {photo.sourceUrl ? (
                             <a className="underline underline-offset-2 hover:text-emerald-800" href={photo.sourceUrl} target="_blank" rel="noopener noreferrer">
@@ -293,7 +360,7 @@ export default function PhotoWall({ photos = [], schoolName = '' }) {
               )}
             </div>
 
-            {activePhoto.credit && (
+            {showCredit && activePhoto.credit && (
               <p className="border-t border-white/15 px-4 py-3 text-xs text-emerald-100 sm:px-5">
                 图片：{activePhoto.credit}
               </p>

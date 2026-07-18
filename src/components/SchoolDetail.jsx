@@ -165,6 +165,7 @@ export default function SchoolDetail({ school, onBack }) {
           className="absolute inset-0"
           overlayClassName="bg-[#061b17]/76"
           loading="eager"
+          showCredit={false}
         />
         <div className="relative z-10">
           <div className="mb-6 flex flex-wrap gap-2">
@@ -296,7 +297,13 @@ export default function SchoolDetail({ school, onBack }) {
           );
         })}
 
-        <PhotoWall photos={gallery} schoolName={name} />
+        <PhotoWall
+          photos={gallery}
+          schoolName={name}
+          description="画面会自动向左流动；也可左右滑动、点击按钮或使用方向键切换。"
+          autoPlay
+          showCredit={false}
+        />
         <VideoPlayer videos={videos} />
         <InterviewAccordion interviews={interviews} />
 

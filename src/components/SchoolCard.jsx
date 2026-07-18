@@ -47,6 +47,7 @@ export default function SchoolCard({ school, onClick }) {
             media={bannerImage}
             className="absolute inset-0"
             overlayClassName="bg-[#061b17]/64"
+            showCredit={false}
           />
           <div className="relative z-10 flex h-full items-start justify-between gap-3 p-4">
             <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-lg font-black shadow-sm ${hasBanner ? 'bg-amber-300 text-emerald-950' : 'border border-[#d8c9a8] bg-[#fffaf0] text-emerald-900'}`} aria-hidden="true">

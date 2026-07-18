@@ -29,6 +29,22 @@ function createImageSlot({ directory, alt, fallbackLabel, focalPoint = '50% 50%'
   };
 }
 
+function createTeamBanner({ src, alt, caption, width, height, focalPoint = '50% 50%' }) {
+  return {
+    src,
+    srcSet: [],
+    sources: [],
+    sizes: '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+    alt,
+    caption,
+    credit: '行知溯光实践团队',
+    sourceUrl: '',
+    focalPoint,
+    width,
+    height,
+  };
+}
+
 export const sharedMedia = {
   homeHero: {
     ...createImageSlot({
@@ -72,10 +88,13 @@ export const practiceSites = [
     visit: { date: '2026-06-29', displayDate: '6.29', sequence: 1, stage: '第一站' },
     summary:
       '五塘小学是本次"行知溯光"社会实践的第一站。学校秉承陶行知先生的教育理念，在课程改革与学生综合素质培养方面进行了积极探索。团队成员在此开展了初步的校园参观与教师访谈，为后续调研奠定了基础。',
-    bannerImage: createImageSlot({
-      directory: 'media/wutang/backgrounds/',
-      alt: '五塘小学校园或课堂实践影像',
-      fallbackLabel: '五塘小学影像待授权后发布',
+    bannerImage: createTeamBanner({
+      src: 'media/wutang/campus-01.webp',
+      alt: '五塘小学教学楼与运动场',
+      caption: '五塘小学校园',
+      width: 1024,
+      height: 769,
+      focalPoint: '50% 52%',
     }),
     philosophyTags: [],
     practices: [
@@ -106,10 +125,13 @@ export const practiceSites = [
     visit: { date: '2026-07-01', displayDate: '7.1', sequence: 2, stage: '第二站' },
     summary:
       '燕子矶幼儿园是本次调研中唯一一所学前教育机构。园所以陶行知"生活教育"理念为指导，构建了独具特色的"三力课程体系"，并在日常教学中推行"小先生制"，让幼儿在互教互学中成长。本次访谈深入探讨了课程落地的具体实践、一线教师面临的困难与挑战，以及"小先生制"在学前教育阶段的创新应用。',
-    bannerImage: createImageSlot({
-      directory: 'media/yanziyou/backgrounds/',
-      alt: '燕子矶幼儿园校园或课堂实践影像',
-      fallbackLabel: '燕子矶幼儿园影像待授权后发布',
+    bannerImage: createTeamBanner({
+      src: 'media/yanziyou/campus-01.webp',
+      alt: '团队成员走进燕子矶幼儿园校园',
+      caption: '走进燕子矶幼儿园',
+      width: 1024,
+      height: 576,
+      focalPoint: '50% 48%',
     }),
     philosophyTags: ['生活即教育', '小先生制'],
     practices: [
@@ -165,10 +187,13 @@ export const practiceSites = [
     visit: { date: '2026-07-02', displayDate: '7.2', sequence: 3, stage: '第三站' },
     summary:
       '晓庄小学与陶行知先生有着深厚的历史渊源。作为晓庄地区的代表性小学，学校在传承行知精神、开展劳动教育与生活实践方面积累了丰富经验。团队成员在此围绕"教学做合一"理念在小学课堂中的落地展开了深入调研。',
-    bannerImage: createImageSlot({
-      directory: 'media/xiaozhuang/backgrounds/',
-      alt: '晓庄小学校园、课堂或历史影像',
-      fallbackLabel: '晓庄小学影像待授权后发布',
+    bannerImage: createTeamBanner({
+      src: 'media/xiaozhuang/campus-05.webp',
+      alt: '晓庄小学校园内的乐学棚与劳动实践区',
+      caption: '晓庄小学乐学棚',
+      width: 1600,
+      height: 900,
+      focalPoint: '50% 48%',
     }),
     philosophyTags: ['教学做合一'],
     practices: [
@@ -201,10 +226,13 @@ export const practiceSites = [
     visit: { date: '2026-07-02', displayDate: '7.2', sequence: 4, stage: '第四站' },
     summary:
       '小市中心小学位于南京城区，在素质教育与课程创新方面持续探索。学校将陶行知教育思想与现代教育技术相结合，形成了独具特色的校本课程体系。团队在此重点调研了城市小学如何在新时期背景下践行行知理念。',
-    bannerImage: createImageSlot({
-      directory: 'media/xiaoshi/backgrounds/',
-      alt: '小市中心小学校园或课堂实践影像',
-      fallbackLabel: '小市中心小学影像待授权后发布',
+    bannerImage: createTeamBanner({
+      src: 'media/xiaoshi/campus-02.webp',
+      alt: '小市中心小学行知教育文化墙',
+      caption: '小市中心小学行知文化墙',
+      width: 1600,
+      height: 1067,
+      focalPoint: '50% 48%',
     }),
     philosophyTags: [],
     practices: [{ id: 'xiaoshi-curriculum', title: '校本课程体系', publishStatus: draft }],
@@ -229,10 +257,13 @@ export const practiceSites = [
     visit: { date: '2026-07-03', displayDate: '7.3', sequence: 5, stage: '第五站' },
     summary:
       '南京晓庄实验学校是一所九年一贯制学校，在晓庄教育体系中承担着重要的实验与示范功能。学校在课程整合、跨学科教学以及学生自主学习能力培养方面进行了大量创新实践，为团队提供了丰富的调研素材。',
-    bannerImage: createImageSlot({
-      directory: 'media/xiaozhuangshiyan/backgrounds/',
-      alt: '南京晓庄实验学校校园或课堂实践影像',
-      fallbackLabel: '南京晓庄实验学校影像待授权后发布',
+    bannerImage: createTeamBanner({
+      src: 'media/xiaozhuangshiyan/campus-02.webp',
+      alt: '南京晓庄实验学校校史与校风展墙',
+      caption: '南京晓庄实验学校文化展墙',
+      width: 1600,
+      height: 1200,
+      focalPoint: '50% 46%',
     }),
     philosophyTags: [],
     practices: [
@@ -261,10 +292,13 @@ export const practiceSites = [
     visit: { date: '2026-07-03', displayDate: '7.3', sequence: 6, stage: '第六站' },
     summary:
       '晓庄附属小学是本次社会实践的最后一站。学校依托晓庄教育集团的资源优势，在教师专业发展与校本教研方面形成了鲜明特色。团队在此对为期五天的调研进行了总结性访谈与资料收集，为后续成果整理积累了宝贵的一手素材。',
-    bannerImage: createImageSlot({
-      directory: 'media/xiaozhuangfushu/backgrounds/',
-      alt: '晓庄附属小学校园或课堂实践影像',
-      fallbackLabel: '晓庄附属小学影像待授权后发布',
+    bannerImage: createTeamBanner({
+      src: 'media/xiaozhuangfushu/campus-02.webp',
+      alt: '南京晓庄学院附属小学校门',
+      caption: '晓庄附属小学校门',
+      width: 1024,
+      height: 768,
+      focalPoint: '50% 45%',
     }),
     philosophyTags: [],
     practices: [

@@ -55,6 +55,20 @@ describe('accessible navigation and cards', () => {
 });
 
 describe('media presentation', () => {
+  it('lets visitors pause and resume an automatically advancing gallery', () => {
+    render(
+      <PhotoWall
+        schoolName="示例学校"
+        photos={['/photo-1.webp', '/photo-2.webp']}
+        autoPlay
+      />,
+    );
+
+    const pauseButton = screen.getByRole('button', { name: '暂停自动播放' });
+    fireEvent.click(pauseButton);
+    expect(screen.getByRole('button', { name: '继续自动播放' })).toBeInTheDocument();
+  });
+
   it('renders structured photo metadata and a useful empty state', () => {
     const { rerender } = render(
       <PhotoWall

@@ -13,7 +13,7 @@
  */
 
 import { readdir, mkdir } from 'node:fs/promises';
-import { extname, join, basename } from 'node:path';
+import { extname, join } from 'node:path';
 import { existsSync } from 'node:fs';
 import sharp from 'sharp';
 

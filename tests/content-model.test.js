@@ -317,9 +317,10 @@ describe('content model', () => {
 
     for (const site of practiceSites) {
       expect(site.bannerImage).toEqual(expect.objectContaining({
-        assetDirectory: `media/${site.id}/backgrounds/`,
+        src: expect.stringMatching(new RegExp(`^media/${site.id}/`)),
         sources: expect.any(Array),
         focalPoint: expect.any(String),
+        credit: '行知溯光实践团队',
       }));
       expect(getSiteById(site.id)).toEqual(
         expect.objectContaining({ id: site.id, name: site.name }),
