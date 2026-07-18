@@ -358,8 +358,56 @@ export const educationalIdeas = [
   },
 ];
 
-// 书院资料与成果素材尚未核验；先保留独立集合，后续可直接追加条目。
-export const academyHeritageEntries = [];
+export const academyHeritageSource = {
+  title: '熠熠来路忆行知',
+  publisher: '南京大学行知书院',
+  url: 'https://mp.weixin.qq.com/mp/homepage?__biz=Mzg5MjU1MjAyMA==&hid=4&sn=a585419ab6923454bd3bdaebadacc55f&scene=1',
+};
+
+export const academyHeritageEntries = [
+  {
+    id: '2025-zhang-chenghe-interview',
+    year: '2025',
+    period: '暑期实践 · 第一站',
+    sequence: 1,
+    category: '口述史寻访',
+    title: '专访晓庄小学亲历者张成和',
+    summary:
+      '“行知溯光”实践团队走近晓庄小学亲历者张成和，以口述访谈回望他与晓庄教育的生命交集，记录行知精神如何在亲历者记忆与当代教育中延续。',
+    image: {
+      src: 'media/heritage/2025-zhang-chenghe-cover.jpg',
+      alt: '晓庄小学亲历者张成和先生的访谈肖像',
+      width: 373,
+      height: 372,
+      focalPoint: '50% 42%',
+      credit: '南京大学行知书院微信公众号',
+    },
+    url: 'https://mp.weixin.qq.com/s?__biz=Mzg5MjU1MjAyMA==&mid=2247515541&idx=1&sn=03d317a2589f68fc5679cdc5cb49fd3f&scene=19#wechat_redirect',
+    sourceLabel: '南京大学行知书院',
+    publishStatus: published,
+  },
+  {
+    id: '2025-tao-kan-interview',
+    year: '2025',
+    period: '暑期实践 · 第二站',
+    sequence: 2,
+    category: '家族记忆访谈',
+    title: '专访陶行知后人陶侃',
+    summary:
+      '团队专访陶行知后人陶侃，从家族记忆与现实教育两个维度追寻陶行知先生的精神遗产，理解生活教育思想如何跨越时代、继续照亮今天的教育实践。',
+    image: {
+      src: 'media/heritage/2025-tao-kan-cover.jpg',
+      alt: '陶行知后人陶侃先生接受访谈时的现场照片',
+      width: 853,
+      height: 853,
+      focalPoint: '50% 46%',
+      credit: '南京大学行知书院微信公众号',
+    },
+    url: 'https://mp.weixin.qq.com/s?__biz=Mzg5MjU1MjAyMA==&mid=2247515551&idx=1&sn=de5921fe49d7e53184d9cfb4e5d154fe&scene=19#wechat_redirect',
+    sourceLabel: '南京大学行知书院',
+    publishStatus: published,
+  },
+];
 export const achievementResources = [];
 
 export const projectProfile = {

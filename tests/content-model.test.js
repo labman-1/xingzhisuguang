@@ -409,6 +409,9 @@ describe('content model', () => {
   it('exposes the supporting editorial collections', () => {
     expect(taoXingzhiProfiles.length).toBeGreaterThan(0);
     expect(educationalIdeas).toHaveLength(3);
+    expect(academyHeritageEntries).toHaveLength(2);
+    expect(academyHeritageEntries.map((entry) => entry.sequence)).toEqual([1, 2]);
+    expect(academyHeritageEntries.every((entry) => entry.image?.src.startsWith('media/heritage/'))).toBe(true);
     expect(projectProfile).toEqual(
       expect.objectContaining({
         name: expect.any(String),
