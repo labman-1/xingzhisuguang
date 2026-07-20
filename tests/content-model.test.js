@@ -345,7 +345,7 @@ describe('content model', () => {
     const previewSite = getSiteById('yanziyou', { includeDrafts: true });
 
     expect(publicSite.practices).toEqual([]);
-    expect(publicSite.videos).toEqual([]);
+    expect(publicSite.videos.length).toBeGreaterThan(0);
     expect(publicSite.interviews).toEqual([]);
     expect(previewSite.practices.length).toBeGreaterThan(0);
     expect(previewSite.videos.length).toBeGreaterThan(0);

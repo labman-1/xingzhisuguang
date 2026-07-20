@@ -68,14 +68,14 @@ export const mediaServices = {
   },
 };
 
-function createNjuBoxVideo({ id, title, filePath }) {
+function createNjuBoxVideo({ id, title, filePath, shareUrl }) {
   return {
     id,
     title,
     type: 'nju-box',
-    shareUrl: mediaServices.njuBox.shareUrl,
+    shareUrl: shareUrl || mediaServices.njuBox.shareUrl,
     filePath,
-    publishStatus: draft,
+    publishStatus: published,
   };
 }
 
@@ -129,8 +129,8 @@ export const practiceSites = [
       src: 'media/yanziyou/campus-01.webp',
       alt: '团队成员走进燕子矶幼儿园校园',
       caption: '走进燕子矶幼儿园',
-      width: 1024,
-      height: 576,
+      width: 1600,
+      height: 898,
       focalPoint: '50% 48%',
     }),
     philosophyTags: ['生活即教育', '小先生制'],
@@ -139,7 +139,11 @@ export const practiceSites = [
       { id: 'yanziyou-little-teacher', title: '小先生制', publishStatus: draft },
     ],
     gallery: [
-      { id: 'yanziyou-campus-01', src: 'media/yanziyou/campus-01.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1024, height: 576, publishStatus: published },
+      { id: 'yanziyou-campus-01', src: 'media/yanziyou/campus-01.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 898, publishStatus: published },
+      { id: 'yanziyou-campus-02', src: 'media/yanziyou/campus-02.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 743, publishStatus: published },
+      { id: 'yanziyou-campus-03', src: 'media/yanziyou/campus-03.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 830, publishStatus: published },
+      { id: 'yanziyou-campus-04', src: 'media/yanziyou/campus-04.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'yanziyou-interview-photo', src: 'media/yanziyou/采访.webp', alt: '燕子矶幼儿园教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1600, height: 909, publishStatus: published },
     ],
     videos: [1, 2, 3, 4].map((part) => createNjuBoxVideo({
       id: `yanziyou-video-${part}`,
@@ -244,7 +248,12 @@ export const practiceSites = [
       { id: 'xiaoshi-group-photo', src: 'media/xiaoshi/合照.webp', alt: '团队成员与小市中心小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
       { id: 'xiaoshi-interview-photo', src: 'media/xiaoshi/访谈.webp', alt: '小市中心小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1200, height: 1600, publishStatus: published },
     ],
-    videos: [{ id: 'xiaoshi-video', title: '小市中心小学实践纪实', embedUrl: '', publishStatus: draft }],
+    videos: [createNjuBoxVideo({
+      id: 'xiaoshi-video',
+      title: '小市中心小学采访视频',
+      filePath: '/7.2小市中心小学/DSC_0564.MOV',
+      shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+    })],
     interviews: [],
     resources: [],
     publishStatus: published,
@@ -312,7 +321,12 @@ export const practiceSites = [
       { id: 'xiaozhuangfushu-campus-05', src: 'media/xiaozhuangfushu/campus-05.webp', alt: '晓庄附属小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
       { id: 'xiaozhuangfushu-group-photo', src: 'media/xiaozhuangfushu/合照.webp', alt: '团队成员与晓庄附属小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
     ],
-    videos: [{ id: 'xiaozhuangfushu-video', title: '晓庄附属小学实践纪实', embedUrl: '', publishStatus: draft }],
+    videos: [createNjuBoxVideo({
+      id: 'xiaozhuangfushu-video',
+      title: '晓庄附属小学采访视频',
+      filePath: '/7.3晓庄附属小学/采访/IMG_9240.mov',
+      shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+    })],
     interviews: [],
     resources: [],
     publishStatus: published,
@@ -780,7 +794,7 @@ function validateVideos(items, path) {
     const hasBilibiliSource = item.type === 'bilibili' && /^BV[0-9A-Za-z]{10}$/.test(item.bvid ?? '');
     const hasNjuBoxSource = item.type === 'nju-box' &&
       /^https:\/\/box\.nju\.edu\.cn\/d\/[a-z0-9]+\/$/i.test(item.shareUrl ?? '') &&
-      /^\/[^?#]+\.(mp4|webm|ogg)$/i.test(item.filePath ?? '');
+      /^\/[^?#]+\.(mp4|webm|ogg|mov)$/i.test(item.filePath ?? '');
     if (item.type === 'bilibili' && item.bvid != null && !/^BV[0-9A-Za-z]{10}$/.test(item.bvid)) {
       errors.push(issue(`${itemPath}.bvid`, 'BV 号格式无效，应为 BV 加 10 位字母或数字'));
     }

@@ -1,7 +1,7 @@
 import { ExternalLink, LoaderCircle, PlayCircle, Video } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
-const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg)(?:$|[?#])/i;
+const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov)(?:$|[?#])/i;
 
 function normalizeTrack(track, index) {
   if (typeof track === 'string') {
