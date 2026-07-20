@@ -96,7 +96,7 @@ export const practiceSites = [
       height: 769,
       focalPoint: '50% 52%',
     }),
-    philosophyTags: [],
+    philosophyTags: ['生活即教育', '小先生制', '劳动教育', '快乐教育'],
     practices: [
       { id: 'wutang-curriculum', title: '课程改革与学生综合素质培养', publishStatus: draft },
     ],
@@ -238,7 +238,7 @@ export const practiceSites = [
       height: 1067,
       focalPoint: '50% 48%',
     }),
-    philosophyTags: [],
+    philosophyTags: ['教学做合一', '劳动教育'],
     practices: [{ id: 'xiaoshi-curriculum', title: '校本课程体系', publishStatus: draft }],
     gallery: [
       { id: 'xiaoshi-campus-01', src: 'media/xiaoshi/campus-01.webp', alt: '小市中心小学校门', caption: '校门', credit: '行知溯光实践团队', width: 1067, height: 1600, publishStatus: published },
@@ -274,7 +274,7 @@ export const practiceSites = [
       height: 1200,
       focalPoint: '50% 46%',
     }),
-    philosophyTags: [],
+    philosophyTags: ['小先生制', '教学做合一'],
     practices: [
       { id: 'xiaozhuangshiyan-integration', title: '课程整合、跨学科教学与自主学习', publishStatus: draft },
     ],
@@ -309,7 +309,7 @@ export const practiceSites = [
       height: 768,
       focalPoint: '50% 45%',
     }),
-    philosophyTags: [],
+    philosophyTags: ['小先生制', '教学做合一'],
     practices: [
       { id: 'xiaozhuangfushu-teachers', title: '教师专业发展与校本教研', publishStatus: draft },
     ],
