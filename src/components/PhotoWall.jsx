@@ -197,7 +197,7 @@ export default function PhotoWall({
           <h2 id={headingId} className="text-2xl font-bold text-[#173c32]">{title}</h2>
         </div>
         <span className="ml-auto rounded-full bg-[#eee5d3] px-3 py-1 text-xs font-semibold text-[#5c6b64]">
-          {normalizedPhotos.length > 0 ? `${normalizedPhotos.length} 张` : '整理中'}
+          {normalizedPhotos.length} 张
         </span>
       </div>
 
@@ -292,10 +292,7 @@ export default function PhotoWall({
       ) : (
         <div className="media-empty-state">
           <ImageIcon aria-hidden="true" className="mx-auto text-emerald-700" size={34} strokeWidth={1.6} />
-          <p className="mt-4 font-semibold text-[#31483f]">影像素材正在整理</p>
-          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#617068]">
-            校园环境、课堂观察与访谈现场照片将在完成授权和图注核对后发布。
-          </p>
+          <p className="mt-4 font-semibold text-[#31483f]">暂无公开影像</p>
         </div>
       )}
 

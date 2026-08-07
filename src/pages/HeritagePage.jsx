@@ -45,7 +45,7 @@ export default function HeritagePage() {
             </article>
           ))
         ) : (
-          <p className="text-sm text-slate-600">人物资料正在核验。</p>
+          <p className="text-sm text-slate-600">暂无公开人物资料。</p>
         )}
       </section>
 
@@ -151,7 +151,7 @@ export default function HeritagePage() {
           </ol>
         ) : (
           <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center">
-            <p className="text-sm text-slate-600">书院传承资料待核验补充。</p>
+            <p className="text-sm text-slate-600">暂无公开书院传承资料。</p>
           </div>
         )}
       </section>

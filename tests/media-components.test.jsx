@@ -3,7 +3,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
-import InterviewAccordion from '../src/components/InterviewAccordion';
 import Navbar from '../src/components/Navbar';
 import PhotoWall from '../src/components/PhotoWall';
 import SchoolCard from '../src/components/SchoolCard';
@@ -79,7 +78,6 @@ describe('accessible navigation and cards', () => {
     expect(screen.queryByText('示')).not.toBeInTheDocument();
   });
 });
-
 describe('media presentation', () => {
   it('lets visitors pause and resume an automatically advancing gallery', () => {
     render(
@@ -154,7 +152,7 @@ describe('media presentation', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 
     rerender(<PhotoWall schoolName="示例学校" photos={[]} />);
-    expect(screen.getByText('影像素材正在整理')).toBeVisible();
+    expect(screen.getByText('暂无公开影像')).toBeVisible();
   });
 
   it('supports file, embed and external video resources', () => {
@@ -228,37 +226,5 @@ describe('media presentation', () => {
       'href',
       expect.stringContaining('box.nju.edu.cn'),
     );
-  });
-});
-
-describe('interview accordion', () => {
-  it('connects each trigger to its complete interview panel', () => {
-    const interviews = [
-      {
-        id: 'teaching-doing',
-        topic: '教学做合一',
-        content: '第一段访谈。\n\n第二段访谈，保留完整长文。',
-      },
-      {
-        id: 'little-teacher',
-        topic: '小先生制',
-        content: '第二个主题的访谈内容。',
-      },
-    ];
-
-    render(<InterviewAccordion interviews={interviews} />);
-
-    const firstTrigger = screen.getByRole('button', { name: /教学做合一/ });
-    const secondTrigger = screen.getByRole('button', { name: /小先生制/ });
-
-    expect(firstTrigger).toHaveAttribute('aria-expanded', 'true');
-    expect(firstTrigger).toHaveAttribute('aria-controls');
-    expect(screen.getByText(/第二段访谈/)).toBeInTheDocument();
-
-    fireEvent.click(secondTrigger);
-
-    expect(firstTrigger).toHaveAttribute('aria-expanded', 'false');
-    expect(secondTrigger).toHaveAttribute('aria-expanded', 'true');
-    expect(secondTrigger).toHaveAttribute('aria-controls');
   });
 });

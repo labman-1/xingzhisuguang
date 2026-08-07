@@ -68,6 +68,13 @@ function normalizeVideo(video, index) {
   };
 }
 
+function isPlayableVideo(video) {
+  if (!video) return false;
+  if (video.type === 'nju-box') return Boolean(video.shareUrl && video.filePath);
+  if (video.type === 'bilibili') return Boolean(video.bvid);
+  return Boolean(video.src);
+}
+
 function buildNjuBoxPreviewUrl(video) {
   try {
     const url = new URL('files/', video.shareUrl);
@@ -237,20 +244,10 @@ function BilibiliVideo({ video }) {
   );
 }
 
-function PendingVideo({ video }) {
-  return (
-    <div className="media-empty-state min-h-56">
-      <PlayCircle aria-hidden="true" className="mx-auto text-emerald-700" size={40} strokeWidth={1.5} />
-      <h3 className="mt-4 font-semibold text-[#31483f]">{video.title}</h3>
-      <p className="mt-2 text-sm text-[#617068]">视频正在剪辑、配字幕或等待发布授权。</p>
-    </div>
-  );
-}
-
 function VideoItem({ video }) {
   if (video.type === 'nju-box') return <NjuBoxVideo video={video} />;
   if (video.type === 'bilibili' && video.bvid) return <BilibiliVideo video={video} />;
-  if (!video.src) return <PendingVideo video={video} />;
+  if (!video.src) return null;
 
   if (video.type === 'embed') {
     return (
@@ -324,8 +321,10 @@ function VideoItem({ video }) {
 export default function VideoPlayer({ videos, video }) {
   const rawVideos = videos ?? video;
   const candidates = Array.isArray(rawVideos) ? rawVideos : rawVideos ? [rawVideos] : [];
-  const normalizedVideos = candidates.map(normalizeVideo).filter(Boolean);
+  const normalizedVideos = candidates.map(normalizeVideo).filter(isPlayableVideo);
   const headingId = 'school-video-player-title';
+
+  if (normalizedVideos.length === 0) return null;
 
   return (
     <section aria-labelledby={headingId}>
@@ -337,36 +336,24 @@ export default function VideoPlayer({ videos, video }) {
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-amber-700">动态记录</p>
           <h2 id={headingId} className="text-2xl font-bold text-[#173c32]">实践视频</h2>
         </div>
-        {normalizedVideos.length > 0 && (
-          <span className="ml-auto rounded-full bg-[#eee5d3] px-3 py-1 text-xs font-semibold text-[#5c6b64]">
-            {normalizedVideos.length} 则
-          </span>
-        )}
+        <span className="ml-auto rounded-full bg-[#eee5d3] px-3 py-1 text-xs font-semibold text-[#5c6b64]">
+          {normalizedVideos.length} 则
+        </span>
       </div>
 
-      {normalizedVideos.length > 0 ? (
-        <ul className="space-y-7" aria-label="实践视频列表">
-          {normalizedVideos.map((item, index) => (
-            <li key={item.id || `${item.title}-${item.src || item.filePath || item.bvid || 'pending'}-${index}`}>
-              <article aria-labelledby={`video-item-${index}-title`}>
-                <VideoItem video={item} />
-                <div className="mt-4 px-1">
-                  <h3 id={`video-item-${index}-title`} className="font-bold text-[#173c32]">{item.title}</h3>
-                  {item.description && <p className="mt-1 text-sm leading-6 text-[#617068]">{item.description}</p>}
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className="media-empty-state">
-          <PlayCircle aria-hidden="true" className="mx-auto text-amber-700" size={38} strokeWidth={1.5} />
-          <p className="mt-4 font-semibold text-[#31483f]">视频素材正在制作</p>
-          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#617068]">
-            访谈视频将完成剪辑、字幕校对与授权确认后上线。
-          </p>
-        </div>
-      )}
+      <ul className="space-y-7" aria-label="实践视频列表">
+        {normalizedVideos.map((item, index) => (
+          <li key={item.id || `${item.title}-${item.src || item.filePath || item.bvid}-${index}`}>
+            <article aria-labelledby={`video-item-${index}-title`}>
+              <VideoItem video={item} />
+              <div className="mt-4 px-1">
+                <h3 id={`video-item-${index}-title`} className="font-bold text-[#173c32]">{item.title}</h3>
+                {item.description && <p className="mt-1 text-sm leading-6 text-[#617068]">{item.description}</p>}
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

@@ -340,16 +340,16 @@ describe('content model', () => {
     expect(schedule).toHaveLength(visibleSites.length);
   });
 
-  it('hides draft child content unless editorial preview is explicit', () => {
+  it('exposes only published media on practice-site pages', () => {
     const publicSite = getSiteById('yanziyou');
     const previewSite = getSiteById('yanziyou', { includeDrafts: true });
 
     expect(publicSite.practices).toEqual([]);
-    expect(publicSite.videos.length).toBeGreaterThan(0);
     expect(publicSite.interviews).toEqual([]);
-    expect(previewSite.practices.length).toBeGreaterThan(0);
-    expect(previewSite.videos.length).toBeGreaterThan(0);
-    expect(previewSite.interviews.length).toBeGreaterThan(0);
+    expect(publicSite.resources).toEqual([]);
+    expect(publicSite.gallery.length).toBeGreaterThan(0);
+    expect(publicSite.videos).toHaveLength(4);
+    expect(previewSite).toEqual(publicSite);
   });
 
   it('keeps archived entries private across all public editorial selectors', () => {
@@ -412,6 +412,8 @@ describe('content model', () => {
     expect(academyHeritageEntries).toHaveLength(2);
     expect(academyHeritageEntries.map((entry) => entry.sequence)).toEqual([1, 2]);
     expect(academyHeritageEntries.every((entry) => entry.image?.src.startsWith('media/heritage/'))).toBe(true);
+    expect(achievementResources).toHaveLength(1);
+    expect(achievementResources[0].sourceLinks).toHaveLength(2);
     expect(projectProfile).toEqual(
       expect.objectContaining({
         name: expect.any(String),

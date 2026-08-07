@@ -4,7 +4,7 @@ const footerLinks = [
   { label: '首页人物志', to: '/' },
   { label: '实践足迹', to: '/#school-list' },
   { label: '行知文脉', to: '/heritage' },
-  { label: '成果资源', to: '/resources' },
+  { label: '成果展示', to: '/resources' },
   { label: '关于我们', to: '/about' },
 ];
 
@@ -50,7 +50,7 @@ export default function Footer({ project = defaultProject }) {
       <div className="border-t border-emerald-900">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-emerald-200 sm:px-6 md:flex-row md:items-center md:justify-between">
           <small>© 2026 {organization}</small>
-          <p>数字化成果交互展示 · 内容持续更新</p>
+          <p>循行知足迹 · 溯教育之光</p>
         </div>
       </div>
     </footer>

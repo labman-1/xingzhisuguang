@@ -11,7 +11,6 @@ export const SITE_TYPE = Object.freeze({
 });
 
 const published = PUBLISH_STATUS.PUBLISHED;
-const draft = PUBLISH_STATUS.DRAFT;
 
 function createImageSlot({ directory, alt, fallbackLabel, focalPoint = '50% 50%' }) {
   return {
@@ -97,9 +96,7 @@ export const practiceSites = [
       focalPoint: '50% 52%',
     }),
     philosophyTags: ['生活即教育', '小先生制', '劳动教育', '快乐教育'],
-    practices: [
-      { id: 'wutang-curriculum', title: '课程改革与学生综合素质培养', publishStatus: draft },
-    ],
+    practices: [],
     gallery: [
       { id: 'wutang-campus-01', src: 'media/wutang/campus-01.webp', alt: '五塘小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1024, height: 769, publishStatus: published },
       { id: 'wutang-campus-02', src: 'media/wutang/campus-02.webp', alt: '五塘小学学生手工作品', caption: '手工作品', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
@@ -134,10 +131,7 @@ export const practiceSites = [
       focalPoint: '50% 48%',
     }),
     philosophyTags: ['生活即教育', '小先生制'],
-    practices: [
-      { id: 'yanziyou-sanli', title: '三力课程体系', publishStatus: draft },
-      { id: 'yanziyou-little-teacher', title: '小先生制', publishStatus: draft },
-    ],
+    practices: [],
     gallery: [
       { id: 'yanziyou-campus-01', src: 'media/yanziyou/campus-01.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 898, publishStatus: published },
       { id: 'yanziyou-campus-02', src: 'media/yanziyou/campus-02.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 743, publishStatus: published },
@@ -150,36 +144,7 @@ export const practiceSites = [
       title: `燕子矶幼儿园采访视频 ${part}`,
       filePath: `/7.1燕子矶幼儿园/${part}.mp4`,
     })),
-    interviews: [
-      {
-        id: 'yanziyou-shanli',
-        topic: '三力课程体系',
-        content:
-          '（访谈内容待补充）\n\n燕子矶幼儿园的"三力课程体系"是本次调研的重点主题之一。该体系围绕"生命力、思维力、创造力"三个维度构建课程框架，将陶行知"生活即教育"理念融入日常教学。具体内容将在访谈录音整理后更新。',
-        publishStatus: draft,
-      },
-      {
-        id: 'yanziyou-opening',
-        topic: '开场白',
-        content:
-          '（访谈内容待补充）\n\n本段记录访谈的开场介绍，包括团队成员自我介绍、调研目的说明以及园方接待教师的背景介绍。详细内容将在访谈录音整理后更新。',
-        publishStatus: draft,
-      },
-      {
-        id: 'yanziyou-challenges',
-        topic: '困难和挑战',
-        content:
-          '（访谈内容待补充）\n\n本段聚焦一线教师在践行陶行知教育理念过程中遇到的实际困难与挑战，涵盖师资培训、课程资源、家校协同等方面。详细内容将在访谈录音整理后更新。',
-        publishStatus: draft,
-      },
-      {
-        id: 'yanziyou-littleteacher',
-        topic: '小先生制',
-        content:
-          '（访谈内容待补充）\n\n"小先生制"是陶行知教育思想的重要组成部分，燕子矶幼儿园在学前教育阶段对这一制度进行了创新性实践。本段记录园方在推行"小先生制"过程中的经验、成效与反思。详细内容将在访谈录音整理后更新。',
-        publishStatus: draft,
-      },
-    ],
+    interviews: [],
     resources: [],
     publishStatus: published,
   },
@@ -200,9 +165,7 @@ export const practiceSites = [
       focalPoint: '50% 48%',
     }),
     philosophyTags: ['教学做合一'],
-    practices: [
-      { id: 'xiaozhuang-labour', title: '劳动教育与生活实践', publishStatus: draft },
-    ],
+    practices: [],
     gallery: [
       { id: 'xiaozhuang-campus-01', src: 'media/xiaozhuang/campus-01.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
       { id: 'xiaozhuang-campus-02', src: 'media/xiaozhuang/campus-02.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
@@ -239,7 +202,7 @@ export const practiceSites = [
       focalPoint: '50% 48%',
     }),
     philosophyTags: ['教学做合一', '劳动教育'],
-    practices: [{ id: 'xiaoshi-curriculum', title: '校本课程体系', publishStatus: draft }],
+    practices: [],
     gallery: [
       { id: 'xiaoshi-campus-01', src: 'media/xiaoshi/campus-01.webp', alt: '小市中心小学校门', caption: '校门', credit: '行知溯光实践团队', width: 1067, height: 1600, publishStatus: published },
       { id: 'xiaoshi-campus-02', src: 'media/xiaoshi/campus-02.webp', alt: '小市中心小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
@@ -275,9 +238,7 @@ export const practiceSites = [
       focalPoint: '50% 46%',
     }),
     philosophyTags: ['小先生制', '教学做合一'],
-    practices: [
-      { id: 'xiaozhuangshiyan-integration', title: '课程整合、跨学科教学与自主学习', publishStatus: draft },
-    ],
+    practices: [],
     gallery: [
       { id: 'xiaozhuangshiyan-campus-01', src: 'media/xiaozhuangshiyan/campus-01.webp', alt: '南京晓庄实验学校校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 2133, publishStatus: published },
       { id: 'xiaozhuangshiyan-campus-02', src: 'media/xiaozhuangshiyan/campus-02.webp', alt: '南京晓庄实验学校校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
@@ -300,7 +261,7 @@ export const practiceSites = [
     logoPlaceholder: '附',
     visit: { date: '2026-07-03', displayDate: '7.3', sequence: 6, stage: '第六站' },
     summary:
-      '晓庄附属小学是本次社会实践的最后一站。学校依托晓庄教育集团的资源优势，在教师专业发展与校本教研方面形成了鲜明特色。团队在此对为期五天的调研进行了总结性访谈与资料收集，为后续成果整理积累了宝贵的一手素材。',
+      '晓庄附属小学是本次社会实践的最后一站。学校与陶行知创办的乡村师范同根同源，长期践行“教人求真”“学做真人”的育人理念。团队在此围绕“小先生制”、综合评价与家校协同开展访谈和影像记录，为六站寻访画下句点。',
     bannerImage: createTeamBanner({
       src: 'media/xiaozhuangfushu/campus-02.webp',
       alt: '南京晓庄学院附属小学校门',
@@ -310,9 +271,7 @@ export const practiceSites = [
       focalPoint: '50% 45%',
     }),
     philosophyTags: ['小先生制', '教学做合一'],
-    practices: [
-      { id: 'xiaozhuangfushu-teachers', title: '教师专业发展与校本教研', publishStatus: draft },
-    ],
+    practices: [],
     gallery: [
       { id: 'xiaozhuangfushu-campus-01', src: 'media/xiaozhuangfushu/campus-01.webp', alt: '晓庄附属小学书画作品展', caption: '书画作品展', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
       { id: 'xiaozhuangfushu-campus-02', src: 'media/xiaozhuangfushu/campus-02.webp', alt: '晓庄附属小学校门', caption: '校门', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
@@ -422,7 +381,28 @@ export const academyHeritageEntries = [
     publishStatus: published,
   },
 ];
-export const achievementResources = [];
+export const achievementResources = [
+  {
+    id: 'xingzhi-six-schools-feature',
+    type: '公众号文章',
+    title: '“行知溯光”实践团队专访南京六所学校：感悟行知思想育人价值',
+    summary:
+      '2026 年 7 月，团队走进南京六所与陶行知相关的学校，与一线教师、校长深入对话，记录“小先生制”、生活教育、长程作业与快乐教育等理念在当代基础教育中的实践。',
+    sourceLinks: [
+      {
+        label: '南京大学行知书院',
+        url: 'https://mp.weixin.qq.com/s/FVp84MdVOXNof18m4NqTGA',
+        publishedAt: '2026-07-31',
+      },
+      {
+        label: '南青实践',
+        url: 'https://mp.weixin.qq.com/s/njxxsisg7SdfS_yGTaCeBw',
+        publishedAt: '2026-08-06',
+      },
+    ],
+    publishStatus: published,
+  },
+];
 
 export const projectProfile = {
   name: '行知溯光',
@@ -432,7 +412,7 @@ export const projectProfile = {
   practiceSummary:
     '通过实地走访南京市五所学校和一所幼儿园，我们深入了解陶行知教育思想在基层教育一线的实践现状。从幼儿园到九年一贯制学校，从"小先生制"到"教学做合一"，我们以访谈、拍摄、文字记录等方式，力求呈现一幅当代行知教育的真实画卷。',
   teamSummary:
-    '团队由南京大学工科试验班大一新生组成，分为线上组与线下组。线下组负责实地走访、拍摄与访谈；线上组负责资料整理、网站开发与成果展示。成员信息将后续更新。',
+    '团队由南京大学工科试验班大一学生组成，成员协作完成实地走访、影像拍摄、教师访谈、资料整理与数字化成果展示。',
   heroImage: sharedMedia.homeHero,
   publishStatus: published,
 };

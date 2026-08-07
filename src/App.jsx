@@ -20,8 +20,8 @@ const routeMetadata = {
     description: '了解陶行知人物、生活教育理念与经核验的书院传承资料。',
   },
   resources: {
-    title: '实践成果资源 · 行知溯光',
-    description: '浏览行知溯光社会实践团队经核验发布的图文、视频与访谈成果。',
+    title: '实践成果 · 行知溯光',
+    description: '阅读行知溯光社会实践团队走访南京六所学校的公众号文章。',
   },
   about: {
     title: '关于我们 · 行知溯光',

@@ -32,8 +32,7 @@ export default function SchoolList({ schools: schoolItems = [], onSchoolClick })
         </ol>
       ) : (
         <div className="media-empty-state">
-          <p className="font-semibold text-slate-700">实践站点正在整理中</p>
-          <p className="mt-2 text-sm text-slate-600">首批学校资料发布后会在这里按走访顺序呈现。</p>
+          <p className="font-semibold text-slate-700">暂无实践站点。</p>
         </div>
       )}
     </section>

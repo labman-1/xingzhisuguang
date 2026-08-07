@@ -1,17 +1,6 @@
-import {
-  ArrowLeft,
-  BookOpen,
-  CalendarDays,
-  ExternalLink,
-  FileDown,
-  Layers3,
-  MapPin,
-  Quote,
-  Sparkles,
-} from 'lucide-react';
+import { ArrowLeft, CalendarDays, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { hasImageSource } from '../utils/mediaImage';
-import InterviewAccordion from './InterviewAccordion';
 import MediaBackdrop from './MediaBackdrop';
 import PhotoWall from './PhotoWall';
 import VideoPlayer from './VideoPlayer';
@@ -26,88 +15,11 @@ function getLabel(value) {
   return value?.label || value?.title || value?.name || '';
 }
 
-function textBlocks(value) {
-  if (value == null) return [];
-  if (Array.isArray(value)) return value.flatMap(textBlocks);
-  if (typeof value === 'object') return [value];
-  return String(value)
-    .split(/\n\s*\n/g)
-    .map((block) => block.trim())
-    .filter(Boolean);
-}
-
-function ProseBlocks({ value }) {
-  const blocks = textBlocks(value);
-
-  return (
-    <div className="content-flow">
-      {blocks.map((block, index) => {
-        if (typeof block === 'string') return <p key={index} className="whitespace-pre-line">{block}</p>;
-
-        const content = block.text || block.content || block.body || block.description || '';
-        if (!content) return null;
-
-        if (block.type === 'quote' || block.quote) {
-          return (
-            <blockquote key={block.id || index} className="rounded-r-xl border-l-4 border-amber-400 bg-amber-50 px-5 py-4 text-slate-800">
-              <p>{block.quote || content}</p>
-              {block.cite && <cite className="mt-2 block text-sm not-italic text-slate-600">—— {block.cite}</cite>}
-            </blockquote>
-          );
-        }
-
-        return (
-          <div key={block.id || index}>
-            {block.title && <h4 className="mb-2 font-bold text-slate-900">{block.title}</h4>}
-            <p className="whitespace-pre-line">{content}</p>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function normalizePractice(practice, index) {
-  if (typeof practice === 'string') {
-    return { title: practice, description: '', id: `practice-${index}`, tags: [] };
-  }
-
-  if (!practice || typeof practice !== 'object') return null;
-  return {
-    ...practice,
-    id: practice.id || practice.slug || `practice-${index}`,
-    title: practice.title || practice.name || practice.label || `特色实践 ${index + 1}`,
-    description: practice.description || practice.summary || practice.content || practice.body,
-    tags: asArray(practice.tags).map(getLabel).filter(Boolean),
-  };
-}
-
-function normalizeResource(resource, index) {
-  if (typeof resource === 'string') {
-    const isUrl = /^(https?:\/\/|\/)/.test(resource);
-    return {
-      id: `resource-${index}`,
-      title: isUrl ? `相关资源 ${index + 1}` : resource,
-      url: isUrl ? resource : '',
-    };
-  }
-
-  if (!resource || typeof resource !== 'object') return null;
-  return {
-    ...resource,
-    id: resource.id || resource.slug || `resource-${index}`,
-    title: resource.title || resource.name || resource.label || `相关资源 ${index + 1}`,
-    url: resource.url || resource.href || resource.src || '',
-    description: resource.description || resource.summary,
-    type: resource.type || resource.format || resource.kind,
-  };
-}
-
 export default function SchoolDetail({ school, onBack }) {
   if (!school) return null;
 
   const visit = school.visit || {};
-  const name = school.name || school.title || '学校调研';
+  const name = school.name || school.title || '学校实践';
   const summary = school.summary || school.intro || school.description;
   const stage = visit.stage || school.stage;
   const dateValue = visit.date || school.date;
@@ -117,21 +29,12 @@ export default function SchoolDetail({ school, onBack }) {
   const philosophyTags = asArray(school.philosophyTags || school.philosophies || school.tags)
     .map(getLabel)
     .filter(Boolean);
-  const practices = asArray(school.practices || school.featuredPractices || school.highlights)
-    .map(normalizePractice)
-    .filter(Boolean);
-  const sections = asArray(school.sections || school.contentSections || school.fieldNotes)
-    .filter(Boolean);
-  const resources = asArray(school.resources)
-    .map(normalizeResource)
-    .filter(Boolean);
-  const gallery = school.gallery || school.photos || school.media?.gallery || [];
-  const videos = school.videos || school.video || school.media?.videos || [];
-  const interviews = school.interviews || [];
-  const bannerImage = school.bannerImage || school.media?.banner;
-  const hasBanner = hasImageSource(bannerImage);
   const focus = asArray(visit.focus || visit.focuses).map(getLabel).filter(Boolean);
   const contextualTags = [...new Set([...philosophyTags, ...focus])];
+  const gallery = school.gallery || school.photos || school.media?.gallery || [];
+  const videos = school.videos || school.video || school.media?.videos || [];
+  const bannerImage = school.bannerImage || school.media?.banner;
+  const hasBanner = hasImageSource(bannerImage);
 
   const handleBack = (event) => {
     if (typeof onBack === 'function') onBack(event);
@@ -198,7 +101,7 @@ export default function SchoolDetail({ school, onBack }) {
               {name}
             </h1>
 
-            {summary && <div className={`mt-5 text-base leading-8 sm:text-lg ${hasBanner ? 'text-white' : 'text-[#49645b]'}`}><ProseBlocks value={summary} /></div>}
+            {summary && <p className={`mt-5 max-w-3xl text-base leading-8 sm:text-lg ${hasBanner ? 'text-white' : 'text-[#49645b]'}`}>{summary}</p>}
 
             {contextualTags.length > 0 && (
               <div className="mt-5 flex flex-wrap gap-2" aria-label="教育理念与调研重点">
@@ -214,138 +117,16 @@ export default function SchoolDetail({ school, onBack }) {
       </header>
 
       <div className="mx-auto mt-14 max-w-5xl space-y-16 md:mt-20">
-        <section aria-labelledby="featured-practices-title">
-          <div className="mb-7 flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-700" aria-hidden="true">
-              <Sparkles size={20} />
-            </span>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-amber-700">教育现场</p>
-              <h2 id="featured-practices-title" className="text-2xl font-bold text-slate-900">特色实践</h2>
-            </div>
-          </div>
-
-          {practices.length > 0 ? (
-            <ol className="grid gap-5 md:grid-cols-2">
-              {practices.map((practice, index) => (
-                <li key={practice.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-                  <div className="mb-4 flex items-start gap-3">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-sm font-black text-emerald-800" aria-hidden="true">
-                      {index + 1}
-                    </span>
-                    <h3 className="pt-1 text-lg font-bold text-slate-900">{practice.title}</h3>
-                  </div>
-                  {practice.description ? <ProseBlocks value={practice.description} /> : <p className="text-sm text-slate-600">具体实践记录正在补充。</p>}
-                  {practice.tags.length > 0 && (
-                    <ul className="mt-5 flex flex-wrap gap-2" aria-label={`${practice.title}标签`}>
-                      {practice.tags.map((tag) => <li key={tag} className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800">{tag}</li>)}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ol>
-          ) : (
-            <div className="media-empty-state">
-              <BookOpen aria-hidden="true" className="mx-auto text-emerald-700" size={34} strokeWidth={1.5} />
-              <p className="mt-4 font-semibold text-slate-700">特色实践案例正在整理</p>
-              <p className="mt-2 text-sm text-slate-600">课程观察与教师访谈完成核对后将在这里分主题呈现。</p>
-            </div>
-          )}
-        </section>
-
-        {sections.map((section, index) => {
-          const title = section.title || section.name || `调研记录 ${index + 1}`;
-          const sectionId = `school-content-section-${index}`;
-          const content = section.content || section.body || section.paragraphs || section.description;
-          const highlights = asArray(section.highlights).map(getLabel).filter(Boolean);
-
-          return (
-            <section key={section.id || section.slug || title} aria-labelledby={sectionId} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8">
-              <div className="mb-5 flex items-start gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700" aria-hidden="true">
-                  <Layers3 size={20} />
-                </span>
-                <div>
-                  {section.eyebrow && <p className="mb-1 text-xs font-bold uppercase tracking-[0.14em] text-emerald-700">{section.eyebrow}</p>}
-                  <h2 id={sectionId} className="text-2xl font-bold text-slate-900">{title}</h2>
-                </div>
-              </div>
-              <ProseBlocks value={content} />
-              {section.quote && (
-                <blockquote className="mt-6 rounded-xl border-l-4 border-amber-400 bg-amber-50 px-5 py-4 text-slate-800">
-                  <Quote aria-hidden="true" className="mb-2 text-amber-700" size={20} />
-                  <p>{section.quote}</p>
-                  {section.cite && <cite className="mt-2 block text-sm not-italic text-slate-600">—— {section.cite}</cite>}
-                </blockquote>
-              )}
-              {highlights.length > 0 && (
-                <ul className="mt-6 grid gap-3 sm:grid-cols-2" aria-label={`${title}要点`}>
-                  {highlights.map((item) => <li key={item} className="rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-900">{item}</li>)}
-                </ul>
-              )}
-            </section>
-          );
-        })}
-
-        <PhotoWall
-          photos={gallery}
-          schoolName={name}
-          description="画面会自动向左流动；也可左右滑动、点击按钮或使用方向键切换。"
-          autoPlay
-          showCredit={false}
-        />
-        <VideoPlayer videos={videos} />
-        <InterviewAccordion interviews={interviews} />
-
-        <section aria-labelledby="school-resources-title">
-          <div className="mb-6 flex flex-wrap items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700" aria-hidden="true">
-              <FileDown size={20} />
-            </span>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-emerald-700">延伸阅读</p>
-              <h2 id="school-resources-title" className="text-2xl font-bold text-slate-900">相关资源</h2>
-            </div>
-            {resources.length > 0 && <span className="ml-auto rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">{resources.length} 项</span>}
-          </div>
-
-          {resources.length > 0 ? (
-            <ul className="grid gap-4 sm:grid-cols-2">
-              {resources.map((resource) => (
-                <li key={resource.id}>
-                  {resource.url ? (
-                    <a
-                      href={resource.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      download={resource.download || undefined}
-                      className="group flex h-full items-start justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-emerald-400 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
-                      aria-label={`${resource.title}（在新窗口打开）`}
-                    >
-                      <span>
-                        {resource.type && <span className="mb-2 block text-xs font-bold uppercase tracking-wide text-amber-700">{resource.type}</span>}
-                        <span className="block font-bold text-slate-900 group-hover:text-emerald-800">{resource.title}</span>
-                        {resource.description && <span className="mt-2 block text-sm leading-6 text-slate-600">{resource.description}</span>}
-                      </span>
-                      <ExternalLink aria-hidden="true" className="mt-1 shrink-0 text-emerald-700" size={18} />
-                    </a>
-                  ) : (
-                    <div className="h-full rounded-2xl border border-slate-200 bg-slate-50 p-5" aria-disabled="true">
-                      <p className="font-bold text-slate-700">{resource.title}</p>
-                      <p className="mt-2 text-sm text-slate-600">链接整理中</p>
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className="media-empty-state">
-              <FileDown aria-hidden="true" className="mx-auto text-emerald-700" size={34} strokeWidth={1.5} />
-              <p className="mt-4 font-semibold text-slate-700">相关资料即将开放</p>
-              <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-600">采访稿、调研报告与公开素材完成校对后会集中发布。</p>
-            </div>
-          )}
-        </section>
+        {gallery.length > 0 && (
+          <PhotoWall
+            photos={gallery}
+            schoolName={name}
+            description="左右滑动浏览实践影像，点击照片可查看大图。"
+            autoPlay
+            showCredit={false}
+          />
+        )}
+        {videos.length > 0 && <VideoPlayer videos={videos} />}
       </div>
 
       <div className="mt-16 border-t border-slate-200 pt-8 text-center">

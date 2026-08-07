@@ -11,13 +11,14 @@ function getTagLabel(tag) {
 export default function SchoolCard({ school, onClick }) {
   const visit = school.visit || {};
   const name = school.name || school.title || '未命名学校';
-  const summary = school.summary || school.intro || school.description || '调研资料正在整理中。';
+  const summary = school.summary || school.intro || school.description || '';
   const stage = visit.stage || school.stage;
   const dateValue = visit.date || school.date;
   const date = visit.displayDate || school.displayDate || dateValue;
   const dateTime = visit.isoDate || (/^\d{4}-\d{2}-\d{2}/.test(dateValue || '') ? dateValue : undefined);
   const location = visit.location || school.location;
-  const interviews = Array.isArray(school.interviews) ? school.interviews : [];
+  const photoCount = Array.isArray(school.gallery) ? school.gallery.length : 0;
+  const videoCount = Array.isArray(school.videos) ? school.videos.length : 0;
   const tags = (school.philosophyTags || school.tags || [])
     .map(getTagLabel)
     .filter(Boolean)
@@ -40,7 +41,7 @@ export default function SchoolCard({ school, onClick }) {
         to={`/sites/${school.id}`}
         className="flex h-full min-h-[29rem] flex-col outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-emerald-700"
         onClick={handleClick}
-        aria-describedby={`${titleId}-summary`}
+        aria-describedby={summary ? `${titleId}-summary` : undefined}
       >
         <div className={`relative aspect-[16/9] overflow-hidden ${hasBanner ? 'text-white' : 'text-[#173c32]'}`}>
           <MediaBackdrop
@@ -76,9 +77,11 @@ export default function SchoolCard({ school, onClick }) {
             </p>
           )}
 
-          <p id={`${titleId}-summary`} className="mt-4 line-clamp-3 text-sm leading-7 text-[#5c6b64]">
-            {summary}
-          </p>
+          {summary && (
+            <p id={`${titleId}-summary`} className="mt-4 line-clamp-3 text-sm leading-7 text-[#5c6b64]">
+              {summary}
+            </p>
+          )}
 
           {tags.length > 0 && (
             <ul className="mt-4 flex flex-wrap gap-2" aria-label="教育理念标签">
@@ -92,7 +95,7 @@ export default function SchoolCard({ school, onClick }) {
 
           <div className="mt-auto flex items-center justify-between gap-4 border-t border-[#eee5d3] pt-5 text-sm">
             <span className="text-[#69766f]">
-              {interviews.length > 0 ? `${interviews.length} 个访谈主题` : '内容持续更新'}
+              {photoCount} 张影像{videoCount > 0 ? ` · ${videoCount} 则视频` : ''}
             </span>
             <span className="inline-flex items-center gap-1 font-bold text-emerald-800">
               查看详情

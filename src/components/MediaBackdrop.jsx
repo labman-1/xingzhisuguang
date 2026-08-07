@@ -18,7 +18,7 @@ export default function MediaBackdrop({
   return (
     <div className={`media-backdrop ${className}`} data-has-image={hasVisual ? 'true' : 'false'}>
       <div className="media-backdrop__fallback" aria-hidden="true">
-        <span>{media?.fallbackLabel || '影像待授权后发布'}</span>
+        <span>{media?.fallbackLabel || '暂无影像'}</span>
       </div>
 
       {configured && (

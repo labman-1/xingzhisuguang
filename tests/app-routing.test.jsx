@@ -43,7 +43,7 @@ describe('application routes', () => {
     });
   });
 
-  it('renders and focuses a valid site detail without exposing draft child entries', async () => {
+  it('renders and focuses a media-only practice-site detail', async () => {
     renderRoute('/sites/yanziyou');
 
     const heading = screen.getByRole('heading', { level: 1, name: '燕子矶幼儿园' });
@@ -53,7 +53,11 @@ describe('application routes', () => {
       screen.queryByRole('heading', { name: /三力课程与小先生制访谈/ }),
     ).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: '开场白' })).not.toBeInTheDocument();
-    expect(screen.queryByText(/^（访谈内容待补充）/)).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: '特色实践' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: '访谈记录' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: '相关资源' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '影像纪实' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '实践视频' })).toBeInTheDocument();
     await waitFor(() => expect(heading).toHaveFocus());
   });
 
@@ -71,12 +75,30 @@ describe('application routes', () => {
 
   it.each([
     ['/heritage', '行知精神与书院传承'],
-    ['/resources', '实践成果资源'],
+    ['/resources', '实践成果'],
     ['/about', '行知溯光 · 团队介绍'],
   ])('renders the %s section', (route, heading) => {
     renderRoute(route);
 
     expect(screen.getByRole('heading', { level: 1, name: heading })).toBeInTheDocument();
+  });
+
+  it('presents one achievement article with two publication links', () => {
+    renderRoute('/resources');
+
+    expect(
+      screen.getAllByRole('heading', {
+        name: '“行知溯光”实践团队专访南京六所学校：感悟行知思想育人价值',
+      }),
+    ).toHaveLength(1);
+    expect(screen.getByRole('link', { name: /南京大学行知书院阅读原文/ })).toHaveAttribute(
+      'href',
+      'https://mp.weixin.qq.com/s/FVp84MdVOXNof18m4NqTGA',
+    );
+    expect(screen.getByRole('link', { name: /南青实践阅读原文/ })).toHaveAttribute(
+      'href',
+      'https://mp.weixin.qq.com/s/njxxsisg7SdfS_yGTaCeBw',
+    );
   });
 
   it('renders the previous cohort interviews as a sourced heritage timeline', () => {

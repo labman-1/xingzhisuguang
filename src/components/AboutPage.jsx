@@ -70,7 +70,7 @@ export default function AboutPage() {
             ))}
           </ol>
         ) : (
-          <p className="text-sm text-slate-600">实践日程正在整理。</p>
+          <p className="text-sm text-slate-600">暂无实践日程。</p>
         )}
       </section>
     </div>

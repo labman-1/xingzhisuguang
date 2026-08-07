@@ -6,7 +6,7 @@ const navItems = [
   { id: 'home', label: '首页人物志', to: '/' },
   { id: 'sites', label: '实践足迹', to: '/#school-list' },
   { id: 'heritage', label: '行知文脉', to: '/heritage' },
-  { id: 'resources', label: '成果资源', to: '/resources' },
+  { id: 'resources', label: '成果展示', to: '/resources' },
   { id: 'about', label: '关于我们', to: '/about' },
 ];
 
