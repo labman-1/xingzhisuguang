@@ -64,6 +64,13 @@ export default function Navbar() {
     });
   };
 
+  const handleHomeNavigation = () => {
+    setIsMenuOpen(false);
+    if (location.pathname === '/' && location.hash === '') {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    }
+  };
+
   const handleSchoolListNavigation = () => {
     setIsMenuOpen(false);
   };
@@ -79,7 +86,7 @@ export default function Navbar() {
     const commonProps = {
       className: linkClasses(isCurrent, mobile),
       'aria-current': isCurrent ? 'page' : undefined,
-      onClick: item.id === 'sites' ? handleSchoolListNavigation : () => setIsMenuOpen(false),
+      onClick: item.id === 'home' ? handleHomeNavigation : item.id === 'sites' ? handleSchoolListNavigation : () => setIsMenuOpen(false),
     };
 
     if (item.id === 'home' || item.id === 'sites') {
