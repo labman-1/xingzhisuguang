@@ -14,11 +14,13 @@ import {
   getVisiblePracticeSites,
   getVisibleProfiles,
   getVisibleResources,
+  getVisibleSitesByRegion,
   getVisitSchedule,
   mediaServices,
   PUBLISH_STATUS,
   practiceSites,
   projectProfile,
+  REGION,
   selectVisibleItems,
   taoXingzhiProfiles,
   validateContentCollections,
@@ -308,26 +310,43 @@ describe('content model', () => {
     expect(issues).toEqual([]);
   });
 
-  it('contains the complete six-site practice footprint with route-safe ids', () => {
-    expect(practiceSites).toHaveLength(6);
+  it('contains the complete practice footprint with route-safe ids', () => {
+    expect(practiceSites).toHaveLength(11);
 
     const ids = practiceSites.map((site) => site.id);
     expect(new Set(ids).size).toBe(ids.length);
     expect(ids.every((id) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id))).toBe(true);
 
     for (const site of practiceSites) {
+      expect(getSiteById(site.id, { includeDrafts: true })).toEqual(
+        expect.objectContaining({ id: site.id, name: site.name }),
+      );
+    }
+
+    // Published sites carry a full banner image; draft skeletons use an empty slot.
+    const publishedSites = practiceSites.filter((site) => site.publishStatus === PUBLISH_STATUS.PUBLISHED);
+    for (const site of publishedSites) {
       expect(site.bannerImage).toEqual(expect.objectContaining({
         src: expect.stringMatching(new RegExp(`^media/${site.id}/`)),
         sources: expect.any(Array),
         focalPoint: expect.any(String),
         credit: '行知溯光实践团队',
       }));
-      expect(getSiteById(site.id)).toEqual(
-        expect.objectContaining({ id: site.id, name: site.name }),
-      );
     }
 
     expect(getSiteById('missing-site')).toBeNull();
+  });
+
+  it('partitions practice sites by region', () => {
+    const nanjing = getVisibleSitesByRegion(REGION.NANJING);
+    const national = getVisibleSitesByRegion(REGION.NATIONAL);
+    const nationalDrafts = getVisibleSitesByRegion(REGION.NATIONAL, { includeDrafts: true });
+
+    expect(nanjing).toHaveLength(6);
+    expect(national).toHaveLength(0);
+    expect(nationalDrafts).toHaveLength(5);
+    expect(nationalDrafts.every((site) => site.region === REGION.NATIONAL)).toBe(true);
+    expect(nationalDrafts.every((site) => site.publishStatus === PUBLISH_STATUS.DRAFT)).toBe(true);
   });
 
   it('keeps public queries and visit schedule aligned with source content', () => {

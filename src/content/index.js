@@ -8,9 +8,18 @@ export const SITE_TYPE = Object.freeze({
   PRIMARY_SCHOOL: 'primary-school',
   KINDERGARTEN: 'kindergarten',
   NINE_YEAR_SCHOOL: 'nine-year-school',
+  SECONDARY_SCHOOL: 'secondary-school',
+  HERITAGE_SITE: 'heritage-site',
+  VOCATIONAL_COLLEGE: 'vocational-college',
+});
+
+export const REGION = Object.freeze({
+  NANJING: 'nanjing',
+  NATIONAL: 'national',
 });
 
 const published = PUBLISH_STATUS.PUBLISHED;
+const draft = PUBLISH_STATUS.DRAFT;
 
 function createImageSlot({ directory, alt, fallbackLabel, focalPoint = '50% 50%' }) {
   return {
@@ -82,6 +91,7 @@ export const practiceSites = [
   {
     id: 'wutang',
     name: '五塘小学',
+    region: REGION.NANJING,
     type: SITE_TYPE.PRIMARY_SCHOOL,
     logoPlaceholder: '五',
     visit: { date: '2026-06-29', displayDate: '6.29', sequence: 1, stage: '第一站' },
@@ -117,6 +127,7 @@ export const practiceSites = [
   {
     id: 'yanziyou',
     name: '燕子矶幼儿园',
+    region: REGION.NANJING,
     type: SITE_TYPE.KINDERGARTEN,
     logoPlaceholder: '燕',
     visit: { date: '2026-07-01', displayDate: '7.1', sequence: 2, stage: '第二站' },
@@ -151,6 +162,7 @@ export const practiceSites = [
   {
     id: 'xiaozhuang',
     name: '晓庄小学',
+    region: REGION.NANJING,
     type: SITE_TYPE.PRIMARY_SCHOOL,
     logoPlaceholder: '晓',
     visit: { date: '2026-07-02', displayDate: '7.2', sequence: 3, stage: '第三站' },
@@ -188,6 +200,7 @@ export const practiceSites = [
   {
     id: 'xiaoshi',
     name: '小市中心小学',
+    region: REGION.NANJING,
     type: SITE_TYPE.PRIMARY_SCHOOL,
     logoPlaceholder: '市',
     visit: { date: '2026-07-02', displayDate: '7.2', sequence: 4, stage: '第四站' },
@@ -224,6 +237,7 @@ export const practiceSites = [
   {
     id: 'xiaozhuangshiyan',
     name: '南京晓庄实验学校',
+    region: REGION.NANJING,
     type: SITE_TYPE.NINE_YEAR_SCHOOL,
     logoPlaceholder: '实',
     visit: { date: '2026-07-03', displayDate: '7.3', sequence: 5, stage: '第五站' },
@@ -257,6 +271,7 @@ export const practiceSites = [
   {
     id: 'xiaozhuangfushu',
     name: '晓庄附属小学',
+    region: REGION.NANJING,
     type: SITE_TYPE.PRIMARY_SCHOOL,
     logoPlaceholder: '附',
     visit: { date: '2026-07-03', displayDate: '7.3', sequence: 6, stage: '第六站' },
@@ -289,6 +304,106 @@ export const practiceSites = [
     interviews: [],
     resources: [],
     publishStatus: published,
+  },
+  {
+    id: 'chongqing-yucai',
+    name: '重庆育才中学',
+    region: REGION.NATIONAL,
+    type: SITE_TYPE.SECONDARY_SCHOOL,
+    logoPlaceholder: '育',
+    visit: { date: '2026-07-10', displayDate: '7.10', sequence: 7, stage: '第七站' },
+    summary:
+      '重庆育才中学由陶行知先生于 1939 年创办，是生活教育理论的重要实践基地。团队走访这座有着深厚行知渊源的学校，调研其如何将"教学做合一"融入当代中学教育的课程与制度。相关访谈与影像素材正在核对整理中。',
+    bannerImage: createImageSlot({ directory: 'media/chongqing-yucai/', alt: '重庆育才中学校园走访影像', fallbackLabel: '重庆育才中学' }),
+    philosophyTags: ['生活即教育', '教学做合一'],
+    practices: [],
+    gallery: [],
+    videos: [],
+    interviews: [
+      { id: 'chongqing-yucai-practice', topic: '育才办学实践', content: '（访谈内容待补充）\n\n围绕重庆育才中学对陶行知生活教育思想的当代实践展开访谈，详细内容将在录音转写与受访者确认后发布。', publishStatus: draft },
+    ],
+    resources: [],
+    publishStatus: draft,
+  },
+  {
+    id: 'gushengsi',
+    name: '合川古圣寺旧址',
+    region: REGION.NATIONAL,
+    type: SITE_TYPE.HERITAGE_SITE,
+    logoPlaceholder: '古',
+    visit: { date: '2026-07-14', displayDate: '7.14', sequence: 8, stage: '第八站' },
+    summary:
+      '合川古圣寺旧址是重庆育才学校创办初期的校址所在地，见证了陶行知在抗战时期"难童教育"与生活教育的早期探索。团队赴此溯源，寻访育才学校的诞生地。相关影像与文字素材正在核对整理中。',
+    bannerImage: createImageSlot({ directory: 'media/gushengsi/', alt: '合川古圣寺旧址走访影像', fallbackLabel: '合川古圣寺旧址' }),
+    philosophyTags: ['生活即教育'],
+    practices: [],
+    gallery: [],
+    videos: [],
+    interviews: [
+      { id: 'gushengsi-origin', topic: '育才创办溯源', content: '（访谈内容待补充）\n\n围绕育才学校创办的历史脉络与古圣寺旧址的当下保护展开，详细内容将在素材核对后发布。', publishStatus: draft },
+    ],
+    resources: [],
+    publishStatus: draft,
+  },
+  {
+    id: 'meizhou-baihou',
+    name: '梅州百侯/大麻中学',
+    region: REGION.NATIONAL,
+    type: SITE_TYPE.SECONDARY_SCHOOL,
+    logoPlaceholder: '梅',
+    visit: { date: '2026-07-28', displayDate: '7.28', sequence: 9, stage: '第九站' },
+    summary:
+      '梅州百侯中学与大麻中学地处客家地区，是陶行知生活教育在乡土中国的延伸实践点。团队走访两所中学，考察客家乡土文化、地方教育与乡村人才培养的融合。相关访谈与影像素材正在核对整理中。',
+    bannerImage: createImageSlot({ directory: 'media/meizhou-baihou/', alt: '梅州百侯与大麻中学走访影像', fallbackLabel: '梅州百侯/大麻中学' }),
+    philosophyTags: ['生活即教育', '乡土教育'],
+    practices: [],
+    gallery: [],
+    videos: [],
+    interviews: [
+      { id: 'meizhou-baihou-local', topic: '客家乡土教育', content: '（访谈内容待补充）\n\n围绕客家乡土文化与地方中学教育实践展开访谈，详细内容将在录音转写与受访者确认后发布。', publishStatus: draft },
+    ],
+    resources: [],
+    publishStatus: draft,
+  },
+  {
+    id: 'huai-an-xin-an',
+    name: '淮安新安小学',
+    region: REGION.NATIONAL,
+    type: SITE_TYPE.PRIMARY_SCHOOL,
+    logoPlaceholder: '新',
+    visit: { date: '2026-07-31', displayDate: '7.31', sequence: 10, stage: '第十站' },
+    summary:
+      '淮安新安小学是新安旅行团的诞生地，承载着"生活即教育、社会即学校"的红色教育传统。团队赴此寻访新安旅行团足迹，调研当代学校如何将红色教育与行知精神融入课堂。相关访谈与影像素材正在核对整理中。',
+    bannerImage: createImageSlot({ directory: 'media/huai-an-xin-an/', alt: '淮安新安小学走访影像', fallbackLabel: '淮安新安小学' }),
+    philosophyTags: ['社会即学校', '红色教育'],
+    practices: [],
+    gallery: [],
+    videos: [],
+    interviews: [
+      { id: 'huai-an-xin-an-red', topic: '新安旅行团红色教育', content: '（访谈内容待补充）\n\n围绕新安旅行团历史与当代红色教育实践展开访谈，详细内容将在录音转写与受访者确认后发布。', publishStatus: draft },
+    ],
+    resources: [],
+    publishStatus: draft,
+  },
+  {
+    id: 'hangzhou-xianghu',
+    name: '杭州科技职业技术学院/湘湖师范',
+    region: REGION.NATIONAL,
+    type: SITE_TYPE.VOCATIONAL_COLLEGE,
+    logoPlaceholder: '杭',
+    visit: { date: '2026-08-01', displayDate: '8.1', sequence: 11, stage: '第十一站' },
+    summary:
+      '湘湖师范是陶行知美育思想的重要实践地，与杭州科技职业技术学院一脉相承。团队赴此调研湘湖文脉与美育传统在当代职业教育中的延续。相关访谈与影像素材正在核对整理中。',
+    bannerImage: createImageSlot({ directory: 'media/hangzhou-xianghu/', alt: '杭州湘湖师范走访影像', fallbackLabel: '杭州科技职业技术学院/湘湖师范' }),
+    philosophyTags: ['美育', '生活即教育'],
+    practices: [],
+    gallery: [],
+    videos: [],
+    interviews: [
+      { id: 'hangzhou-xianghu-aesthetic', topic: '湘湖美育文脉', content: '（访谈内容待补充）\n\n围绕湘湖美育文脉与陶行知美育思想的当代传承展开访谈，详细内容将在录音转写与受访者确认后发布。', publishStatus: draft },
+    ],
+    resources: [],
+    publishStatus: draft,
   },
 ];
 
@@ -477,6 +592,13 @@ export function getVisiblePracticeSites({ includeDrafts = false } = {}) {
     .map((site) => hydrateSite(site, includeDrafts));
 }
 
+export function getVisibleSitesByRegion(region, { includeDrafts = false } = {}) {
+  return selectVisibleItems(
+    practiceSites.filter((site) => site.region === region),
+    { includeDrafts },
+  ).map((site) => hydrateSite(site, includeDrafts));
+}
+
 export function getVisitSchedule({ includeDrafts = false } = {}) {
   return getVisiblePracticeSites({ includeDrafts })
     .map(({ id, name, type, visit, publishStatus }) => ({
@@ -507,6 +629,7 @@ export function getHeritageEntryById(id, { includeDrafts = false } = {}) {
 
 const allowedStatuses = new Set(Object.values(PUBLISH_STATUS));
 const allowedSiteTypes = new Set(Object.values(SITE_TYPE));
+const allowedRegions = new Set(Object.values(REGION));
 const allowedVideoTypes = new Set(['nju-box', 'bilibili', 'embed', 'file', 'external']);
 const requiredSiteArrays = [
   'philosophyTags',
@@ -855,6 +978,7 @@ export function validatePracticeSite(site, index = 0) {
   if (!isRecord(site)) return [issue(path, '必须是对象', 'invalid_type')];
   if (!isNonEmptyString(site.id)) errors.push(issue(`${path}.id`, '必须是非空字符串', 'required'));
   if (!isNonEmptyString(site.name)) errors.push(issue(`${path}.name`, '必须是非空字符串', 'required'));
+  if (!allowedRegions.has(site.region)) errors.push(issue(`${path}.region`, '实践点区域无效'));
   if (!allowedSiteTypes.has(site.type)) errors.push(issue(`${path}.type`, '实践点类型无效'));
   if (!isNonEmptyString(site.summary)) errors.push(issue(`${path}.summary`, '必须是非空字符串', 'required'));
   if (!allowedStatuses.has(site.publishStatus)) errors.push(issue(`${path}.publishStatus`, '发布状态无效'));

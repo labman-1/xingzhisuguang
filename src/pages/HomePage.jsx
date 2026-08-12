@@ -45,7 +45,7 @@ export default function HomePage() {
         autoPlay
         showCredit={false}
       />
-      <SchoolList schools={sites} />
+      <SchoolList />
     </>
   );
 }
