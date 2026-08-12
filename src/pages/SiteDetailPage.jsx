@@ -4,7 +4,7 @@ import { getSiteById } from '../content';
 
 export default function SiteDetailPage() {
   const { siteId } = useParams();
-  const site = getSiteById(siteId);
+  const site = getSiteById(siteId, { includeDrafts: true });
 
   if (site) return <SchoolDetail school={site} />;
 
