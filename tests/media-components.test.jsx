@@ -77,6 +77,39 @@ describe('accessible navigation and cards', () => {
     );
     expect(screen.queryByText('示')).not.toBeInTheDocument();
   });
+
+  it('renders the interview framework for empty and structured records', () => {
+    const { rerender } = render(
+      <MemoryRouter>
+        <SchoolDetail school={{ id: 'sample-school', name: '示例学校', interviews: [] }} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('heading', { name: '采访记录' })).toBeInTheDocument();
+    expect(screen.getByText('示例学校的原始采访总结稿将在完成核对、授权与编辑后发布。')).toBeInTheDocument();
+
+    rerender(
+      <MemoryRouter>
+        <SchoolDetail
+          school={{
+            id: 'sample-school',
+            name: '示例学校',
+            interviews: [{
+              id: 'sample-interview',
+              topic: '课程实践访谈',
+              interviewee: '受访教师',
+              date: '2026-07-01',
+              paragraphs: [{ question: '课程如何开展？', answer: '从真实生活问题出发。' }],
+            }],
+          }}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('heading', { name: '课程实践访谈' })).toBeInTheDocument();
+    expect(screen.getByText('问：课程如何开展？')).toBeInTheDocument();
+    expect(screen.getByText('答：从真实生活问题出发。')).toBeInTheDocument();
+  });
 });
 describe('media presentation', () => {
   it('lets visitors pause and resume an automatically advancing gallery', () => {

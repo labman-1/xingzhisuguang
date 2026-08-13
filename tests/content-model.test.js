@@ -311,7 +311,7 @@ describe('content model', () => {
   });
 
   it('contains the complete practice footprint with route-safe ids', () => {
-    expect(practiceSites).toHaveLength(11);
+    expect(practiceSites).toHaveLength(12);
 
     const ids = practiceSites.map((site) => site.id);
     expect(new Set(ids).size).toBe(ids.length);
@@ -327,11 +327,17 @@ describe('content model', () => {
     const publishedSites = practiceSites.filter((site) => site.publishStatus === PUBLISH_STATUS.PUBLISHED);
     for (const site of publishedSites) {
       expect(site.bannerImage).toEqual(expect.objectContaining({
-        src: expect.stringMatching(new RegExp(`^media/${site.id}/`)),
+        src: expect.stringMatching(new RegExp(`^media/${site.id}/photos/`)),
         sources: expect.any(Array),
         focalPoint: expect.any(String),
         credit: '行知溯光实践团队',
       }));
+      expect(site.gallery.every((photo) => photo.src.startsWith(`media/${site.id}/photos/`))).toBe(true);
+    }
+
+    const draftSites = practiceSites.filter((site) => site.publishStatus === PUBLISH_STATUS.DRAFT);
+    for (const site of draftSites) {
+      expect(site.bannerImage.assetDirectory).toBe(`media/${site.id}/backgrounds/`);
     }
 
     expect(getSiteById('missing-site')).toBeNull();
@@ -344,9 +350,12 @@ describe('content model', () => {
 
     expect(nanjing).toHaveLength(6);
     expect(national).toHaveLength(0);
-    expect(nationalDrafts).toHaveLength(5);
+    expect(nationalDrafts).toHaveLength(6);
     expect(nationalDrafts.every((site) => site.region === REGION.NATIONAL)).toBe(true);
     expect(nationalDrafts.every((site) => site.publishStatus === PUBLISH_STATUS.DRAFT)).toBe(true);
+    expect(nationalDrafts.map((site) => site.id)).toEqual(
+      expect.arrayContaining(['meizhou-baihou', 'meizhou-dama']),
+    );
   });
 
   it('keeps public queries and visit schedule aligned with source content', () => {

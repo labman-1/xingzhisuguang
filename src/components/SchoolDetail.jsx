@@ -1,6 +1,7 @@
 import { ArrowLeft, CalendarDays, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { hasImageSource } from '../utils/mediaImage';
+import InterviewRecords from './InterviewRecords';
 import MediaBackdrop from './MediaBackdrop';
 import PhotoWall from './PhotoWall';
 import VideoPlayer from './VideoPlayer';
@@ -33,6 +34,7 @@ export default function SchoolDetail({ school, onBack }) {
   const contextualTags = [...new Set([...philosophyTags, ...focus])];
   const gallery = school.gallery || school.photos || school.media?.gallery || [];
   const videos = school.videos || school.video || school.media?.videos || [];
+  const interviews = school.interviews || [];
   const bannerImage = school.bannerImage || school.media?.banner;
   const hasBanner = hasImageSource(bannerImage);
 
@@ -127,6 +129,7 @@ export default function SchoolDetail({ school, onBack }) {
           />
         )}
         {videos.length > 0 && <VideoPlayer videos={videos} />}
+        <InterviewRecords interviews={interviews} schoolName={name} />
       </div>
 
       <div className="mt-16 border-t border-slate-200 pt-8 text-center">

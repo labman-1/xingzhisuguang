@@ -5,11 +5,11 @@
  *   node scripts/process-photos.mjs <源目录> <学校ID> [文件名前缀]
  *
  * 示例：
- *   node scripts/process-photos.mjs ~/Desktop/wutang-photos wutang campus
- *   → public/media/wutang/campus-01.webp, campus-02.webp, ...
+ *   node scripts/process-photos.mjs ./incoming/wutang-photos wutang campus
+ *   → public/media/wutang/photos/campus-01.webp, campus-02.webp, ...
  *
- *   node scripts/process-photos.mjs ~/Desktop/yanziyou yanziyou classroom
- *   → public/media/yanziyou/classroom-01.webp, classroom-02.webp, ...
+ *   node scripts/process-photos.mjs ./incoming/yanziyou yanziyou classroom
+ *   → public/media/yanziyou/photos/classroom-01.webp, classroom-02.webp, ...
  */
 
 import { readdir, mkdir } from 'node:fs/promises';
@@ -20,16 +20,30 @@ import sharp from 'sharp';
 const VALID_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.tiff', '.tif', '.bmp', '.gif']);
 const TARGET_WIDTH = 1600;
 const QUALITY = 80;
+const VALID_SITE_IDS = [
+  'wutang',
+  'yanziyou',
+  'xiaozhuang',
+  'xiaoshi',
+  'xiaozhuangshiyan',
+  'xiaozhuangfushu',
+  'chongqing-yucai',
+  'gushengsi',
+  'meizhou-baihou',
+  'meizhou-dama',
+  'huai-an-xin-an',
+  'hangzhou-xianghu',
+];
 
 function usage() {
   console.log('用法: node scripts/process-photos.mjs <源目录> <学校ID> [文件名前缀]');
   console.log('');
-  console.log('学校ID: wutang | yanziyou | xiaozhuang | xiaoshi | xiaozhuangshiyan | xiaozhuangfushu');
+  console.log(`学校ID: ${VALID_SITE_IDS.join(' | ')}`);
   console.log('文件名前缀 (可选，默认 "photo"): campus | classroom | activity | interview | ...');
   console.log('');
   console.log('示例:');
-  console.log('  node scripts/process-photos.mjs ~/Desktop/wutang-photos wutang campus');
-  console.log('  → public/media/wutang/campus-01.webp, campus-02.webp, ...');
+  console.log('  node scripts/process-photos.mjs ./incoming/wutang-photos wutang campus');
+  console.log('  → public/media/wutang/photos/campus-01.webp, campus-02.webp, ...');
 }
 
 async function main() {
@@ -42,10 +56,9 @@ async function main() {
     process.exit(1);
   }
 
-  const validIds = ['wutang', 'yanziyou', 'xiaozhuang', 'xiaoshi', 'xiaozhuangshiyan', 'xiaozhuangfushu'];
-  if (!validIds.includes(schoolId)) {
+  if (!VALID_SITE_IDS.includes(schoolId)) {
     console.error(`❌ 无效的学校ID: ${schoolId}`);
-    console.error(`   有效值: ${validIds.join(', ')}`);
+    console.error(`   有效值: ${VALID_SITE_IDS.join(', ')}`);
     process.exit(1);
   }
 
@@ -55,7 +68,7 @@ async function main() {
   }
 
   // 确保目标目录存在
-  const targetDir = join(import.meta.dirname, '..', 'public', 'media', schoolId);
+  const targetDir = join(import.meta.dirname, '..', 'public', 'media', schoolId, 'photos');
   await mkdir(targetDir, { recursive: true });
 
   // 读取源目录中的所有图片文件

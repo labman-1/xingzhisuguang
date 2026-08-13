@@ -1,13 +1,13 @@
 # 行知溯光
 
-南京大学“行知溯光”暑期社会实践团队的数字成果站。项目围绕陶行知教育思想，集中呈现人物志、五所学校与一所幼儿园的实践足迹、晓庄教育文脉、访谈影像与成果资源。
+南京大学“行知溯光”暑期社会实践团队的数字成果站。项目围绕陶行知教育思想，集中呈现人物志、十二个实践站点的行知足迹、晓庄教育文脉、访谈影像与成果资源。
 
 > 网站框架已经覆盖图文、视频、长访谈、专题页面、内容发布状态、自动校验和 GitHub Pages 部署。照片、成片、逐字稿等内容仍需在完成事实核对、授权与隐私检查后逐步发布。
 
 ## 功能范围
 
 - 首页人物志：可替换的全屏历史图片主视觉、陶行知人物介绍、教育理念与实践入口；无图时使用米白色占位。
-- 实践足迹：六个教育实践点的照片横幅卡片、走访日程和独立详情页。
+- 实践足迹：十二个教育实践站点的数据框架、走访日程和独立详情页；未完成授权与内容核对的站点保持草稿状态。
 - 学校详情：简介、教育理念标签、可触控/键盘操作的横向影像浏览、大图查看、视频和完整访谈记录。
 - 行知文脉：书院及相关教育实践的专题内容。
 - 成果资源：文章、视频、文档等成果的统一索引与学校关联。
@@ -82,8 +82,9 @@ npm run build
 xingzhisuguang/
 ├─ .github/workflows/       # CI 与 GitHub Pages 发布
 ├─ public/
-│  ├─ media/               # 共享及六个实践点的媒体目录约定（当前仅 README）
+│  ├─ media/               # 共享及十二个实践站点的公开媒体
 │  └─ ...                  # favicon、robots.txt、Web App Manifest
+├─ content/interviews/     # 不直接发布的分站点原始采访总结稿
 ├─ scripts/
 │  └─ validate-content.mjs  # 可在 Node/CI 中直接运行的内容校验
 ├─ src/
@@ -107,7 +108,7 @@ xingzhisuguang/
 
 | 导出 | 用途 |
 | --- | --- |
-| `practiceSites` | 六个教育实践点及详情内容 |
+| `practiceSites` | 十二个教育实践站点及详情内容 |
 | `taoXingzhiProfiles` | 陶行知人物志条目 |
 | `educationalIdeas` | 三项核心教育理念 |
 | `academyHeritageEntries` | 书院及行知文脉专题 |
@@ -139,17 +140,17 @@ xingzhisuguang/
 ```js
 {
   id: 'site-id-campus-01',
-  src: 'media/site-id/campus.webp', // 相对部署根目录，兼容 GitHub Pages 子路径
+  src: 'media/site-id/photos/campus.webp', // 相对部署根目录，兼容 GitHub Pages 子路径
   srcSet: [
-    'media/site-id/campus-768.webp 768w',
-    'media/site-id/campus-1280.webp 1280w',
+    'media/site-id/photos/campus-768.webp 768w',
+    'media/site-id/photos/campus-1280.webp 1280w',
   ],
   sources: [
     {
       type: 'image/avif',
       srcSet: [
-        'media/site-id/campus-768.avif 768w',
-        'media/site-id/campus-1280.avif 1280w',
+        'media/site-id/photos/campus-768.avif 768w',
+        'media/site-id/photos/campus-1280.avif 1280w',
       ],
     },
   ],
@@ -165,7 +166,7 @@ xingzhisuguang/
 }
 ```
 
-`public/media/shared/README.md` 记录全站命名、格式、版权和响应式图片约定。六个实践点分别包含 `photos`、`backgrounds`、`thumbnails`，当前只提交 README，不使用伪造占位图。图片文件加入目录后，还必须在 `src/content/index.js` 的 `heroImage`、`bannerImage` 或 `gallery` 中显式配置才会显示。
+`public/media/README.md` 与 `public/media/shared/README.md` 记录全站命名、格式、版权和响应式图片约定。十二个实践站点分别包含 `photos`、`backgrounds`、`thumbnails`。图片文件加入目录后，还必须在 `src/content/index.js` 的 `heroImage`、`bannerImage` 或 `gallery` 中显式配置才会显示。
 
 视频支持五种发布方式。当前优先使用南大 Box 公共分享；组件在用户点击后解析临时流媒体地址，并始终提供原视频跳转。Bilibili 继续作为兼容来源：
 
@@ -193,13 +194,13 @@ xingzhisuguang/
 { id: 'interview-external', type: 'external', src: 'https://example.com/watch/...', title: '教师访谈', publishStatus: PUBLISH_STATUS.PUBLISHED }
 ```
 
-访谈条目使用稳定 `id`、清晰 `topic`、完整 `content` 和明确的 `publishStatus`。折叠面板仅改变显示状态，不截断长文内容。
+访谈条目使用稳定 `id`、清晰 `topic`、完整 `content` 或结构化 `paragraphs`，并设置明确的 `publishStatus`。原始采访总结稿按站点存放在 `content/interviews/<site-id>/`，完成核对和授权后再整理进内容模型。
 
 ### 内容发布流程
 
 1. 核对学校名称、日期、人物身份、引文和事实。
 2. 确认照片、音视频、未成年人信息与第三方平台链接具备发布授权。
-3. 在 `src/content/` 更新条目；未完成内容保持草稿状态，不用虚构文字填满页面。
+3. 将原始采访总结稿放入 `content/interviews/<site-id>/`，在 `src/content/` 更新已核验条目；未完成内容保持草稿状态，不用虚构文字填满页面。
 4. 为照片补充具体 `alt`、`caption`、`credit` 与必要的 `sourceUrl`，为视频准备字幕或文字稿，为外链补充清晰标题。
 5. 运行 `npm run validate:content` 和 `npm run test:run`。
 6. 预览桌面端与移动端后再改为发布状态。
@@ -208,7 +209,7 @@ xingzhisuguang/
 
 当前测试骨架覆盖：
 
-- 内容集合校验、六个实践点 ID、查询函数和资源引用。
+- 内容集合校验、十二个实践站点 ID、查询函数和资源引用。
 - 首页、学校详情、专题页、关于页与站内 404 路由。
 - 导航菜单状态、学校卡片链接、响应式图片、横向滚动与大图交互、南大 Box/Bilibili/文件/嵌入/外链视频和访谈折叠面板。
 

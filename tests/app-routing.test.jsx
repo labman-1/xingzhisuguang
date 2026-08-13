@@ -54,7 +54,8 @@ describe('application routes', () => {
     ).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: '开场白' })).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: '特色实践' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: '访谈记录' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '采访记录' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '采访记录整理中' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: '相关资源' })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '影像纪实' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '实践视频' })).toBeInTheDocument();

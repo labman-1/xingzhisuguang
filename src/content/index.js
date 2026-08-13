@@ -98,7 +98,7 @@ export const practiceSites = [
     summary:
       '五塘小学是本次"行知溯光"社会实践的第一站。学校秉承陶行知先生的教育理念，在课程改革与学生综合素质培养方面进行了积极探索。团队成员在此开展了初步的校园参观与教师访谈，为后续调研奠定了基础。',
     bannerImage: createTeamBanner({
-      src: 'media/wutang/campus-01.webp',
+      src: 'media/wutang/photos/campus-01.webp',
       alt: '五塘小学教学楼与运动场',
       caption: '五塘小学校园',
       width: 1024,
@@ -108,12 +108,12 @@ export const practiceSites = [
     philosophyTags: ['生活即教育', '小先生制', '劳动教育', '快乐教育'],
     practices: [],
     gallery: [
-      { id: 'wutang-campus-01', src: 'media/wutang/campus-01.webp', alt: '五塘小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1024, height: 769, publishStatus: published },
-      { id: 'wutang-campus-02', src: 'media/wutang/campus-02.webp', alt: '五塘小学学生手工作品', caption: '手工作品', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
-      { id: 'wutang-campus-03', src: 'media/wutang/campus-03.webp', alt: '五塘小学楼道', caption: '楼道', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
-      { id: 'wutang-campus-04', src: 'media/wutang/campus-04.webp', alt: '五塘小学走廊', caption: '介绍走廊', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
-      { id: 'wutang-group-photo', src: 'media/wutang/合照.webp', alt: '团队成员与五塘小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
-      { id: 'wutang-interview-photo', src: 'media/wutang/访谈.webp', alt: '五塘小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 768, height: 1024, publishStatus: published },
+      { id: 'wutang-campus-01', src: 'media/wutang/photos/campus-01.webp', alt: '五塘小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1024, height: 769, publishStatus: published },
+      { id: 'wutang-campus-02', src: 'media/wutang/photos/campus-02.webp', alt: '五塘小学学生手工作品', caption: '手工作品', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'wutang-campus-03', src: 'media/wutang/photos/campus-03.webp', alt: '五塘小学楼道', caption: '楼道', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'wutang-campus-04', src: 'media/wutang/photos/campus-04.webp', alt: '五塘小学走廊', caption: '介绍走廊', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'wutang-group-photo', src: 'media/wutang/photos/合照.webp', alt: '团队成员与五塘小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'wutang-interview-photo', src: 'media/wutang/photos/访谈.webp', alt: '五塘小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 768, height: 1024, publishStatus: published },
     ],
     videos: [createNjuBoxVideo({
       id: 'wutang-video',
@@ -134,7 +134,7 @@ export const practiceSites = [
     summary:
       '燕子矶幼儿园是本次调研中唯一一所学前教育机构。园所以陶行知"生活教育"理念为指导，构建了独具特色的"三力课程体系"，并在日常教学中推行"小先生制"，让幼儿在互教互学中成长。本次访谈深入探讨了课程落地的具体实践、一线教师面临的困难与挑战，以及"小先生制"在学前教育阶段的创新应用。',
     bannerImage: createTeamBanner({
-      src: 'media/yanziyou/campus-01.webp',
+      src: 'media/yanziyou/photos/campus-01.webp',
       alt: '团队成员走进燕子矶幼儿园校园',
       caption: '走进燕子矶幼儿园',
       width: 1600,
@@ -144,11 +144,11 @@ export const practiceSites = [
     philosophyTags: ['生活即教育', '小先生制'],
     practices: [],
     gallery: [
-      { id: 'yanziyou-campus-01', src: 'media/yanziyou/campus-01.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 898, publishStatus: published },
-      { id: 'yanziyou-campus-02', src: 'media/yanziyou/campus-02.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 743, publishStatus: published },
-      { id: 'yanziyou-campus-03', src: 'media/yanziyou/campus-03.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 830, publishStatus: published },
-      { id: 'yanziyou-campus-04', src: 'media/yanziyou/campus-04.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
-      { id: 'yanziyou-interview-photo', src: 'media/yanziyou/采访.webp', alt: '燕子矶幼儿园教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1600, height: 909, publishStatus: published },
+      { id: 'yanziyou-campus-01', src: 'media/yanziyou/photos/campus-01.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 898, publishStatus: published },
+      { id: 'yanziyou-campus-02', src: 'media/yanziyou/photos/campus-02.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 743, publishStatus: published },
+      { id: 'yanziyou-campus-03', src: 'media/yanziyou/photos/campus-03.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 830, publishStatus: published },
+      { id: 'yanziyou-campus-04', src: 'media/yanziyou/photos/campus-04.webp', alt: '燕子矶幼儿园校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'yanziyou-interview-photo', src: 'media/yanziyou/photos/采访.webp', alt: '燕子矶幼儿园教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1600, height: 909, publishStatus: published },
     ],
     videos: [1, 2, 3, 4].map((part) => createNjuBoxVideo({
       id: `yanziyou-video-${part}`,
@@ -169,7 +169,7 @@ export const practiceSites = [
     summary:
       '晓庄小学与陶行知先生有着深厚的历史渊源。作为晓庄地区的代表性小学，学校在传承行知精神、开展劳动教育与生活实践方面积累了丰富经验。团队成员在此围绕"教学做合一"理念在小学课堂中的落地展开了深入调研。',
     bannerImage: createTeamBanner({
-      src: 'media/xiaozhuang/campus-05.webp',
+      src: 'media/xiaozhuang/photos/campus-05.webp',
       alt: '晓庄小学校园内的乐学棚与劳动实践区',
       caption: '晓庄小学乐学棚',
       width: 1600,
@@ -179,14 +179,14 @@ export const practiceSites = [
     philosophyTags: ['教学做合一'],
     practices: [],
     gallery: [
-      { id: 'xiaozhuang-campus-01', src: 'media/xiaozhuang/campus-01.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
-      { id: 'xiaozhuang-campus-02', src: 'media/xiaozhuang/campus-02.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
-      { id: 'xiaozhuang-campus-03', src: 'media/xiaozhuang/campus-03.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
-      { id: 'xiaozhuang-campus-04', src: 'media/xiaozhuang/campus-04.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
-      { id: 'xiaozhuang-campus-05', src: 'media/xiaozhuang/campus-05.webp', alt: '晓庄小学乐学棚', caption: '乐学棚', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
-      { id: 'xiaozhuang-campus-06', src: 'media/xiaozhuang/campus-06.webp', alt: '晓庄小学菜地', caption: '菜地', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
-      { id: 'xiaozhuang-group-photo', src: 'media/xiaozhuang/合照.webp', alt: '团队成员与晓庄小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
-      { id: 'xiaozhuang-interview-photo', src: 'media/xiaozhuang/访谈.webp', alt: '晓庄小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-campus-01', src: 'media/xiaozhuang/photos/campus-01.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-campus-02', src: 'media/xiaozhuang/photos/campus-02.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
+      { id: 'xiaozhuang-campus-03', src: 'media/xiaozhuang/photos/campus-03.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-campus-04', src: 'media/xiaozhuang/photos/campus-04.webp', alt: '晓庄小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-campus-05', src: 'media/xiaozhuang/photos/campus-05.webp', alt: '晓庄小学乐学棚', caption: '乐学棚', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-campus-06', src: 'media/xiaozhuang/photos/campus-06.webp', alt: '晓庄小学菜地', caption: '菜地', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
+      { id: 'xiaozhuang-group-photo', src: 'media/xiaozhuang/photos/合照.webp', alt: '团队成员与晓庄小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
+      { id: 'xiaozhuang-interview-photo', src: 'media/xiaozhuang/photos/访谈.webp', alt: '晓庄小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
     ],
     videos: [createNjuBoxVideo({
       id: 'xiaozhuang-video',
@@ -207,7 +207,7 @@ export const practiceSites = [
     summary:
       '小市中心小学位于南京城区，在素质教育与课程创新方面持续探索。学校将陶行知教育思想与现代教育技术相结合，形成了独具特色的校本课程体系。团队在此重点调研了城市小学如何在新时期背景下践行行知理念。',
     bannerImage: createTeamBanner({
-      src: 'media/xiaoshi/campus-02.webp',
+      src: 'media/xiaoshi/photos/campus-02.webp',
       alt: '小市中心小学行知教育文化墙',
       caption: '小市中心小学行知文化墙',
       width: 1600,
@@ -217,12 +217,12 @@ export const practiceSites = [
     philosophyTags: ['教学做合一', '劳动教育'],
     practices: [],
     gallery: [
-      { id: 'xiaoshi-campus-01', src: 'media/xiaoshi/campus-01.webp', alt: '小市中心小学校门', caption: '校门', credit: '行知溯光实践团队', width: 1067, height: 1600, publishStatus: published },
-      { id: 'xiaoshi-campus-02', src: 'media/xiaoshi/campus-02.webp', alt: '小市中心小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
-      { id: 'xiaoshi-campus-03', src: 'media/xiaoshi/campus-03.webp', alt: '小市中心小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
-      { id: 'xiaoshi-campus-04', src: 'media/xiaoshi/campus-04.webp', alt: '小市中心小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
-      { id: 'xiaoshi-group-photo', src: 'media/xiaoshi/合照.webp', alt: '团队成员与小市中心小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
-      { id: 'xiaoshi-interview-photo', src: 'media/xiaoshi/访谈.webp', alt: '小市中心小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1200, height: 1600, publishStatus: published },
+      { id: 'xiaoshi-campus-01', src: 'media/xiaoshi/photos/campus-01.webp', alt: '小市中心小学校门', caption: '校门', credit: '行知溯光实践团队', width: 1067, height: 1600, publishStatus: published },
+      { id: 'xiaoshi-campus-02', src: 'media/xiaoshi/photos/campus-02.webp', alt: '小市中心小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
+      { id: 'xiaoshi-campus-03', src: 'media/xiaoshi/photos/campus-03.webp', alt: '小市中心小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
+      { id: 'xiaoshi-campus-04', src: 'media/xiaoshi/photos/campus-04.webp', alt: '小市中心小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
+      { id: 'xiaoshi-group-photo', src: 'media/xiaoshi/photos/合照.webp', alt: '团队成员与小市中心小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
+      { id: 'xiaoshi-interview-photo', src: 'media/xiaoshi/photos/访谈.webp', alt: '小市中心小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1200, height: 1600, publishStatus: published },
     ],
     videos: [createNjuBoxVideo({
       id: 'xiaoshi-video',
@@ -244,7 +244,7 @@ export const practiceSites = [
     summary:
       '南京晓庄实验学校是一所九年一贯制学校，在晓庄教育体系中承担着重要的实验与示范功能。学校在课程整合、跨学科教学以及学生自主学习能力培养方面进行了大量创新实践，为团队提供了丰富的调研素材。',
     bannerImage: createTeamBanner({
-      src: 'media/xiaozhuangshiyan/campus-02.webp',
+      src: 'media/xiaozhuangshiyan/photos/campus-02.webp',
       alt: '南京晓庄实验学校校史与校风展墙',
       caption: '南京晓庄实验学校文化展墙',
       width: 1600,
@@ -254,10 +254,10 @@ export const practiceSites = [
     philosophyTags: ['小先生制', '教学做合一'],
     practices: [],
     gallery: [
-      { id: 'xiaozhuangshiyan-campus-01', src: 'media/xiaozhuangshiyan/campus-01.webp', alt: '南京晓庄实验学校校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 2133, publishStatus: published },
-      { id: 'xiaozhuangshiyan-campus-02', src: 'media/xiaozhuangshiyan/campus-02.webp', alt: '南京晓庄实验学校校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
-      { id: 'xiaozhuangshiyan-group-photo', src: 'media/xiaozhuangshiyan/合照.webp', alt: '团队成员与南京晓庄实验学校教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 722, publishStatus: published },
-      { id: 'xiaozhuangshiyan-interview-photo', src: 'media/xiaozhuangshiyan/访谈.webp', alt: '南京晓庄实验学校教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
+      { id: 'xiaozhuangshiyan-campus-01', src: 'media/xiaozhuangshiyan/photos/campus-01.webp', alt: '南京晓庄实验学校校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 2133, publishStatus: published },
+      { id: 'xiaozhuangshiyan-campus-02', src: 'media/xiaozhuangshiyan/photos/campus-02.webp', alt: '南京晓庄实验学校校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
+      { id: 'xiaozhuangshiyan-group-photo', src: 'media/xiaozhuangshiyan/photos/合照.webp', alt: '团队成员与南京晓庄实验学校教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 722, publishStatus: published },
+      { id: 'xiaozhuangshiyan-interview-photo', src: 'media/xiaozhuangshiyan/photos/访谈.webp', alt: '南京晓庄实验学校教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
     ],
     videos: [createNjuBoxVideo({
       id: 'xiaozhuangshiyan-video',
@@ -278,7 +278,7 @@ export const practiceSites = [
     summary:
       '晓庄附属小学是本次社会实践的最后一站。学校与陶行知创办的乡村师范同根同源，长期践行“教人求真”“学做真人”的育人理念。团队在此围绕“小先生制”、综合评价与家校协同开展访谈和影像记录，为六站寻访画下句点。',
     bannerImage: createTeamBanner({
-      src: 'media/xiaozhuangfushu/campus-02.webp',
+      src: 'media/xiaozhuangfushu/photos/campus-02.webp',
       alt: '南京晓庄学院附属小学校门',
       caption: '晓庄附属小学校门',
       width: 1024,
@@ -288,12 +288,12 @@ export const practiceSites = [
     philosophyTags: ['小先生制', '教学做合一'],
     practices: [],
     gallery: [
-      { id: 'xiaozhuangfushu-campus-01', src: 'media/xiaozhuangfushu/campus-01.webp', alt: '晓庄附属小学书画作品展', caption: '书画作品展', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
-      { id: 'xiaozhuangfushu-campus-02', src: 'media/xiaozhuangfushu/campus-02.webp', alt: '晓庄附属小学校门', caption: '校门', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
-      { id: 'xiaozhuangfushu-campus-03', src: 'media/xiaozhuangfushu/campus-03.webp', alt: '晓庄附属小学历史栏', caption: '历史栏', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
-      { id: 'xiaozhuangfushu-campus-04', src: 'media/xiaozhuangfushu/campus-04.webp', alt: '晓庄附属小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 768, height: 1024, publishStatus: published },
-      { id: 'xiaozhuangfushu-campus-05', src: 'media/xiaozhuangfushu/campus-05.webp', alt: '晓庄附属小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
-      { id: 'xiaozhuangfushu-group-photo', src: 'media/xiaozhuangfushu/合照.webp', alt: '团队成员与晓庄附属小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'xiaozhuangfushu-campus-01', src: 'media/xiaozhuangfushu/photos/campus-01.webp', alt: '晓庄附属小学书画作品展', caption: '书画作品展', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'xiaozhuangfushu-campus-02', src: 'media/xiaozhuangfushu/photos/campus-02.webp', alt: '晓庄附属小学校门', caption: '校门', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'xiaozhuangfushu-campus-03', src: 'media/xiaozhuangfushu/photos/campus-03.webp', alt: '晓庄附属小学历史栏', caption: '历史栏', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'xiaozhuangfushu-campus-04', src: 'media/xiaozhuangfushu/photos/campus-04.webp', alt: '晓庄附属小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 768, height: 1024, publishStatus: published },
+      { id: 'xiaozhuangfushu-campus-05', src: 'media/xiaozhuangfushu/photos/campus-05.webp', alt: '晓庄附属小学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
+      { id: 'xiaozhuangfushu-group-photo', src: 'media/xiaozhuangfushu/photos/合照.webp', alt: '团队成员与晓庄附属小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1024, height: 768, publishStatus: published },
     ],
     videos: [createNjuBoxVideo({
       id: 'xiaozhuangfushu-video',
@@ -314,7 +314,7 @@ export const practiceSites = [
     visit: { date: '2026-07-10', displayDate: '7.10', sequence: 7, stage: '第七站' },
     summary:
       '重庆育才中学由陶行知先生于 1939 年创办，是生活教育理论的重要实践基地。团队走访这座有着深厚行知渊源的学校，调研其如何将"教学做合一"融入当代中学教育的课程与制度。相关访谈与影像素材正在核对整理中。',
-    bannerImage: createImageSlot({ directory: 'media/chongqing-yucai/', alt: '重庆育才中学校园走访影像', fallbackLabel: '重庆育才中学' }),
+    bannerImage: createImageSlot({ directory: 'media/chongqing-yucai/backgrounds/', alt: '重庆育才中学校园走访影像', fallbackLabel: '重庆育才中学' }),
     philosophyTags: ['生活即教育', '教学做合一'],
     practices: [],
     gallery: [],
@@ -334,7 +334,7 @@ export const practiceSites = [
     visit: { date: '2026-07-14', displayDate: '7.14', sequence: 8, stage: '第八站' },
     summary:
       '合川古圣寺旧址是重庆育才学校创办初期的校址所在地，见证了陶行知在抗战时期"难童教育"与生活教育的早期探索。团队赴此溯源，寻访育才学校的诞生地。相关影像与文字素材正在核对整理中。',
-    bannerImage: createImageSlot({ directory: 'media/gushengsi/', alt: '合川古圣寺旧址走访影像', fallbackLabel: '合川古圣寺旧址' }),
+    bannerImage: createImageSlot({ directory: 'media/gushengsi/backgrounds/', alt: '合川古圣寺旧址走访影像', fallbackLabel: '合川古圣寺旧址' }),
     philosophyTags: ['生活即教育'],
     practices: [],
     gallery: [],
@@ -347,14 +347,14 @@ export const practiceSites = [
   },
   {
     id: 'meizhou-baihou',
-    name: '梅州百侯/大麻中学',
+    name: '梅州百侯中学',
     region: REGION.NATIONAL,
     type: SITE_TYPE.SECONDARY_SCHOOL,
-    logoPlaceholder: '梅',
+    logoPlaceholder: '百',
     visit: { date: '2026-07-28', displayDate: '7.28', sequence: 9, stage: '第九站' },
     summary:
-      '梅州百侯中学与大麻中学地处客家地区，是陶行知生活教育在乡土中国的延伸实践点。团队走访两所中学，考察客家乡土文化、地方教育与乡村人才培养的融合。相关访谈与影像素材正在核对整理中。',
-    bannerImage: createImageSlot({ directory: 'media/meizhou-baihou/', alt: '梅州百侯与大麻中学走访影像', fallbackLabel: '梅州百侯/大麻中学' }),
+      '梅州百侯中学地处客家地区，是团队考察乡土文化、地方教育与乡村人才培养融合实践的重要一站。相关访谈与影像素材正在核对整理中。',
+    bannerImage: createImageSlot({ directory: 'media/meizhou-baihou/backgrounds/', alt: '梅州百侯中学走访影像', fallbackLabel: '梅州百侯中学' }),
     philosophyTags: ['生活即教育', '乡土教育'],
     practices: [],
     gallery: [],
@@ -366,15 +366,35 @@ export const practiceSites = [
     publishStatus: draft,
   },
   {
+    id: 'meizhou-dama',
+    name: '梅州大麻中学',
+    region: REGION.NATIONAL,
+    type: SITE_TYPE.SECONDARY_SCHOOL,
+    logoPlaceholder: '麻',
+    visit: { date: '2026-07-28', displayDate: '7.28', sequence: 10, stage: '第十站' },
+    summary:
+      '梅州大麻中学地处客家地区，是团队考察乡土文化、地方教育与乡村人才培养融合实践的独立走访站点。相关访谈与影像素材正在核对整理中。',
+    bannerImage: createImageSlot({ directory: 'media/meizhou-dama/backgrounds/', alt: '梅州大麻中学走访影像', fallbackLabel: '梅州大麻中学' }),
+    philosophyTags: ['生活即教育', '乡土教育'],
+    practices: [],
+    gallery: [],
+    videos: [],
+    interviews: [
+      { id: 'meizhou-dama-local', topic: '客家乡土教育', content: '（访谈内容待补充）\n\n围绕客家乡土文化与地方中学教育实践展开访谈，详细内容将在录音转写与受访者确认后发布。', publishStatus: draft },
+    ],
+    resources: [],
+    publishStatus: draft,
+  },
+  {
     id: 'huai-an-xin-an',
     name: '淮安新安小学',
     region: REGION.NATIONAL,
     type: SITE_TYPE.PRIMARY_SCHOOL,
     logoPlaceholder: '新',
-    visit: { date: '2026-07-31', displayDate: '7.31', sequence: 10, stage: '第十站' },
+    visit: { date: '2026-07-31', displayDate: '7.31', sequence: 11, stage: '第十一站' },
     summary:
       '淮安新安小学是新安旅行团的诞生地，承载着"生活即教育、社会即学校"的红色教育传统。团队赴此寻访新安旅行团足迹，调研当代学校如何将红色教育与行知精神融入课堂。相关访谈与影像素材正在核对整理中。',
-    bannerImage: createImageSlot({ directory: 'media/huai-an-xin-an/', alt: '淮安新安小学走访影像', fallbackLabel: '淮安新安小学' }),
+    bannerImage: createImageSlot({ directory: 'media/huai-an-xin-an/backgrounds/', alt: '淮安新安小学走访影像', fallbackLabel: '淮安新安小学' }),
     philosophyTags: ['社会即学校', '红色教育'],
     practices: [],
     gallery: [],
@@ -391,10 +411,10 @@ export const practiceSites = [
     region: REGION.NATIONAL,
     type: SITE_TYPE.VOCATIONAL_COLLEGE,
     logoPlaceholder: '杭',
-    visit: { date: '2026-08-01', displayDate: '8.1', sequence: 11, stage: '第十一站' },
+    visit: { date: '2026-08-01', displayDate: '8.1', sequence: 12, stage: '第十二站' },
     summary:
       '湘湖师范是陶行知美育思想的重要实践地，与杭州科技职业技术学院一脉相承。团队赴此调研湘湖文脉与美育传统在当代职业教育中的延续。相关访谈与影像素材正在核对整理中。',
-    bannerImage: createImageSlot({ directory: 'media/hangzhou-xianghu/', alt: '杭州湘湖师范走访影像', fallbackLabel: '杭州科技职业技术学院/湘湖师范' }),
+    bannerImage: createImageSlot({ directory: 'media/hangzhou-xianghu/backgrounds/', alt: '杭州湘湖师范走访影像', fallbackLabel: '杭州科技职业技术学院/湘湖师范' }),
     philosophyTags: ['美育', '生活即教育'],
     practices: [],
     gallery: [],
