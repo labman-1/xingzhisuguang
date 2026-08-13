@@ -110,6 +110,36 @@ describe('accessible navigation and cards', () => {
     expect(screen.getByText('问：课程如何开展？')).toBeInTheDocument();
     expect(screen.getByText('答：从真实生活问题出发。')).toBeInTheDocument();
   });
+
+  it('renders an anonymized long-form interview article', () => {
+    render(
+      <MemoryRouter>
+        <SchoolDetail
+          school={{
+            id: 'sample-school',
+            name: '示例学校',
+            interviews: [{
+              id: 'sample-article',
+              title: '一堂发生在生活里的课',
+              format: '教师访谈',
+              date: '2026-07-01',
+              location: '南京市示例学校',
+              privacy: 'anonymized',
+              lead: ['课程从一个真实问题开始。'],
+              sections: [{ title: '从观察到行动', paragraphs: ['孩子们用双手验证自己的想法。'] }],
+              closingQuote: '知识最终要回到生活。',
+            }],
+          }}
+        />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('heading', { name: '一堂发生在生活里的课' })).toBeInTheDocument();
+    expect(screen.getByText('南京市示例学校')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '从观察到行动' })).toBeInTheDocument();
+    expect(screen.getByText(/本文隐去私人姓名与可识别个人身份的细节/)).toBeInTheDocument();
+    expect(screen.getByText('知识最终要回到生活。')).toBeInTheDocument();
+  });
 });
 describe('media presentation', () => {
   it('lets visitors pause and resume an automatically advancing gallery', () => {

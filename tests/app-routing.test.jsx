@@ -15,7 +15,7 @@ function renderRoute(route) {
 }
 
 describe('application routes', () => {
-  it('renders the home page and its six public practice sites', async () => {
+  it('renders the home page with twelve public sites across two regional tabs', async () => {
     renderRoute('/');
 
     expect(
@@ -27,6 +27,7 @@ describe('application routes', () => {
     expect(screen.queryByText(/历史影像待授权后发布/)).not.toBeInTheDocument();
     expect(document.querySelector('section[data-has-hero-image="true"] img')).not.toBeNull();
     expect(screen.getAllByRole('link', { name: /查看详情/ })).toHaveLength(6);
+    expect(screen.getByText(/12 个实践点/)).toBeInTheDocument();
 
     await waitFor(() => {
       expect(document.title).toBe('行知溯光 · 人物志及成果展示');
@@ -43,7 +44,7 @@ describe('application routes', () => {
     });
   });
 
-  it('renders and focuses a media-only practice-site detail', async () => {
+  it('renders and focuses a media and interview practice-site detail', async () => {
     renderRoute('/sites/yanziyou');
 
     const heading = screen.getByRole('heading', { level: 1, name: '燕子矶幼儿园' });
@@ -55,11 +56,20 @@ describe('application routes', () => {
     expect(screen.queryByRole('button', { name: '开场白' })).not.toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: '特色实践' })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '采访记录' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: '采访记录整理中' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '草莓大棚里，孩子们把生活变成课堂' })).toBeInTheDocument();
+    expect(screen.getByText(/本文隐去私人姓名与可识别个人身份的细节/)).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: '相关资源' })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '影像纪实' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '实践视频' })).toBeInTheDocument();
     await waitFor(() => expect(heading).toHaveFocus());
+  });
+
+  it('publishes the national interview pages with a graceful media fallback', () => {
+    renderRoute('/sites/meizhou-dama');
+
+    expect(screen.getByRole('heading', { level: 1, name: '梅州大麻中学' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '山歌、球场与一堂会呼吸的历史课' })).toBeInTheDocument();
+    expect(screen.getByText(/教育的起点是生活/)).toBeInTheDocument();
   });
 
   it('renders a local not-found state for an unknown site id', () => {

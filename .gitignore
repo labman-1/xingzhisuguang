@@ -21,6 +21,9 @@ Thumbs.db
 .env.local
 .env.*.local
 
+# Private interview source documents (local archive only)
+content/interviews/**/*.docx
+
 # Logs
 *.log
 npm-debug.log*

@@ -1,6 +1,17 @@
+import { CalendarDays, MapPin, ShieldCheck } from 'lucide-react';
+
 function asArray(value) {
   if (value == null) return [];
   return Array.isArray(value) ? value : [value];
+}
+
+function formatDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return value;
+  return new Intl.DateTimeFormat('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(`${value}T00:00:00+08:00`));
 }
 
 function getContentParagraphs(record) {
@@ -56,23 +67,82 @@ export default function InterviewRecords({ interviews = [], schoolName = '' }) {
           {records.map((record, recordIndex) => {
             const structuredParagraphs = asArray(record.paragraphs);
             const contentParagraphs = getContentParagraphs(record);
+            const lead = asArray(record.lead).filter(Boolean);
+            const sections = asArray(record.sections).filter(Boolean);
+            const isArticle = lead.length > 0 || sections.length > 0;
 
             return (
               <article
                 key={record.id || recordIndex}
-                className="rounded-3xl border border-[#ddd2ba] bg-white px-6 py-7 shadow-sm sm:px-8"
+                className="overflow-hidden rounded-3xl border border-[#ddd2ba] bg-white shadow-sm"
               >
-                <h3 className="text-2xl font-black text-emerald-900">
-                  {record.topic || record.title || `采访记录 ${recordIndex + 1}`}
-                </h3>
-                {(record.interviewee || record.date) && (
-                  <p className="mt-2 text-sm text-slate-500">
-                    {[record.interviewee, record.date].filter(Boolean).join(' · ')}
+                <header className="border-b border-[#eee5d3] bg-[#fffaf0] px-6 py-8 sm:px-10 sm:py-10">
+                  <p className="text-sm font-bold tracking-[0.16em] text-[#8a651d]">
+                    {record.format || '采访纪实'}
                   </p>
-                )}
-                <div className="mt-6 space-y-4 leading-8 text-slate-700">
-                  {contentParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-                  {structuredParagraphs.map(renderStructuredParagraph)}
+                  <h3 className="mt-3 text-balance text-2xl font-black leading-tight text-emerald-950 sm:text-3xl md:text-4xl">
+                    {record.topic || record.title || `采访记录 ${recordIndex + 1}`}
+                  </h3>
+                  {(record.interviewee || record.date || record.location) && (
+                    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
+                      {record.date && (
+                        <span className="inline-flex items-center gap-1.5">
+                          <CalendarDays aria-hidden="true" size={16} />
+                          <time dateTime={record.date}>{formatDate(record.date)}</time>
+                        </span>
+                      )}
+                      {record.location && (
+                        <span className="inline-flex items-center gap-1.5">
+                          <MapPin aria-hidden="true" size={16} />
+                          {record.location}
+                        </span>
+                      )}
+                      {record.interviewee && <span>{record.interviewee}</span>}
+                    </div>
+                  )}
+                </header>
+
+                <div className="px-6 py-8 sm:px-10 sm:py-10 md:px-14">
+                  {record.privacy === 'anonymized' && (
+                    <p className="mb-8 flex items-start gap-2 rounded-2xl border border-emerald-100 bg-emerald-50/60 px-4 py-3 text-sm leading-6 text-emerald-900">
+                      <ShieldCheck aria-hidden="true" className="mt-0.5 shrink-0" size={17} />
+                      为保护受访者及未成年人隐私，本文隐去私人姓名与可识别个人身份的细节，并在不改变原意的前提下进行编辑整理。
+                    </p>
+                  )}
+
+                  {isArticle ? (
+                    <div className="mx-auto max-w-3xl">
+                      <div className="space-y-5 text-lg leading-9 text-[#314c42] first-letter:text-2xl">
+                        {lead.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+                      </div>
+
+                      <div className="mt-10 space-y-10">
+                        {sections.map((section, sectionIndex) => (
+                          <section key={section.title || sectionIndex}>
+                            <h4 className="text-xl font-black leading-8 text-emerald-900 sm:text-2xl">
+                              {section.title}
+                            </h4>
+                            <div className="mt-4 space-y-4 leading-8 text-slate-700">
+                              {asArray(section.paragraphs).map((paragraph, index) => (
+                                <p key={index}>{paragraph}</p>
+                              ))}
+                            </div>
+                          </section>
+                        ))}
+                      </div>
+
+                      {record.closingQuote && (
+                        <blockquote className="mt-10 border-l-4 border-amber-500 bg-[#fffaf0] px-5 py-4 font-serif text-lg font-bold leading-8 text-emerald-950 sm:text-xl">
+                          {record.closingQuote}
+                        </blockquote>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="space-y-4 leading-8 text-slate-700">
+                      {contentParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+                      {structuredParagraphs.map(renderStructuredParagraph)}
+                    </div>
+                  )}
                 </div>
               </article>
             );

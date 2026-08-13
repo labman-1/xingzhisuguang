@@ -323,21 +323,28 @@ describe('content model', () => {
       );
     }
 
-    // Published sites carry a full banner image; draft skeletons use an empty slot.
+    // Published sites may carry a verified image or an explicit empty background slot.
     const publishedSites = practiceSites.filter((site) => site.publishStatus === PUBLISH_STATUS.PUBLISHED);
     for (const site of publishedSites) {
-      expect(site.bannerImage).toEqual(expect.objectContaining({
-        src: expect.stringMatching(new RegExp(`^media/${site.id}/photos/`)),
-        sources: expect.any(Array),
-        focalPoint: expect.any(String),
-        credit: '行知溯光实践团队',
-      }));
+      if (site.bannerImage.src) {
+        expect(site.bannerImage).toEqual(expect.objectContaining({
+          src: expect.stringMatching(new RegExp(`^media/${site.id}/photos/`)),
+          sources: expect.any(Array),
+          focalPoint: expect.any(String),
+          credit: '行知溯光实践团队',
+        }));
+      } else {
+        expect(site.bannerImage.assetDirectory).toBe(`media/${site.id}/backgrounds/`);
+      }
       expect(site.gallery.every((photo) => photo.src.startsWith(`media/${site.id}/photos/`))).toBe(true);
-    }
-
-    const draftSites = practiceSites.filter((site) => site.publishStatus === PUBLISH_STATUS.DRAFT);
-    for (const site of draftSites) {
-      expect(site.bannerImage.assetDirectory).toBe(`media/${site.id}/backgrounds/`);
+      expect(site.interviews).toHaveLength(1);
+      expect(site.interviews[0]).toEqual(expect.objectContaining({
+        id: `${site.id}-interview-article`,
+        privacy: 'anonymized',
+        lead: expect.any(Array),
+        sections: expect.any(Array),
+        publishStatus: PUBLISH_STATUS.PUBLISHED,
+      }));
     }
 
     expect(getSiteById('missing-site')).toBeNull();
@@ -346,14 +353,14 @@ describe('content model', () => {
   it('partitions practice sites by region', () => {
     const nanjing = getVisibleSitesByRegion(REGION.NANJING);
     const national = getVisibleSitesByRegion(REGION.NATIONAL);
-    const nationalDrafts = getVisibleSitesByRegion(REGION.NATIONAL, { includeDrafts: true });
+    const nationalWithDrafts = getVisibleSitesByRegion(REGION.NATIONAL, { includeDrafts: true });
 
     expect(nanjing).toHaveLength(6);
-    expect(national).toHaveLength(0);
-    expect(nationalDrafts).toHaveLength(6);
-    expect(nationalDrafts.every((site) => site.region === REGION.NATIONAL)).toBe(true);
-    expect(nationalDrafts.every((site) => site.publishStatus === PUBLISH_STATUS.DRAFT)).toBe(true);
-    expect(nationalDrafts.map((site) => site.id)).toEqual(
+    expect(national).toHaveLength(6);
+    expect(nationalWithDrafts).toEqual(national);
+    expect(national.every((site) => site.region === REGION.NATIONAL)).toBe(true);
+    expect(national.every((site) => site.publishStatus === PUBLISH_STATUS.PUBLISHED)).toBe(true);
+    expect(national.map((site) => site.id)).toEqual(
       expect.arrayContaining(['meizhou-baihou', 'meizhou-dama']),
     );
   });
@@ -368,12 +375,16 @@ describe('content model', () => {
     expect(schedule).toHaveLength(visibleSites.length);
   });
 
-  it('exposes only published media on practice-site pages', () => {
+  it('exposes published media and the anonymized interview article on practice-site pages', () => {
     const publicSite = getSiteById('yanziyou');
     const previewSite = getSiteById('yanziyou', { includeDrafts: true });
 
     expect(publicSite.practices).toEqual([]);
-    expect(publicSite.interviews).toEqual([]);
+    expect(publicSite.interviews).toHaveLength(1);
+    expect(publicSite.interviews[0]).toEqual(expect.objectContaining({
+      title: '草莓大棚里，孩子们把生活变成课堂',
+      privacy: 'anonymized',
+    }));
     expect(publicSite.resources).toEqual([]);
     expect(publicSite.gallery.length).toBeGreaterThan(0);
     expect(publicSite.videos).toHaveLength(4);

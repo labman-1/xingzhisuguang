@@ -4,14 +4,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run sync:interviews && vite",
     "build": "npm run validate:content && vite build",
     "preview": "vite preview",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest",
     "test:run": "vitest run",
-    "validate:content": "node scripts/validate-content.mjs",
-    "check": "npm run lint && npm run validate:content && npm run test:run",
+    "sync:interviews": "node scripts/sync-interviews.mjs",
+    "validate:content": "npm run sync:interviews && node scripts/validate-content.mjs",
+    "check": "npm run sync:interviews && npm run lint && npm run validate:content && npm run test:run",
     "deploy": "npm run check && npm run build && gh-pages -d dist"
   },
   "engines": {

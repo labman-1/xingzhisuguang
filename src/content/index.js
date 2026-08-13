@@ -1,3 +1,5 @@
+import { getInterviewArticle } from './interviewArticles.js';
+
 export const PUBLISH_STATUS = Object.freeze({
   DRAFT: 'draft',
   PUBLISHED: 'published',
@@ -19,7 +21,6 @@ export const REGION = Object.freeze({
 });
 
 const published = PUBLISH_STATUS.PUBLISHED;
-const draft = PUBLISH_STATUS.DRAFT;
 
 function createImageSlot({ directory, alt, fallbackLabel, focalPoint = '50% 50%' }) {
   return {
@@ -120,7 +121,7 @@ export const practiceSites = [
       title: '五塘小学采访视频',
       filePath: '/6.29五塘/采访视频.mp4',
     })],
-    interviews: [],
+    interviews: [getInterviewArticle('wutang')],
     resources: [],
     publishStatus: published,
   },
@@ -155,7 +156,7 @@ export const practiceSites = [
       title: `燕子矶幼儿园采访视频 ${part}`,
       filePath: `/7.1燕子矶幼儿园/${part}.mp4`,
     })),
-    interviews: [],
+    interviews: [getInterviewArticle('yanziyou')],
     resources: [],
     publishStatus: published,
   },
@@ -188,12 +189,9 @@ export const practiceSites = [
       { id: 'xiaozhuang-group-photo', src: 'media/xiaozhuang/photos/合照.webp', alt: '团队成员与晓庄小学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 1067, publishStatus: published },
       { id: 'xiaozhuang-interview-photo', src: 'media/xiaozhuang/photos/访谈.webp', alt: '晓庄小学教师访谈现场', caption: '教师访谈', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
     ],
-    videos: [createNjuBoxVideo({
-      id: 'xiaozhuang-video',
-      title: '晓庄小学采访视频',
-      filePath: '/7.2晓庄小学/7.2晓庄小学 唐敏/采访视频.MP4',
-    })],
-    interviews: [],
+    // The source video stays unpublished until its external path is anonymized.
+    videos: [],
+    interviews: [getInterviewArticle('xiaozhuang')],
     resources: [],
     publishStatus: published,
   },
@@ -230,7 +228,7 @@ export const practiceSites = [
       filePath: '/7.2小市中心小学/DSC_0564.MOV',
       shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
     })],
-    interviews: [],
+    interviews: [getInterviewArticle('xiaoshi')],
     resources: [],
     publishStatus: published,
   },
@@ -264,7 +262,7 @@ export const practiceSites = [
       title: '南京晓庄实验学校采访视频',
       filePath: '/7.3南京晓庄实验学校/VID20260703093710.mp4',
     })],
-    interviews: [],
+    interviews: [getInterviewArticle('xiaozhuangshiyan')],
     resources: [],
     publishStatus: published,
   },
@@ -301,7 +299,7 @@ export const practiceSites = [
       filePath: '/7.3晓庄附属小学/采访/IMG_9240.mov',
       shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
     })],
-    interviews: [],
+    interviews: [getInterviewArticle('xiaozhuangfushu')],
     resources: [],
     publishStatus: published,
   },
@@ -313,17 +311,15 @@ export const practiceSites = [
     logoPlaceholder: '育',
     visit: { date: '2026-07-10', displayDate: '7.10', sequence: 7, stage: '第七站' },
     summary:
-      '重庆育才中学由陶行知先生于 1939 年创办，是生活教育理论的重要实践基地。团队走访这座有着深厚行知渊源的学校，调研其如何将"教学做合一"融入当代中学教育的课程与制度。相关访谈与影像素材正在核对整理中。',
+      '重庆育才中学由陶行知先生于 1939 年创办，是生活教育理论的重要实践基地。团队从“求真”与“学做真人”出发，记录学校如何以多元评价、校园活动和家校协同延续育才精神。',
     bannerImage: createImageSlot({ directory: 'media/chongqing-yucai/backgrounds/', alt: '重庆育才中学校园走访影像', fallbackLabel: '重庆育才中学' }),
     philosophyTags: ['生活即教育', '教学做合一'],
     practices: [],
     gallery: [],
     videos: [],
-    interviews: [
-      { id: 'chongqing-yucai-practice', topic: '育才办学实践', content: '（访谈内容待补充）\n\n围绕重庆育才中学对陶行知生活教育思想的当代实践展开访谈，详细内容将在录音转写与受访者确认后发布。', publishStatus: draft },
-    ],
+    interviews: [getInterviewArticle('chongqing-yucai')],
     resources: [],
-    publishStatus: draft,
+    publishStatus: published,
   },
   {
     id: 'gushengsi',
@@ -333,17 +329,15 @@ export const practiceSites = [
     logoPlaceholder: '古',
     visit: { date: '2026-07-14', displayDate: '7.14', sequence: 8, stage: '第八站' },
     summary:
-      '合川古圣寺旧址是重庆育才学校创办初期的校址所在地，见证了陶行知在抗战时期"难童教育"与生活教育的早期探索。团队赴此溯源，寻访育才学校的诞生地。相关影像与文字素材正在核对整理中。',
+      '合川古圣寺旧址是重庆育才学校创办初期的校址所在地，见证了陶行知在抗战时期的教育探索。团队走进展馆与旧址，也记录今天守护、讲述这段教育历史的人。',
     bannerImage: createImageSlot({ directory: 'media/gushengsi/backgrounds/', alt: '合川古圣寺旧址走访影像', fallbackLabel: '合川古圣寺旧址' }),
     philosophyTags: ['生活即教育'],
     practices: [],
     gallery: [],
     videos: [],
-    interviews: [
-      { id: 'gushengsi-origin', topic: '育才创办溯源', content: '（访谈内容待补充）\n\n围绕育才学校创办的历史脉络与古圣寺旧址的当下保护展开，详细内容将在素材核对后发布。', publishStatus: draft },
-    ],
+    interviews: [getInterviewArticle('gushengsi')],
     resources: [],
-    publishStatus: draft,
+    publishStatus: published,
   },
   {
     id: 'meizhou-baihou',
@@ -353,17 +347,15 @@ export const practiceSites = [
     logoPlaceholder: '百',
     visit: { date: '2026-07-28', displayDate: '7.28', sequence: 9, stage: '第九站' },
     summary:
-      '梅州百侯中学地处客家地区，是团队考察乡土文化、地方教育与乡村人才培养融合实践的重要一站。相关访谈与影像素材正在核对整理中。',
+      '梅州百侯中学地处客家地区。团队从化学课堂、校本课程与学校特色建设切入，观察生活教育如何回应城镇化背景下的乡村教育现实。',
     bannerImage: createImageSlot({ directory: 'media/meizhou-baihou/backgrounds/', alt: '梅州百侯中学走访影像', fallbackLabel: '梅州百侯中学' }),
     philosophyTags: ['生活即教育', '乡土教育'],
     practices: [],
     gallery: [],
     videos: [],
-    interviews: [
-      { id: 'meizhou-baihou-local', topic: '客家乡土教育', content: '（访谈内容待补充）\n\n围绕客家乡土文化与地方中学教育实践展开访谈，详细内容将在录音转写与受访者确认后发布。', publishStatus: draft },
-    ],
+    interviews: [getInterviewArticle('meizhou-baihou')],
     resources: [],
-    publishStatus: draft,
+    publishStatus: published,
   },
   {
     id: 'meizhou-dama',
@@ -373,17 +365,15 @@ export const practiceSites = [
     logoPlaceholder: '麻',
     visit: { date: '2026-07-28', displayDate: '7.28', sequence: 10, stage: '第十站' },
     summary:
-      '梅州大麻中学地处客家地区，是团队考察乡土文化、地方教育与乡村人才培养融合实践的独立走访站点。相关访谈与影像素材正在核对整理中。',
+      '梅州大麻中学地处客家地区。团队从历史课堂、劳动课程、客家山歌与寄宿生活切入，记录乡土文化和生活教育在校园里的传承。',
     bannerImage: createImageSlot({ directory: 'media/meizhou-dama/backgrounds/', alt: '梅州大麻中学走访影像', fallbackLabel: '梅州大麻中学' }),
     philosophyTags: ['生活即教育', '乡土教育'],
     practices: [],
     gallery: [],
     videos: [],
-    interviews: [
-      { id: 'meizhou-dama-local', topic: '客家乡土教育', content: '（访谈内容待补充）\n\n围绕客家乡土文化与地方中学教育实践展开访谈，详细内容将在录音转写与受访者确认后发布。', publishStatus: draft },
-    ],
+    interviews: [getInterviewArticle('meizhou-dama')],
     resources: [],
-    publishStatus: draft,
+    publishStatus: published,
   },
   {
     id: 'huai-an-xin-an',
@@ -393,17 +383,15 @@ export const practiceSites = [
     logoPlaceholder: '新',
     visit: { date: '2026-07-31', displayDate: '7.31', sequence: 11, stage: '第十一站' },
     summary:
-      '淮安新安小学是新安旅行团的诞生地，承载着"生活即教育、社会即学校"的红色教育传统。团队赴此寻访新安旅行团足迹，调研当代学校如何将红色教育与行知精神融入课堂。相关访谈与影像素材正在核对整理中。',
+      '淮安新安小学是新安旅行团的诞生地，承载着“生活即教育、社会即学校”的红色教育传统。团队围绕“小先生、小主人、小好汉”育人实践，记录德育如何发生在做事之中。',
     bannerImage: createImageSlot({ directory: 'media/huai-an-xin-an/backgrounds/', alt: '淮安新安小学走访影像', fallbackLabel: '淮安新安小学' }),
     philosophyTags: ['社会即学校', '红色教育'],
     practices: [],
     gallery: [],
     videos: [],
-    interviews: [
-      { id: 'huai-an-xin-an-red', topic: '新安旅行团红色教育', content: '（访谈内容待补充）\n\n围绕新安旅行团历史与当代红色教育实践展开访谈，详细内容将在录音转写与受访者确认后发布。', publishStatus: draft },
-    ],
+    interviews: [getInterviewArticle('huai-an-xin-an')],
     resources: [],
-    publishStatus: draft,
+    publishStatus: published,
   },
   {
     id: 'hangzhou-xianghu',
@@ -413,17 +401,15 @@ export const practiceSites = [
     logoPlaceholder: '杭',
     visit: { date: '2026-08-01', displayDate: '8.1', sequence: 12, stage: '第十二站' },
     summary:
-      '湘湖师范是陶行知美育思想的重要实践地，与杭州科技职业技术学院一脉相承。团队赴此调研湘湖文脉与美育传统在当代职业教育中的延续。相关访谈与影像素材正在核对整理中。',
+      '湘湖师范是杭州科技职业技术学院的重要办学渊源。团队从合唱教学、陶行知研究馆与社区音乐实践出发，记录乡村教育情怀和艺术传统的当代延续。',
     bannerImage: createImageSlot({ directory: 'media/hangzhou-xianghu/backgrounds/', alt: '杭州湘湖师范走访影像', fallbackLabel: '杭州科技职业技术学院/湘湖师范' }),
     philosophyTags: ['美育', '生活即教育'],
     practices: [],
     gallery: [],
     videos: [],
-    interviews: [
-      { id: 'hangzhou-xianghu-aesthetic', topic: '湘湖美育文脉', content: '（访谈内容待补充）\n\n围绕湘湖美育文脉与陶行知美育思想的当代传承展开访谈，详细内容将在录音转写与受访者确认后发布。', publishStatus: draft },
-    ],
+    interviews: [getInterviewArticle('hangzhou-xianghu')],
     resources: [],
-    publishStatus: draft,
+    publishStatus: published,
   },
 ];
 
@@ -545,7 +531,7 @@ export const projectProfile = {
   mission:
     '我们是南京大学 2026 年暑期社会实践团队，以"循行知足迹，溯教育之光"为使命，走进基层学校，用镜头与文字记录当代教育一线对陶行知思想的传承与创新。',
   practiceSummary:
-    '通过实地走访南京市五所学校和一所幼儿园，我们深入了解陶行知教育思想在基层教育一线的实践现状。从幼儿园到九年一贯制学校，从"小先生制"到"教学做合一"，我们以访谈、拍摄、文字记录等方式，力求呈现一幅当代行知教育的真实画卷。',
+    '通过十二个实践站点的实地走访，我们从南京晓庄故地出发，行至重庆、梅州、淮安与杭州，记录陶行知教育思想在不同学段和地方教育中的当代实践。从“小先生制”到“教学做合一”，我们以访谈、拍摄与文字整理，呈现一幅仍在生长的行知教育图景。',
   teamSummary:
     '团队由南京大学工科试验班大一学生组成，成员协作完成实地走访、影像拍摄、教师访谈、资料整理与数字化成果展示。',
   heroImage: sharedMedia.homeHero,
@@ -955,7 +941,7 @@ function validatePublishedInterviews(items, path) {
     if (!isNonEmptyString(item.topic) && !isNonEmptyString(item.title)) {
       errors.push(issue(`${itemPath}.topic`, '已发布访谈必须填写主题或标题', 'required'));
     }
-    const contentFields = ['paragraphs', 'transcript', 'content', 'body', 'summary'];
+    const contentFields = ['lead', 'sections', 'paragraphs', 'transcript', 'content', 'body', 'summary'];
     if (!contentFields.some((field) => hasMeaningfulContent(item[field]))) {
       errors.push(issue(`${itemPath}.content`, '已发布访谈必须包含正文或结构化问答', 'required'));
     }

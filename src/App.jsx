@@ -13,7 +13,7 @@ import SiteDetailPage from './pages/SiteDetailPage';
 const routeMetadata = {
   home: {
     title: '行知溯光 · 人物志及成果展示',
-    description: '追寻陶行知教育思想的当代足迹，呈现六个实践点的调研记录。',
+    description: '追寻陶行知教育思想的当代足迹，呈现十二个实践站点的调研与采访记录。',
   },
   heritage: {
     title: '行知精神与书院传承 · 行知溯光',

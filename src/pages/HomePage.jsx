@@ -38,10 +38,10 @@ export default function HomePage() {
         id="practice-gallery"
         className="mx-auto w-full max-w-7xl scroll-mt-24 px-4 py-16 sm:px-6 md:py-24"
         photos={galleryHighlights}
-        schoolName="六个实践点"
+        schoolName="南京六个实践点"
         eyebrow="田野影像"
         title="实践影像长卷"
-        description="精选六个实践点的校园与走访记录；画面会自动向左流动，也可手动切换。"
+        description="精选南京六个实践点的校园与走访记录；画面会自动向左流动，也可手动切换。"
         autoPlay
         showCredit={false}
       />

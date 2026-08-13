@@ -51,6 +51,7 @@ npm run dev
 | `npm run validate:content` | 校验内容结构、唯一性与跨集合引用 |
 | `npm run test` | 以监听模式运行 Vitest |
 | `npm run test:run` | 单次运行全部测试 |
+| `npm run sync:interviews` | 校验采访 Markdown 并同步页面内容模块 |
 | `npm run check` | 依次运行 lint、内容校验和测试 |
 | `npm run deploy` | 完整检查、构建并手动发布到 `gh-pages` 分支 |
 
@@ -84,7 +85,7 @@ xingzhisuguang/
 ├─ public/
 │  ├─ media/               # 共享及十二个实践站点的公开媒体
 │  └─ ...                  # favicon、robots.txt、Web App Manifest
-├─ content/interviews/     # 不直接发布的分站点原始采访总结稿
+├─ content/interviews/     # 分站点采访原稿与匿名化 Markdown 发布稿
 ├─ scripts/
 │  └─ validate-content.mjs  # 可在 Node/CI 中直接运行的内容校验
 ├─ src/
@@ -194,13 +195,13 @@ xingzhisuguang/
 { id: 'interview-external', type: 'external', src: 'https://example.com/watch/...', title: '教师访谈', publishStatus: PUBLISH_STATUS.PUBLISHED }
 ```
 
-访谈条目使用稳定 `id`、清晰 `topic`、完整 `content` 或结构化 `paragraphs`，并设置明确的 `publishStatus`。原始采访总结稿按站点存放在 `content/interviews/<site-id>/`，完成核对和授权后再整理进内容模型。
+采访发布稿统一存放在 `content/interviews/<site-id>/interview-article.md`，由 `src/content/interviewArticles.js` 在构建时读取为结构化长文。原始 `docx` 仅作为本地档案保留，不进入公开仓库；发布稿须完成匿名化、事实核对和授权确认。
 
 ### 内容发布流程
 
 1. 核对学校名称、日期、人物身份、引文和事实。
 2. 确认照片、音视频、未成年人信息与第三方平台链接具备发布授权。
-3. 将原始采访总结稿放入 `content/interviews/<site-id>/`，在 `src/content/` 更新已核验条目；未完成内容保持草稿状态，不用虚构文字填满页面。
+3. 将原始采访稿以英文文件名放入 `content/interviews/<site-id>/`，再编辑匿名化的 `interview-article.md` 发布稿；未完成内容保持草稿状态，不用虚构文字填满页面。
 4. 为照片补充具体 `alt`、`caption`、`credit` 与必要的 `sourceUrl`，为视频准备字幕或文字稿，为外链补充清晰标题。
 5. 运行 `npm run validate:content` 和 `npm run test:run`。
 6. 预览桌面端与移动端后再改为发布状态。
