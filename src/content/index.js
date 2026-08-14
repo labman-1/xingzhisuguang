@@ -315,8 +315,35 @@ export const practiceSites = [
     bannerImage: createImageSlot({ directory: 'media/chongqing-yucai/backgrounds/', alt: '重庆育才中学校园走访影像', fallbackLabel: '重庆育才中学' }),
     philosophyTags: ['生活即教育', '教学做合一'],
     practices: [],
-    gallery: [],
-    videos: [],
+    gallery: [
+      { id: 'chongqing-yucai-group-01', src: 'media/chongqing-yucai/photos/group-01.webp', alt: '团队成员与重庆育才中学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1448, height: 1086, publishStatus: published },
+    ],
+    videos: [
+      createNjuBoxVideo({
+        id: 'chongqing-yucai-video-1',
+        title: '重庆育才中学校园环境实录 1',
+        filePath: '/7.10重庆育才中学+7.14育才旧址古圣寺/7.10重庆育才中学/育才1.mp4',
+        shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+      }),
+      createNjuBoxVideo({
+        id: 'chongqing-yucai-video-2',
+        title: '重庆育才中学校园环境实录 2',
+        filePath: '/7.10重庆育才中学+7.14育才旧址古圣寺/7.10重庆育才中学/育才2.mp4',
+        shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+      }),
+      createNjuBoxVideo({
+        id: 'chongqing-yucai-video-3',
+        title: '重庆育才中学校园环境实录 3',
+        filePath: '/7.10重庆育才中学+7.14育才旧址古圣寺/7.10重庆育才中学/育才3.mp4',
+        shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+      }),
+      createNjuBoxVideo({
+        id: 'chongqing-yucai-video-4',
+        title: '重庆育才中学校园环境实录 4',
+        filePath: '/7.10重庆育才中学+7.14育才旧址古圣寺/7.10重庆育才中学/育才4.mp4',
+        shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+      }),
+    ],
     interviews: [getInterviewArticle('chongqing-yucai')],
     resources: [],
     publishStatus: published,
