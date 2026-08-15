@@ -484,7 +484,20 @@ export const practiceSites = [
       { id: 'hangzhou-xianghu-sculpture-02', src: 'media/hangzhou-xianghu/photos/campus-05.webp', alt: '杭州湘湖师范雕像墙', caption: '雕像墙', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
       { id: 'hangzhou-xianghu-bridge', src: 'media/hangzhou-xianghu/photos/campus-06.webp', alt: '杭州湘湖师范生利桥', caption: '生利桥', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
     ],
-    videos: [],
+    videos: [
+      createNjuBoxVideo({
+        id: 'hangzhou-xianghu-video-1',
+        title: '杭州湘湖师范采访视频 1',
+        filePath: '/8.1杭州科技职业技术学院（湘湖师范）/采访录像1.MP4',
+        shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+      }),
+      createNjuBoxVideo({
+        id: 'hangzhou-xianghu-video-2',
+        title: '杭州湘湖师范采访视频 2',
+        filePath: '/8.1杭州科技职业技术学院（湘湖师范）/采访录像2.MP4',
+        shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+      }),
+    ],
     interviews: [getInterviewArticle('hangzhou-xianghu')],
     resources: [],
     publishStatus: published,
