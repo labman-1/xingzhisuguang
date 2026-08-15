@@ -379,7 +379,20 @@ export const practiceSites = [
     philosophyTags: ['生活即教育', '乡土教育'],
     practices: [],
     gallery: [],
-    videos: [],
+    videos: [
+      createNjuBoxVideo({
+        id: 'meizhou-baihou-video-1',
+        title: '梅州百侯中学采访视频 1',
+        filePath: '/7.28 梅州（百侯+大麻）/dji_mimo_20260728_113018_0_1785300283661_video.mp4',
+        shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+      }),
+      createNjuBoxVideo({
+        id: 'meizhou-baihou-video-2',
+        title: '梅州百侯中学采访视频 2',
+        filePath: '/7.28 梅州（百侯+大麻）/dji_mimo_20260728_113616_0_1785300345444_video.mp4',
+        shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+      }),
+    ],
     interviews: [getInterviewArticle('meizhou-baihou')],
     resources: [],
     publishStatus: published,
