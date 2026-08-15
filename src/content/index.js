@@ -397,7 +397,14 @@ export const practiceSites = [
     philosophyTags: ['生活即教育', '乡土教育'],
     practices: [],
     gallery: [],
-    videos: [],
+    videos: [
+      createNjuBoxVideo({
+        id: 'meizhou-dama-video',
+        title: '梅州大麻中学采访视频',
+        filePath: '/7.28 梅州（百侯+大麻）/dji_mimo_20260728_154748_0_1785300210945_video.mp4',
+        shareUrl: 'https://box.nju.edu.cn/d/4431bc9f1bc64fc1ba11/',
+      }),
+    ],
     interviews: [getInterviewArticle('meizhou-dama')],
     resources: [],
     publishStatus: published,
