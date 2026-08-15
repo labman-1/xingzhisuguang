@@ -416,7 +416,10 @@ export const practiceSites = [
     bannerImage: createImageSlot({ directory: 'media/meizhou-dama/backgrounds/', alt: '梅州大麻中学走访影像', fallbackLabel: '梅州大麻中学' }),
     philosophyTags: ['生活即教育', '乡土教育'],
     practices: [],
-    gallery: [],
+    gallery: [
+      { id: 'meizhou-dama-campus-01', src: 'media/meizhou-dama/photos/campus-01.webp', alt: '梅州大麻中学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 2844, publishStatus: published },
+      { id: 'meizhou-dama-campus-02', src: 'media/meizhou-dama/photos/campus-02.webp', alt: '梅州大麻中学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
+    ],
     videos: [
       createNjuBoxVideo({
         id: 'meizhou-dama-video',
