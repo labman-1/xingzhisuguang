@@ -194,9 +194,6 @@ function NjuBoxVideo({ video }) {
             <PlayCircle aria-hidden="true" className="text-amber-300" size={44} strokeWidth={1.5} />
           )}
           <p className="mt-4 font-bold">{status === 'loading' ? '正在获取安全播放地址' : '从南大 Box 加载视频'}</p>
-          <p className="mt-2 max-w-lg text-sm leading-6 text-emerald-100">
-            播放时会连接南京大学 Box；视频文件不会存入本站仓库。
-          </p>
           <button
             type="button"
             onClick={loadVideo}
