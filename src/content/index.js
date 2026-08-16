@@ -312,7 +312,13 @@ export const practiceSites = [
     visit: { date: '2026-07-10', displayDate: '7.10', sequence: 7, stage: '第七站' },
     summary:
       '重庆育才中学由陶行知先生于 1939 年创办，是生活教育理论的重要实践基地。团队从“求真”与“学做真人”出发，记录学校如何以多元评价、校园活动和家校协同延续育才精神。',
-    bannerImage: createImageSlot({ directory: 'media/chongqing-yucai/backgrounds/', alt: '重庆育才中学校园走访影像', fallbackLabel: '重庆育才中学' }),
+    bannerImage: createTeamBanner({
+      src: 'media/chongqing-yucai/photos/group-01.webp',
+      alt: '团队成员与重庆育才中学教师合影',
+      caption: '团队与校方合影',
+      width: 1448,
+      height: 1086,
+    }),
     philosophyTags: ['生活即教育', '教学做合一'],
     practices: [],
     gallery: [
@@ -357,7 +363,13 @@ export const practiceSites = [
     visit: { date: '2026-07-14', displayDate: '7.14', sequence: 8, stage: '第八站' },
     summary:
       '合川古圣寺旧址是重庆育才学校创办初期的校址所在地，见证了陶行知在抗战时期的教育探索。团队走进展馆与旧址，也记录今天守护、讲述这段教育历史的人。',
-    bannerImage: createImageSlot({ directory: 'media/gushengsi/backgrounds/', alt: '合川古圣寺旧址走访影像', fallbackLabel: '合川古圣寺旧址' }),
+    bannerImage: createTeamBanner({
+      src: 'media/gushengsi/photos/campus-01.webp',
+      alt: '合川古圣寺旧址环境实景',
+      caption: '合川古圣寺旧址',
+      width: 1600,
+      height: 1200,
+    }),
     philosophyTags: ['生活即教育'],
     practices: [],
     gallery: [
@@ -382,7 +394,13 @@ export const practiceSites = [
     visit: { date: '2026-07-28', displayDate: '7.28', sequence: 9, stage: '第九站' },
     summary:
       '梅州百侯中学地处客家地区。团队从化学课堂、校本课程与学校特色建设切入，观察生活教育如何回应城镇化背景下的乡村教育现实。',
-    bannerImage: createImageSlot({ directory: 'media/meizhou-baihou/backgrounds/', alt: '梅州百侯中学走访影像', fallbackLabel: '梅州百侯中学' }),
+    bannerImage: createTeamBanner({
+      src: 'media/meizhou-baihou/photos/campus-01.webp',
+      alt: '梅州百侯中学校园环境',
+      caption: '梅州百侯中学校园',
+      width: 1600,
+      height: 1200,
+    }),
     philosophyTags: ['生活即教育', '乡土教育'],
     practices: [],
     gallery: [
@@ -420,7 +438,13 @@ export const practiceSites = [
     visit: { date: '2026-07-28', displayDate: '7.28', sequence: 10, stage: '第十站' },
     summary:
       '梅州大麻中学地处客家地区。团队从历史课堂、劳动课程、客家山歌与寄宿生活切入，记录乡土文化和生活教育在校园里的传承。',
-    bannerImage: createImageSlot({ directory: 'media/meizhou-dama/backgrounds/', alt: '梅州大麻中学走访影像', fallbackLabel: '梅州大麻中学' }),
+    bannerImage: createTeamBanner({
+      src: 'media/meizhou-dama/photos/campus-02.webp',
+      alt: '梅州大麻中学校园环境',
+      caption: '梅州大麻中学校园',
+      width: 1600,
+      height: 1200,
+    }),
     philosophyTags: ['生活即教育', '乡土教育'],
     practices: [],
     gallery: [
@@ -448,7 +472,13 @@ export const practiceSites = [
     visit: { date: '2026-07-31', displayDate: '7.31', sequence: 11, stage: '第十一站' },
     summary:
       '淮安新安小学是新安旅行团的诞生地，承载着“生活即教育、社会即学校”的红色教育传统。团队围绕“小先生、小主人、小好汉”育人实践，记录德育如何发生在做事之中。',
-    bannerImage: createImageSlot({ directory: 'media/huai-an-xin-an/backgrounds/', alt: '淮安新安小学走访影像', fallbackLabel: '淮安新安小学' }),
+    bannerImage: createTeamBanner({
+      src: 'media/huai-an-xin-an/photos/campus-03.webp',
+      alt: '淮安新安小学校园环境',
+      caption: '淮安新安小学校园',
+      width: 1600,
+      height: 900,
+    }),
     philosophyTags: ['社会即学校', '红色教育'],
     practices: [],
     gallery: [
@@ -480,7 +510,13 @@ export const practiceSites = [
     visit: { date: '2026-08-01', displayDate: '8.1', sequence: 12, stage: '第十二站' },
     summary:
       '湘湖师范是杭州科技职业技术学院的重要办学渊源。团队从合唱教学、陶行知研究馆与社区音乐实践出发，记录乡村教育情怀和艺术传统的当代延续。',
-    bannerImage: createImageSlot({ directory: 'media/hangzhou-xianghu/backgrounds/', alt: '杭州湘湖师范走访影像', fallbackLabel: '杭州科技职业技术学院/湘湖师范' }),
+    bannerImage: createTeamBanner({
+      src: 'media/hangzhou-xianghu/photos/campus-01.webp',
+      alt: '杭州湘湖师范校园内的陶行知题词"捧着一颗心来"',
+      caption: '捧着一颗心来',
+      width: 1600,
+      height: 900,
+    }),
     philosophyTags: ['美育', '生活即教育'],
     practices: [],
     gallery: [
