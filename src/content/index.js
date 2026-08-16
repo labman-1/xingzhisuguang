@@ -404,9 +404,9 @@ export const practiceSites = [
     philosophyTags: ['生活即教育', '乡土教育'],
     practices: [],
     gallery: [
-      { id: 'meizhou-baihou-campus-01', src: 'media/meizhou-baihou/photos/campus-01.webp', alt: '梅州百侯中学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
+      { id: 'meizhou-baihou-campus-01', src: 'media/meizhou-baihou/photos/campus-01.webp', alt: '梅州百侯中学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1200, height: 1600, publishStatus: published },
       { id: 'meizhou-baihou-campus-02', src: 'media/meizhou-baihou/photos/campus-02.webp', alt: '梅州百侯中学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
-      { id: 'meizhou-baihou-campus-03', src: 'media/meizhou-baihou/photos/campus-03.webp', alt: '梅州百侯中学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
+      { id: 'meizhou-baihou-campus-03', src: 'media/meizhou-baihou/photos/campus-03.webp', alt: '梅州百侯中学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1200, height: 1600, publishStatus: published },
       { id: 'meizhou-baihou-group-01', src: 'media/meizhou-baihou/photos/campus-04.webp', alt: '团队成员与梅州百侯中学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 1200, publishStatus: published },
       { id: 'meizhou-baihou-group-02', src: 'media/meizhou-baihou/photos/campus-05.webp', alt: '团队成员与梅州百侯中学教师合影', caption: '团队与校方合影', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
       { id: 'meizhou-baihou-campus-06', src: 'media/meizhou-baihou/photos/campus-06.webp', alt: '梅州百侯中学校园环境', caption: '校园环境', credit: '行知溯光实践团队', width: 1600, height: 900, publishStatus: published },
