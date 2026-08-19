@@ -70,11 +70,13 @@ describe('application routes', () => {
     const photoWall = document.getElementById('practice-gallery');
     const galleryTabs = within(photoWall).getByRole('tablist', { name: '实践影像区域' });
     expect(within(photoWall).getByText(/精选南京市内六个实践点/)).toBeInTheDocument();
+    expect(within(photoWall).getByText('12 张')).toBeInTheDocument();
     expect(within(photoWall).queryByText(/重庆育才中学 · 团队与校方合影/)).not.toBeInTheDocument();
 
     fireEvent.click(within(galleryTabs).getByRole('tab', { name: '南京市外' }));
 
     expect(within(photoWall).getByText(/精选南京市外六个实践点/)).toBeInTheDocument();
+    expect(within(photoWall).getByText('10 张')).toBeInTheDocument();
     expect(within(photoWall).getByText('重庆育才中学 · 团队与校方合影')).toBeInTheDocument();
   });
 

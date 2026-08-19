@@ -31,6 +31,7 @@ function getGalleryPhotos(sites, region) {
       const gallery = Array.isArray(site.gallery) ? site.gallery : [];
       return gallery
         .filter((photo) => !photo.width || !photo.height || photo.width >= photo.height)
+        .slice(0, 2)
         .map((photo) => ({
           ...photo,
           id: `home-${site.id}-${photo.id}`,
