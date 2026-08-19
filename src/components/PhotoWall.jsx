@@ -47,6 +47,8 @@ export default function PhotoWall({
   description = '左右滑动浏览；聚焦图片区后可使用方向键。',
   autoPlay = false,
   showCredit = true,
+  groupSelector = null,
+  collectionKey = '',
   id,
   className = '',
 }) {
@@ -65,6 +67,18 @@ export default function PhotoWall({
   const [isAutoPlaying, setIsAutoPlaying] = useState(Boolean(autoPlay));
   const [isInteractionPaused, setIsInteractionPaused] = useState(false);
   const activePhoto = activeIndex == null ? null : normalizedPhotos[activeIndex];
+
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+    if (typeof rail.scrollTo === 'function') {
+      rail.scrollTo({ left: 0, behavior: 'auto' });
+    } else {
+      rail.scrollLeft = 0;
+    }
+    setCanScrollBack(false);
+    setCanScrollForward(rail.clientWidth < rail.scrollWidth - 4);
+  }, [collectionKey]);
 
   useEffect(() => {
     const rail = railRef.current;
@@ -201,11 +215,13 @@ export default function PhotoWall({
         </span>
       </div>
 
+      {groupSelector && <div className="my-8 md:my-10">{groupSelector}</div>}
+
       {normalizedPhotos.length > 0 ? (
         <div className="relative">
-          <div className="mb-4 flex items-center justify-between gap-4">
+          <div className="mb-4 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <p className="text-sm text-[#617068]">{description}</p>
-            <div className="flex shrink-0 gap-2">
+            <div className="flex shrink-0 self-end gap-2">
               {autoPlay && normalizedPhotos.length > 1 && (
                 <button
                   type="button"

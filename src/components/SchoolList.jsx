@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import { getVisibleSitesByRegion, REGION } from '../content';
+import RegionTabs from './RegionTabs';
 import SchoolCard from './SchoolCard';
-
-const REGION_TABS = [
-  { value: REGION.NANJING, label: '金陵筑梦 · 晓庄星火' },
-  { value: REGION.NATIONAL, label: '万里溯光 · 乡土弘毅' },
-];
 
 export default function SchoolList({ onSchoolClick }) {
   const [activeRegion, setActiveRegion] = useState(REGION.NANJING);
@@ -30,32 +26,12 @@ export default function SchoolList({ onSchoolClick }) {
         </p>
       </header>
 
-      {/* 区域切换 Tabs */}
-      <div
-        role="tablist"
-        aria-label="实践足迹区域"
-        className="mx-auto mb-10 flex w-full max-w-xl rounded-2xl border border-emerald-100 bg-white/70 p-1.5 shadow-sm backdrop-blur"
-      >
-        {REGION_TABS.map((tab) => {
-          const isActive = activeRegion === tab.value;
-          return (
-            <button
-              key={tab.value}
-              role="tab"
-              type="button"
-              aria-selected={isActive}
-              onClick={() => setActiveRegion(tab.value)}
-              className={`relative flex-1 rounded-xl px-4 py-3 text-sm font-bold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
-                isActive
-                  ? 'bg-emerald-700 text-white shadow-md shadow-emerald-900/10'
-                  : 'text-emerald-800 hover:bg-emerald-50'
-              }`}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
+      <RegionTabs
+        activeRegion={activeRegion}
+        onChange={setActiveRegion}
+        ariaLabel="实践足迹区域"
+        className="mb-10"
+      />
 
       <div className="transition-opacity duration-300">
         {sites.length > 0 ? (

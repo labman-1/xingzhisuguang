@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import App from '../src/App';
@@ -62,6 +62,20 @@ describe('application routes', () => {
     expect(screen.getByRole('heading', { name: '影像纪实' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '实践视频' })).toBeInTheDocument();
     await waitFor(() => expect(heading).toHaveFocus());
+  });
+
+  it('switches the home photo wall between Nanjing and national records', () => {
+    renderRoute('/');
+
+    const photoWall = document.getElementById('practice-gallery');
+    const galleryTabs = within(photoWall).getByRole('tablist', { name: '实践影像区域' });
+    expect(within(photoWall).getByText(/精选南京市内六个实践点/)).toBeInTheDocument();
+    expect(within(photoWall).queryByText(/重庆育才中学 · 团队与校方合影/)).not.toBeInTheDocument();
+
+    fireEvent.click(within(galleryTabs).getByRole('tab', { name: '万里溯光 · 乡土弘毅' }));
+
+    expect(within(photoWall).getByText(/精选南京市外六个实践点/)).toBeInTheDocument();
+    expect(within(photoWall).getByText('重庆育才中学 · 团队与校方合影')).toBeInTheDocument();
   });
 
   it('publishes the national interview pages with a graceful media fallback', () => {
