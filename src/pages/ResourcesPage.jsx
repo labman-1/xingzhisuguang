@@ -15,7 +15,7 @@ function ResourceCard({ resource }) {
           <FileText size={20} />
         </span>
         <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800">
-          同一文章 · 两个发布入口
+          行知思想育人实践专题报道
         </span>
       </div>
       {resource.type && <p className="mt-5 text-xs font-bold uppercase tracking-wide text-amber-700">{resource.type}</p>}

@@ -111,6 +111,8 @@ describe('application routes', () => {
   it('presents one achievement article with two publication links', () => {
     renderRoute('/resources');
 
+    expect(screen.getByText('行知思想育人实践专题报道')).toBeInTheDocument();
+    expect(screen.queryByText('同一文章 · 两个发布入口')).not.toBeInTheDocument();
     expect(
       screen.getAllByRole('heading', {
         name: '“行知溯光”实践团队专访南京六所学校：感悟行知思想育人价值',
