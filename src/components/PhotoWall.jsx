@@ -215,44 +215,45 @@ export default function PhotoWall({
         </span>
       </div>
 
-      {groupSelector && <div className="my-8 md:my-10">{groupSelector}</div>}
-
       {normalizedPhotos.length > 0 ? (
         <div className="relative">
-          <div className="mb-4 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-            <p className="text-sm text-[#617068]">{description}</p>
-            <div className="flex shrink-0 self-end gap-2">
-              {autoPlay && normalizedPhotos.length > 1 && (
+          <div className="mb-4 mt-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <p className="min-w-0 text-sm text-[#617068]">{description}</p>
+            <div className="flex w-full flex-wrap items-center justify-between gap-3 lg:w-auto lg:flex-nowrap lg:justify-end">
+              {groupSelector}
+              <div className="ml-auto flex shrink-0 gap-2">
+                {autoPlay && normalizedPhotos.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => setIsAutoPlaying((playing) => !playing)}
+                    className="media-rail-button"
+                    aria-label={isAutoPlaying ? '暂停自动播放' : '继续自动播放'}
+                    aria-pressed={!isAutoPlaying}
+                  >
+                    {isAutoPlaying
+                      ? <Pause aria-hidden="true" size={18} />
+                      : <Play aria-hidden="true" size={18} />}
+                  </button>
+                )}
                 <button
                   type="button"
-                  onClick={() => setIsAutoPlaying((playing) => !playing)}
+                  onClick={() => scrollRail(-1)}
+                  disabled={!canScrollBack}
                   className="media-rail-button"
-                  aria-label={isAutoPlaying ? '暂停自动播放' : '继续自动播放'}
-                  aria-pressed={!isAutoPlaying}
+                  aria-label="浏览上一组照片"
                 >
-                  {isAutoPlaying
-                    ? <Pause aria-hidden="true" size={18} />
-                    : <Play aria-hidden="true" size={18} />}
+                  <ChevronLeft aria-hidden="true" size={20} />
                 </button>
-              )}
-              <button
-                type="button"
-                onClick={() => scrollRail(-1)}
-                disabled={!canScrollBack}
-                className="media-rail-button"
-                aria-label="浏览上一组照片"
-              >
-                <ChevronLeft aria-hidden="true" size={20} />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollRail(1)}
-                disabled={!canScrollForward}
-                className="media-rail-button"
-                aria-label="浏览下一组照片"
-              >
-                <ChevronRight aria-hidden="true" size={20} />
-              </button>
+                <button
+                  type="button"
+                  onClick={() => scrollRail(1)}
+                  disabled={!canScrollForward}
+                  className="media-rail-button"
+                  aria-label="浏览下一组照片"
+                >
+                  <ChevronRight aria-hidden="true" size={20} />
+                </button>
+              </div>
             </div>
           </div>
 

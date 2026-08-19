@@ -72,7 +72,7 @@ describe('application routes', () => {
     expect(within(photoWall).getByText(/精选南京市内六个实践点/)).toBeInTheDocument();
     expect(within(photoWall).queryByText(/重庆育才中学 · 团队与校方合影/)).not.toBeInTheDocument();
 
-    fireEvent.click(within(galleryTabs).getByRole('tab', { name: '万里溯光 · 乡土弘毅' }));
+    fireEvent.click(within(galleryTabs).getByRole('tab', { name: '南京市外' }));
 
     expect(within(photoWall).getByText(/精选南京市外六个实践点/)).toBeInTheDocument();
     expect(within(photoWall).getByText('重庆育才中学 · 团队与校方合影')).toBeInTheDocument();

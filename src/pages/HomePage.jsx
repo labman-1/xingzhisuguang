@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import GalleryRegionToggle from '../components/GalleryRegionToggle';
 import Hero from '../components/Hero';
 import PhotoWall from '../components/PhotoWall';
-import RegionTabs from '../components/RegionTabs';
 import SchoolList from '../components/SchoolList';
 import {
   getVisibleEducationalIdeas,
@@ -69,10 +69,9 @@ export default function HomePage() {
         showCredit={false}
         collectionKey={activeGalleryRegion}
         groupSelector={(
-          <RegionTabs
+          <GalleryRegionToggle
             activeRegion={activeGalleryRegion}
             onChange={setActiveGalleryRegion}
-            ariaLabel="实践影像区域"
           />
         )}
       />
