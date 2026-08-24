@@ -135,10 +135,12 @@ describe('application routes', () => {
 
     expect(screen.getByRole('heading', { level: 2, name: '书院传承' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '专访晓庄小学亲历者张成和' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '专访行知教育集团总校长杨瑞清' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '专访陶行知后人陶侃' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: '晓庄小学亲历者张成和先生的访谈肖像' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: '行知教育集团总校长杨瑞清先生接受访谈时的现场照片' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: '陶行知后人陶侃先生接受访谈时的现场照片' })).toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: /原文/ })).toHaveLength(2);
+    expect(screen.getAllByRole('link', { name: /原文/ })).toHaveLength(3);
   });
 
   it('routes all other paths to the site-level 404 page', () => {

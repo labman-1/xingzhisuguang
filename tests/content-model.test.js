@@ -387,7 +387,7 @@ describe('content model', () => {
     }));
     expect(publicSite.resources).toEqual([]);
     expect(publicSite.gallery.length).toBeGreaterThan(0);
-    expect(publicSite.videos).toHaveLength(4);
+    expect(publicSite.videos).toHaveLength(5);
     expect(previewSite).toEqual(publicSite);
   });
 
@@ -448,8 +448,8 @@ describe('content model', () => {
   it('exposes the supporting editorial collections', () => {
     expect(taoXingzhiProfiles.length).toBeGreaterThan(0);
     expect(educationalIdeas).toHaveLength(3);
-    expect(academyHeritageEntries).toHaveLength(2);
-    expect(academyHeritageEntries.map((entry) => entry.sequence)).toEqual([1, 2]);
+    expect(academyHeritageEntries).toHaveLength(3);
+    expect(academyHeritageEntries.map((entry) => entry.sequence)).toEqual([1, 2, 3]);
     expect(academyHeritageEntries.every((entry) => entry.image?.src.startsWith('media/heritage/'))).toBe(true);
     expect(achievementResources).toHaveLength(1);
     expect(achievementResources[0].sourceLinks).toHaveLength(2);
