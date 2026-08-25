@@ -1,4 +1,4 @@
-import { ArrowLeft, CalendarDays, MapPin } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CalendarDays, FileText, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { hasImageSource } from '../utils/mediaImage';
 import InterviewRecords from './InterviewRecords';
@@ -35,6 +35,7 @@ export default function SchoolDetail({ school, onBack }) {
   const gallery = school.gallery || school.photos || school.media?.gallery || [];
   const videos = school.videos || school.video || school.media?.videos || [];
   const interviews = school.interviews || [];
+  const resources = school.resources || [];
   const bannerImage = school.bannerImage || school.media?.banner;
   const hasBanner = hasImageSource(bannerImage);
 
@@ -130,6 +131,35 @@ export default function SchoolDetail({ school, onBack }) {
         )}
         {videos.length > 0 && <VideoPlayer videos={videos} />}
         <InterviewRecords interviews={interviews} schoolName={name} />
+        {resources.length > 0 && (
+          <section aria-labelledby="site-related-resources-title">
+            <div className="mb-6 flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-700" aria-hidden="true">
+                <FileText size={20} />
+              </span>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-amber-700">成果延伸</p>
+                <h2 id="site-related-resources-title" className="text-2xl font-bold text-[#173c32]">相关成果</h2>
+              </div>
+            </div>
+            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {resources.map((resource) => (
+                <li key={resource.id}>
+                  <Link
+                    to={`/resources#${resource.id}`}
+                    className="group flex h-full items-center justify-between gap-4 rounded-2xl border border-[#ddd2ba] bg-[#fffdf8] p-5 transition hover:border-[#b99750] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600"
+                  >
+                    <span>
+                      <span className="text-xs font-bold text-amber-700">{resource.type}</span>
+                      <span className="mt-1 block font-bold leading-7 text-[#173c32]">{resource.title}</span>
+                    </span>
+                    <ArrowRight aria-hidden="true" className="shrink-0 text-emerald-800 transition group-hover:translate-x-1" size={20} />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
 
       <div className="mt-16 border-t border-slate-200 pt-8 text-center">

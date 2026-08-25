@@ -310,6 +310,35 @@ describe('content model', () => {
     expect(issues).toEqual([]);
   });
 
+  it('rejects incomplete published PDF presentation metadata', () => {
+    const issues = validateContentCollections({
+      ...contentCollections,
+      achievementResources: [
+        {
+          id: 'invalid-presentation',
+          kind: 'presentation',
+          type: 'PDF 汇报',
+          title: '待检查的汇报',
+          summary: '用于验证 PDF 成果字段。',
+          src: 'media/resources/presentations/invalid/preview.txt',
+          cover: null,
+          pageCount: 0,
+          fileSize: '',
+          siteIds: [],
+          publishStatus: PUBLISH_STATUS.PUBLISHED,
+        },
+      ],
+    });
+    const paths = issues.map((item) => item.path);
+
+    expect(paths).toEqual(expect.arrayContaining([
+      'achievementResources[0].src',
+      'achievementResources[0].cover',
+      'achievementResources[0].pageCount',
+      'achievementResources[0].fileSize',
+    ]));
+  });
+
   it('contains the complete practice footprint with route-safe ids', () => {
     expect(practiceSites).toHaveLength(12);
 
@@ -385,7 +414,9 @@ describe('content model', () => {
       title: '草莓大棚里，孩子们把生活变成课堂',
       privacy: 'anonymized',
     }));
-    expect(publicSite.resources).toEqual([]);
+    expect(publicSite.resources).toEqual([
+      expect.objectContaining({ id: 'nanjing-practice-summary-presentation' }),
+    ]);
     expect(publicSite.gallery.length).toBeGreaterThan(0);
     expect(publicSite.videos).toHaveLength(5);
     expect(previewSite).toEqual(publicSite);
@@ -451,8 +482,17 @@ describe('content model', () => {
     expect(academyHeritageEntries).toHaveLength(3);
     expect(academyHeritageEntries.map((entry) => entry.sequence)).toEqual([1, 2, 3]);
     expect(academyHeritageEntries.every((entry) => entry.image?.src.startsWith('media/heritage/'))).toBe(true);
-    expect(achievementResources).toHaveLength(1);
-    expect(achievementResources[0].sourceLinks).toHaveLength(2);
+    expect(achievementResources).toHaveLength(6);
+    const presentations = achievementResources.filter((resource) => resource.kind === 'presentation');
+    const article = achievementResources.find((resource) => resource.id === 'xingzhi-six-schools-feature');
+    expect(presentations).toHaveLength(5);
+    expect(presentations.every((resource) => (
+      resource.src.startsWith('media/resources/presentations/') &&
+      resource.src.endsWith('/preview.pdf') &&
+      resource.cover.src.endsWith('/cover.webp') &&
+      resource.pageCount > 0
+    ))).toBe(true);
+    expect(article.sourceLinks).toHaveLength(2);
     expect(projectProfile).toEqual(
       expect.objectContaining({
         name: expect.any(String),

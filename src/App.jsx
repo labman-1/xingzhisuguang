@@ -21,7 +21,7 @@ const routeMetadata = {
   },
   resources: {
     title: '实践成果 · 行知溯光',
-    description: '阅读行知溯光社会实践团队走访南京六所学校的公众号文章。',
+    description: '在线浏览行知溯光社会实践团队的 PDF 汇报与公众号专题文章。',
   },
   about: {
     title: '关于我们 · 行知溯光',

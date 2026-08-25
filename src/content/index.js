@@ -731,7 +731,86 @@ export const academyHeritageEntries = [
     publishStatus: published,
   },
 ];
+
+function createPresentationResource({
+  id,
+  directory,
+  title,
+  summary,
+  pageCount,
+  fileSize,
+  siteIds = [],
+}) {
+  return {
+    id,
+    kind: 'presentation',
+    type: 'PDF 汇报',
+    title,
+    summary,
+    src: `media/resources/presentations/${directory}/preview.pdf`,
+    cover: {
+      src: `media/resources/presentations/${directory}/cover.webp`,
+      srcSet: [],
+      sources: [],
+      sizes: '(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw',
+      alt: `${title}封面`,
+      credit: '行知溯光实践团队',
+      sourceUrl: '',
+      width: 960,
+      height: 540,
+    },
+    pageCount,
+    fileSize,
+    siteIds,
+    publishStatus: published,
+  };
+}
+
 export const achievementResources = [
+  createPresentationResource({
+    id: 'nanjing-practice-summary-presentation',
+    directory: 'nanjing-practice-summary',
+    title: '行知溯光：探寻陶行知教育思想的源流与实践',
+    summary: '回望南京六个实践站点的走访过程，集中呈现各校对生活教育、行知精神与育人实践的传承和创新。',
+    pageCount: 22,
+    fileSize: '21.7 MB',
+    siteIds: ['wutang', 'yanziyou', 'xiaozhuang', 'xiaoshi', 'xiaozhuangshiyan', 'xiaozhuangfushu'],
+  }),
+  createPresentationResource({
+    id: 'national-practice-summary-presentation',
+    directory: 'national-practice-summary',
+    title: '行知溯光：追寻陶行知教育思想的当代回响',
+    summary: '汇总南京市外实践点的调研轨迹、特色实践与团队思考，观察行知教育思想在不同地域的当代生长。',
+    pageCount: 18,
+    fileSize: '8.2 MB',
+    siteIds: ['chongqing-yucai', 'gushengsi', 'meizhou-baihou', 'meizhou-dama', 'hangzhou-xianghu'],
+  }),
+  createPresentationResource({
+    id: 'chongqing-heritage-presentation',
+    directory: 'chongqing-heritage',
+    title: '循光而行，知行不息',
+    summary: '从合川古圣寺旧址到重庆育才中学，梳理教育火种的历史传承与行知精神在校园中的当代表达。',
+    pageCount: 25,
+    fileSize: '1.6 MB',
+    siteIds: ['chongqing-yucai', 'gushengsi'],
+  }),
+  createPresentationResource({
+    id: 'xianghu-practice-summary-presentation',
+    directory: 'xianghu-practice-summary',
+    title: '寻根湘湖，践行行知',
+    summary: '从湘湖师范的历史文脉出发，呈现陶行知在杭州的足迹及杭州科技职业技术学院的实践答卷。',
+    pageCount: 20,
+    fileSize: '3.5 MB',
+    siteIds: ['hangzhou-xianghu'],
+  }),
+  createPresentationResource({
+    id: 'shanghai-tao-memorial-presentation',
+    directory: 'shanghai-tao-memorial',
+    title: '行知之路，叩问初心',
+    summary: '以上海市陶行知纪念馆为观察对象，记录场馆展陈、馆藏文物与陶行知精神的传播和延续。',
+    pageCount: 17,
+    fileSize: '3.3 MB',
+  }),
   {
     id: 'xingzhi-six-schools-feature',
     type: '公众号文章',
@@ -1395,6 +1474,23 @@ export function validateContentCollections(collections = contentCollections) {
           '已发布成果必须填写资源类型',
           'required',
         ));
+      }
+      if (resource.kind === 'presentation') {
+        const resourcePath = `achievementResources[${index}]`;
+        if (!isNonEmptyString(resource.src) || !/\.pdf(?:$|[?#])/i.test(resource.src)) {
+          errors.push(issue(
+            `${resourcePath}.src`,
+            'PDF 汇报必须配置有效的 .pdf 预览路径',
+            'required',
+          ));
+        }
+        if (!Number.isInteger(resource.pageCount) || resource.pageCount < 1) {
+          errors.push(issue(`${resourcePath}.pageCount`, 'PDF 页数必须是正整数', 'invalid_type'));
+        }
+        if (!isNonEmptyString(resource.fileSize)) {
+          errors.push(issue(`${resourcePath}.fileSize`, 'PDF 汇报必须填写文件大小', 'required'));
+        }
+        errors.push(...validateImageMedia(resource.cover, `${resourcePath}.cover`, { published: true }));
       }
     });
   }

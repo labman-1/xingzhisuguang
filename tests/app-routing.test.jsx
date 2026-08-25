@@ -58,7 +58,10 @@ describe('application routes', () => {
     expect(screen.getByRole('heading', { name: '采访记录' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '草莓大棚里，孩子们把生活变成课堂' })).toBeInTheDocument();
     expect(screen.getByText(/本文隐去私人姓名与可识别个人身份的细节/)).toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: '相关资源' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '相关成果' })).toBeInTheDocument();
+    expect(screen.getByRole('link', {
+      name: /行知溯光：探寻陶行知教育思想的源流与实践/,
+    })).toHaveAttribute('href', '/resources#nanjing-practice-summary-presentation');
     expect(screen.getByRole('heading', { name: '影像纪实' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '实践视频' })).toBeInTheDocument();
     await waitFor(() => expect(heading).toHaveFocus());
@@ -113,7 +116,7 @@ describe('application routes', () => {
   it('presents one achievement article with two publication links', () => {
     renderRoute('/resources');
 
-    expect(screen.getByText('行知思想育人实践专题报道')).toBeInTheDocument();
+    expect(screen.getByText('公众号文章')).toBeInTheDocument();
     expect(screen.queryByText('同一文章 · 两个发布入口')).not.toBeInTheDocument();
     expect(
       screen.getAllByRole('heading', {
@@ -128,6 +131,29 @@ describe('application routes', () => {
       'href',
       'https://mp.weixin.qq.com/s/njxxsisg7SdfS_yGTaCeBw',
     );
+  });
+
+  it('loads a PDF presentation only after the preview action', () => {
+    renderRoute('/resources');
+
+    expect(screen.getByRole('heading', { name: 'PDF 成果展' })).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: /在线预览/ })).toHaveLength(5);
+    expect(document.querySelector('iframe')).toBeNull();
+
+    fireEvent.click(screen.getByRole('button', {
+      name: '在线预览《行知溯光：探寻陶行知教育思想的源流与实践》',
+    }));
+
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(
+      screen.getByTitle('行知溯光：探寻陶行知教育思想的源流与实践 PDF 预览'),
+    ).toHaveAttribute(
+      'src',
+      'media/resources/presentations/nanjing-practice-summary/preview.pdf#toolbar=0&navpanes=0&view=FitH',
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: '关闭 PDF 预览' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('renders the previous cohort interviews as a sourced heritage timeline', () => {
